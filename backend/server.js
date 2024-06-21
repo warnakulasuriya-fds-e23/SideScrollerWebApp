@@ -1,7 +1,7 @@
 require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
-
+const userRouter = require("./routes/UserRoutes");
 const SideScrollerWebApp = express();
 
 SideScrollerWebApp.use(express.json());
@@ -10,6 +10,7 @@ SideScrollerWebApp.use((req, res, next) => {
   next();
 });
 
+SideScrollerWebApp.use("/api/users", userRouter);
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
