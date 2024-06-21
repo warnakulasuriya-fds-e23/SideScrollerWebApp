@@ -10,6 +10,13 @@ SideScrollerWebApp.use((req, res, next) => {
   next();
 });
 
-SideScrollerWebApp.listen(4000, () => {
-  console.log("Listening on port 4000");
-});
+mongoose
+  .connect(process.env.MONGO_URI)
+  .then(() => {
+    SideScrollerWebApp.listen(4000, () => {
+      console.log("Connected to Database! Listening on port 4000");
+    });
+  })
+  .catch((error) => {
+    console.log(error);
+  });
