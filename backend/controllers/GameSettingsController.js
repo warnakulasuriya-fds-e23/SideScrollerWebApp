@@ -2,6 +2,16 @@ const GameSettings = require("../models/GameSettingsModel");
 
 const getGameSettings = async (req, res) => {
   try {
+    const userId = req.userFromMiddleWare._id;
+    const retrievedGameSettings = await GameSettings.find({ UserId: userId });
+    res.status(200).json(retrievedGameSettings);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+const getAllGameSettings = async (req, res) => {
+  try {
     const retrievedGameSettings = await GameSettings.find({});
     res.status(200).json(retrievedGameSettings);
   } catch (err) {
@@ -96,5 +106,6 @@ const addGameSetting = async (req, res) => {
 
 const updateGameSetting = (module.exports = {
   getGameSettings,
+  getAllGameSettings,
   addGameSetting,
 });
