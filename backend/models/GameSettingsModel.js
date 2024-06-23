@@ -27,7 +27,7 @@ const GameSettingsSchema = new Schema(
       type: String,
       required: true,
     },
-    Pausekey: {
+    PauseKey: {
       type: String,
       required: true,
     },
