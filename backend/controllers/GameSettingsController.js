@@ -11,8 +11,8 @@ const getGameSettings = async (req, res) => {
 
 const addGameSetting = async (req, res) => {
   try {
+    const UserId = req.userFromMiddleWare._id;
     const {
-      UserId,
       BackgroundType,
       CharacterType,
       MuteBackgroundMusic,
@@ -70,7 +70,7 @@ const addGameSetting = async (req, res) => {
       );
     }
 
-    const alreadyCreatedByUser = GameSettings.findOne({ UserId });
+    const alreadyCreatedByUser = await GameSettings.findOne({ UserId });
     if (alreadyCreatedByUser) {
       throw Error("This user already has existing game settings");
     }
@@ -94,4 +94,7 @@ const addGameSetting = async (req, res) => {
   }
 };
 
-module.exports = { getGameSettings, addGameSetting };
+const updateGameSetting = (module.exports = {
+  getGameSettings,
+  addGameSetting,
+});
