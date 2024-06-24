@@ -1,5 +1,6 @@
 const User = require("../models/UserModel");
 const GameSettings = require("../models/GameSettingsModel");
+const validator = require("validator");
 const jwt = require("jsonwebtoken");
 const CreateWebToken = (_id) => {
   return jwt.sign({ _id }, process.env.TOKEN_CODE, { expiresIn: "3d" });
@@ -51,6 +52,32 @@ const updateUserName = async (req, res) => {
   }
 };
 
+const updateEmail = async (req, res) => {
+  const { Email } = req.body;
+  try {
+    if (!Email) {
+      throw Error("Please enter a new Email");
+    }
+    if (!validator.isEmail(Email)) {
+      throw Error("Please enter a valid Email address");
+    }
+
+    const alreadTaken = await User.findOne({ Email });
+    if (alreadTaken) throw Error("This Email is already taken");
+
+    const UserId = req.userFromMiddleWare._id;
+    const options = { returnDocument: "after" };
+    const updatedUser = await User.findByIdAndUpdate(
+      UserId,
+      { Email },
+      options
+    );
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 const deleteUser = async (req, res) => {
   const { Password } = req.body;
   try {
@@ -73,4 +100,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { login, signup, updateUserName, deleteUser };
+module.exports = { login, signup, updateEmail, updateUserName, deleteUser };

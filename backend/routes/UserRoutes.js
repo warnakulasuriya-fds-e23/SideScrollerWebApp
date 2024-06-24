@@ -1,6 +1,7 @@
 const {
   login,
   signup,
+  updateEmail,
   updateUserName,
   deleteUser,
 } = require("../controllers/UserController");
@@ -13,6 +14,8 @@ router.post("/login", login);
 router.post("/signup", signup);
 
 router.use(RequireAuth);
+
+router.patch("/updateEmail", updateEmail);
 
 router.patch("/updateUserName", updateUserName);
 
