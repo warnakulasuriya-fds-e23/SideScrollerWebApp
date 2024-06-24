@@ -122,6 +122,18 @@ const updateGameSetting = async (req, res) => {
   }
 };
 
+const restoreDefaultGameSettings = async (req, res) => {
+  try {
+    const UserId = req.userFromMiddleWare._id;
+    const restoredGameSettings = await GameSettings.setDefaultGameSettings(
+      UserId
+    );
+    res.status(200).json(restoredGameSettings);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 const deleteGameSetting = async (req, res) => {
   try {
     const UserId = req.userFromMiddleWare._id;
@@ -140,5 +152,6 @@ module.exports = {
   getAllGameSettings,
   addGameSetting,
   updateGameSetting,
+  restoreDefaultGameSettings,
   deleteGameSetting,
 };

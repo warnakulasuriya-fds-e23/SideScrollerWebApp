@@ -72,8 +72,34 @@ GameSettingsSchema.statics.addDefaultGameSettings = async function (userId) {
     ForwardKey: "ArrowRight",
   };
   const createdGameSetting = await this.create(defaultGameSettings);
-  if (!createdGameSetting) throw Error("Couldn't set default Game Settings");
+  if (!createdGameSetting) throw Error("Couldn't add default Game Settings");
   console.log(createdGameSetting);
   return createdGameSetting;
 };
+
+GameSettingsSchema.statics.setDefaultGameSettings = async function (userId) {
+  const UserId = userId;
+  const defaultGameSettings = {
+    UserId: UserId,
+    BackgroundType: "Default",
+    CharacterType: "Default",
+    MuteBackgroundMusic: "false",
+    MuteEffects: "false",
+    DebugKey: "d",
+    PauseKey: "Escape",
+    RollKey: "r",
+    CrouchKey: "ArrowDown",
+    JumpKey: "ArrowUp",
+    BackwardKey: "ArrowLeft",
+    ForwardKey: "ArrowRight",
+  };
+  const updatedGameSetting = await this.findOneAndReplace(
+    { UserId },
+    defaultGameSettings
+  );
+  if (!updatedGameSetting) throw Error("Couldn't set default Game Settings");
+  console.log(updatedGameSetting);
+  return updatedGameSetting;
+};
+
 module.exports = mongoose.model("GameSettings", GameSettingsSchema);
