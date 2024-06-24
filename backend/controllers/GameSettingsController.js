@@ -104,8 +104,27 @@ const addGameSetting = async (req, res) => {
   }
 };
 
-const updateGameSetting = (module.exports = {
+const updateGameSettings = async (req, res) => {
+  try {
+    const UserId = req.userFromMiddleWare._id;
+    const options = { returnDocument: "after" };
+    const updatedGameSetting = await GameSettings.findOneAndUpdate(
+      { UserId },
+      req.body,
+      options
+    );
+    if (!updatedGameSetting) {
+      throw Error("Game Setting was not found for this user");
+    }
+    res.status(200).json(updatedGameSetting);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+module.exports = {
   getGameSettings,
   getAllGameSettings,
   addGameSetting,
-});
+  updateGameSettings,
+};
