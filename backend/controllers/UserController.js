@@ -31,10 +31,17 @@ const signup = async (req, res) => {
 };
 
 const deleteUser = async (req, res) => {
+  const { Password } = req.body;
   try {
+    if (!Password) throw Error("Please Enter your password for confirmation");
+
     const UserId = req.userFromMiddleWare._id;
+    const confirmation = await User.confirmPassword(UserId, Password);
+    if (!confirmation) throw Error("Password is incorrect");
+
     const deletedGameSetting = await GameSettings.findOneAndDelete({ UserId });
     const deletedUser = await User.findByIdAndDelete(UserId);
+
     res.status(200).json({
       message: "Successfully deleted User",
       deletedUser,

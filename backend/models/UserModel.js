@@ -69,10 +69,17 @@ UserSchema.statics.login = async function (Email, Password) {
   const returnedUser = await this.findOne({ Email: Email });
   if (!returnedUser) throw Error("Incorrect Email Adress.");
 
-  const matching = bcrypt.compare(Password, returnedUser.Password);
+  const matching = await bcrypt.compare(Password, returnedUser.Password);
   if (!matching) throw Error("Incorrect Password");
 
   return returnedUser;
 };
 
+UserSchema.statics.confirmPassword = async function (userId, Password) {
+  const returnedUser = await this.findById(userId);
+  const matching = await bcrypt.compare(Password, returnedUser.Password);
+  if (!matching) throw Error("Incorrect Password");
+
+  return true;
+};
 module.exports = mongoose.model("User", UserSchema);
