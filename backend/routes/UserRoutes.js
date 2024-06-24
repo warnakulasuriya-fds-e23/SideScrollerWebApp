@@ -3,6 +3,7 @@ const {
   signup,
   updateEmail,
   updateUserName,
+  changePassword,
   deleteUser,
 } = require("../controllers/UserController");
 const { RequireAuth } = require("../middleware/RequireAuth");
@@ -18,6 +19,8 @@ router.use(RequireAuth);
 router.patch("/updateEmail", updateEmail);
 
 router.patch("/updateUserName", updateUserName);
+
+router.patch("/changePassword", changePassword);
 
 router.delete("/removeAccount", deleteUser);
 

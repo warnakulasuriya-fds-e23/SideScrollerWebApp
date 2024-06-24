@@ -78,8 +78,36 @@ UserSchema.statics.login = async function (Email, Password) {
 UserSchema.statics.confirmPassword = async function (userId, Password) {
   const returnedUser = await this.findById(userId);
   const matching = await bcrypt.compare(Password, returnedUser.Password);
-  if (!matching) throw Error("Incorrect Password");
 
-  return true;
+  return matching;
+};
+
+UserSchema.statics.changePassword = async function (
+  userId,
+  RepeatedNewPassword
+) {
+  const returnedUser = await this.findOne({ _id: userId });
+  if (!returnedUser) throw Error("Incorrect UserId check user token.");
+
+  const matching = await bcrypt.compare(
+    RepeatedNewPassword,
+    returnedUser.Password
+  );
+  if (matching)
+    throw Error(
+      "No changes made ! Entered Password is the same as current Password."
+    );
+
+  const salt = await bcrypt.genSalt(10);
+  const hash = await bcrypt.hash(RepeatedNewPassword, salt);
+
+  const options = { returnDocument: "after" };
+  const updatedUser = await this.findByIdAndUpdate(
+    userId,
+    { Password: hash },
+    options
+  );
+
+  return updatedUser;
 };
 module.exports = mongoose.model("User", UserSchema);

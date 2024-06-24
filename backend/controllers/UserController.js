@@ -78,14 +78,48 @@ const updateEmail = async (req, res) => {
   }
 };
 
+const changePassword = async (req, res) => {
+  const { OldPassword, NewPassword, RepeatedNewPassword } = req.body;
+  try {
+    if (!OldPassword) {
+      throw Error("Please Enter Old Password");
+    }
+
+    const UserId = req.userFromMiddleWare._id;
+    const IsOldPasswordValid = await User.confirmPassword(UserId, OldPassword);
+    if (!IsOldPasswordValid) {
+      throw Error("Old Password is incorrect");
+    }
+    if (!NewPassword) {
+      throw Error("Please Enter new Password");
+    }
+    if (!RepeatedNewPassword) {
+      throw Error("Please Re-Enter the new Password");
+    }
+    if (NewPassword != RepeatedNewPassword) {
+      throw Error("new Password and Re-entered Password doesnt match");
+    }
+
+    const updatedUser = await User.changePassword(UserId, RepeatedNewPassword);
+
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 const deleteUser = async (req, res) => {
   const { Password } = req.body;
   try {
-    if (!Password) throw Error("Please Enter your password for confirmation");
+    if (!Password) {
+      throw Error("Please Enter your password for confirmation");
+    }
 
     const UserId = req.userFromMiddleWare._id;
     const confirmation = await User.confirmPassword(UserId, Password);
-    if (!confirmation) throw Error("Password is incorrect");
+    if (!confirmation) {
+      throw Error("Entered Confirmation Password is incorrect");
+    }
 
     const deletedGameSetting = await GameSettings.findOneAndDelete({ UserId });
     const deletedUser = await User.findByIdAndDelete(UserId);
@@ -100,4 +134,11 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { login, signup, updateEmail, updateUserName, deleteUser };
+module.exports = {
+  login,
+  signup,
+  updateEmail,
+  updateUserName,
+  changePassword,
+  deleteUser,
+};
