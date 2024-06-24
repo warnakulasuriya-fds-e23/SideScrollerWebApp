@@ -30,6 +30,27 @@ const signup = async (req, res) => {
   }
 };
 
+const updateUserName = async (req, res) => {
+  const { UserName } = req.body;
+  try {
+    if (!UserName) throw Error("Please enter a new UserName");
+
+    const alreadTaken = await User.findOne({ UserName });
+    if (alreadTaken) throw Error("This UserName is already taken");
+
+    const UserId = req.userFromMiddleWare._id;
+    const options = { returnDocument: "after" };
+    const updatedUser = await User.findByIdAndUpdate(
+      UserId,
+      { UserName },
+      options
+    );
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 const deleteUser = async (req, res) => {
   const { Password } = req.body;
   try {
@@ -52,4 +73,4 @@ const deleteUser = async (req, res) => {
   }
 };
 
-module.exports = { login, signup, deleteUser };
+module.exports = { login, signup, updateUserName, deleteUser };
