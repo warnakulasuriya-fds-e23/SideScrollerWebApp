@@ -73,7 +73,6 @@ GameSettingsSchema.statics.addDefaultGameSettings = async function (userId) {
   };
   const createdGameSetting = await this.create(defaultGameSettings);
   if (!createdGameSetting) throw Error("Couldn't add default Game Settings");
-  console.log(createdGameSetting);
   return createdGameSetting;
 };
 
@@ -98,7 +97,6 @@ GameSettingsSchema.statics.setDefaultGameSettings = async function (userId) {
     defaultGameSettings
   );
   if (!updatedGameSetting) throw Error("Couldn't set default Game Settings");
-  console.log(updatedGameSetting);
   return updatedGameSetting;
 };
 

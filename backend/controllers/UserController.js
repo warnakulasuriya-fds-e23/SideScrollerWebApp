@@ -23,7 +23,6 @@ const signup = async (req, res) => {
     const createdGameSetting = await GameSettings.addDefaultGameSettings(
       createdUser._id
     );
-    console.log(createdGameSetting);
     const createdToken = CreateWebToken(createdUser._id);
     res.status(200).json({ Email, createdToken, createdGameSetting });
   } catch (err) {
