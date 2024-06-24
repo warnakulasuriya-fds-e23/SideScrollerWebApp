@@ -30,4 +30,19 @@ const signup = async (req, res) => {
   }
 };
 
-module.exports = { login, signup };
+const deleteUser = async (req, res) => {
+  try {
+    const UserId = req.userFromMiddleWare._id;
+    const deletedGameSetting = await GameSettings.findOneAndDelete({ UserId });
+    const deletedUser = await User.findByIdAndDelete(UserId);
+    res.status(200).json({
+      message: "Successfully deleted User",
+      deletedUser,
+      deletedGameSetting,
+    });
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+module.exports = { login, signup, deleteUser };
