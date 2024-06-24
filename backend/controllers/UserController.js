@@ -20,7 +20,7 @@ const signup = async (req, res) => {
   const { Email, UserName, Password } = req.body;
   try {
     const createdUser = await User.signup(Email, UserName, Password);
-    const createdGameSetting = await GameSettings.addDefaultGameSettings(
+    const createdGameSetting = await GameSettings.createdDefaultGameSettings(
       createdUser._id
     );
     const createdToken = CreateWebToken(createdUser._id);

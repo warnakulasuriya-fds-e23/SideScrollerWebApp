@@ -55,7 +55,9 @@ const GameSettingsSchema = new Schema(
   { timestamps: true }
 );
 
-GameSettingsSchema.statics.addDefaultGameSettings = async function (userId) {
+GameSettingsSchema.statics.createdDefaultGameSettings = async function (
+  userId
+) {
   const UserId = userId;
   const defaultGameSettings = {
     UserId: UserId,
