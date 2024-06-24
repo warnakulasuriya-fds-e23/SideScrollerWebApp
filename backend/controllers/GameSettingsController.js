@@ -104,19 +104,32 @@ const addGameSetting = async (req, res) => {
   }
 };
 
-const updateGameSettings = async (req, res) => {
+const updateGameSetting = async (req, res) => {
   try {
     const UserId = req.userFromMiddleWare._id;
     const options = { returnDocument: "after" };
-    const updatedGameSetting = await GameSettings.findOneAndUpdate(
+    const updatedGameSetting_After = await GameSettings.findOneAndUpdate(
       { UserId },
       req.body,
       options
     );
-    if (!updatedGameSetting) {
+    if (!updatedGameSetting_After) {
       throw Error("Game Setting was not found for this user");
     }
-    res.status(200).json(updatedGameSetting);
+    res.status(200).json(updatedGameSetting_After);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
+const deleteGameSetting = async (req, res) => {
+  try {
+    const UserId = req.userFromMiddleWare._id;
+    const deletedGamesetting = await GameSettings.findOneAndDelete({ UserId });
+    if (!deletedGamesetting) {
+      throw Error("This user doesnt have a Game Setting to delete");
+    }
+    res.status(200).json(deletedGamesetting);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }
@@ -126,5 +139,6 @@ module.exports = {
   getGameSettings,
   getAllGameSettings,
   addGameSetting,
-  updateGameSettings,
+  updateGameSetting,
+  deleteGameSetting,
 };

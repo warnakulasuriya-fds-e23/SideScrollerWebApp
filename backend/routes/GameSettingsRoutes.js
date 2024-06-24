@@ -5,7 +5,8 @@ const {
   getGameSettings,
   getAllGameSettings,
   addGameSetting,
-  updateGameSettings,
+  updateGameSetting,
+  deleteGameSetting,
 } = require("../controllers/GameSettingsController");
 //RequireAuth checks for a valid token, if its valid then the functions below it will run. (API route protection)
 router.use(RequireAuth);
@@ -16,6 +17,8 @@ router.get("/allGameSettings", getAllGameSettings);
 
 router.post("/", addGameSetting);
 
-router.patch("/", updateGameSettings);
+router.patch("/", updateGameSetting);
+
+router.delete("/", deleteGameSetting);
 
 module.exports = router;
