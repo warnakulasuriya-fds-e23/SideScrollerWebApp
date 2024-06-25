@@ -1,12 +1,12 @@
-import { UseAuthContext } from "./UseAuthContext";
-// import { UseWorkoutsContext } from "./UseWorkoutsContext"; MAKE CHANGES
+import { useAuthContext } from "./useAuthContext";
+import { useGameSettings } from "./useGameSettings";
 export const UseLogout = () => {
-  const { dispatch } = UseAuthContext();
-  //   const { dispatch: workoutsDispatch } = UseWorkoutsContext();MAKE CHANGES
+  const { dispatch } = useAuthContext();
+  const { dispatch: GameSettingsDispatch } = useGameSettings();
   const Logout = () => {
     localStorage.removeItem("user");
     dispatch({ type: "LOGOUT" });
-    // workoutsDispatch({ type: "CLEAR_WORKOUTS" });MAKE CHANGES
+    GameSettingsDispatch({ type: "CLEAR" });
   };
   return { Logout };
 };
