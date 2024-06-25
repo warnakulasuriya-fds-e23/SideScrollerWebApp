@@ -23,13 +23,13 @@ export function NavigationBar() {
         </NavbarBrand>
         <NavbarToggle />
         <NavbarCollapse>
-          <NavbarLink href="/" active={currentPath == "/"}>
+          <NavbarLink href="/" active={currentPath === "/"}>
             Home
           </NavbarLink>
-          <NavbarLink href="/login" active={currentPath == "/login"}>
+          <NavbarLink href="/login" active={currentPath === "/login"}>
             Login
           </NavbarLink>
-          <NavbarLink href="/signup" active={currentPath == "/signup"}>
+          <NavbarLink href="/signup" active={currentPath === "/signup"}>
             Signup
           </NavbarLink>
         </NavbarCollapse>
