@@ -11,7 +11,7 @@ export function NavigationBar() {
   const currentPath = useLocation().pathname;
   return (
     <>
-      <Navbar className="bg-white border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+      <Navbar className="bg-gray-200 border-gray-200 dark:bg-gray-900 dark:border-gray-700">
         <NavbarBrand>
           <img
             src="/favicon.svg"

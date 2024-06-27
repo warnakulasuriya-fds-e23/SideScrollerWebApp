@@ -11,7 +11,7 @@ export const Login = () => {
   };
   return (
     <form
-      className="h-full m-auto flex max-w-lg flex-col gap-20 bg-gray-200 dark:bg-black "
+      className="h-fit m-auto my-8 py-20 px-20 flex max-w-3xl flex-col gap-16 bg-gray-200 dark:bg-gray-900 "
       onSubmit={handleSubmit}
     >
       <div>
@@ -51,7 +51,7 @@ export const Login = () => {
         Log In
       </Button>
       {error && (
-        <div className="border-solid border-2  border-red-600 rounded-lg bg-red-100 text-red-600 my-2 mx-0">
+        <div className="border-solid border-2  border-red-600 rounded-lg bg-red-100 text-red-600 my-0 mx-0">
           {error}
         </div>
       )}

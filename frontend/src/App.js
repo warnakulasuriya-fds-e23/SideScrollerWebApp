@@ -7,7 +7,7 @@ import { Signup } from "./pages/Signup";
 import { Flowbite } from "flowbite-react";
 function App() {
   return (
-    <div className="App h-full">
+    <div className="App h-screen  bg-white dark:bg-gray-700">
       <Flowbite>
         <BrowserRouter>
           <NavigationBar />
