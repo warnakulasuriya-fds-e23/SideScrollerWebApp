@@ -4,14 +4,14 @@ import { UseLogin } from "../hooks/useLogin";
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { loginBackendCommunication } = UseLogin();
+  const { loginBackendCommunication, isLoading, error } = UseLogin();
   const handleSubmit = async (e) => {
     e.preventDefault();
     await loginBackendCommunication(email, password);
   };
   return (
     <form
-      className="flexr max-w-lg flex-col space-y-10 gap-4"
+      className="h-full m-auto flex max-w-lg flex-col gap-20 bg-gray-200 dark:bg-black "
       onSubmit={handleSubmit}
     >
       <div>
@@ -47,9 +47,14 @@ export const Login = () => {
         <Checkbox id="remember" />
         <Label htmlFor="remember">Remember me</Label>
       </div>
-      <Button gradientDuoTone="greenToBlue" type="submit">
+      <Button gradientDuoTone="greenToBlue" type="submit" disabled={isLoading}>
         Log In
       </Button>
+      {error && (
+        <div className="border-solid border-2  border-red-600 rounded-lg bg-red-100 text-red-600 my-2 mx-0">
+          {error}
+        </div>
+      )}
     </form>
   );
 };

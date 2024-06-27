@@ -4,6 +4,7 @@ import {
   NavbarCollapse,
   NavbarLink,
   NavbarToggle,
+  DarkThemeToggle,
 } from "flowbite-react";
 import { useLocation } from "react-router-dom";
 export function NavigationBar() {
@@ -33,6 +34,7 @@ export function NavigationBar() {
             Signup
           </NavbarLink>
         </NavbarCollapse>
+        <DarkThemeToggle />
       </Navbar>
     </>
   );
