@@ -1,17 +1,15 @@
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import { useState } from "react";
+import { UseLogin } from "../hooks/useLogin";
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleSubmit = (e) => {
+  const { loginBackendCommunication } = UseLogin();
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email);
-    console.log(password);
+    await loginBackendCommunication(email, password);
   };
   return (
-    // <div className=" h-2/3 flex items-center justify-center ">
-
-    // </div>
     <form
       className="flexr max-w-lg flex-col space-y-10 gap-4"
       onSubmit={handleSubmit}
