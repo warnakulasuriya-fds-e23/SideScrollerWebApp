@@ -9,10 +9,10 @@ import {
 } from "flowbite-react";
 import { useLocation } from "react-router-dom";
 import { HiLogout } from "react-icons/hi";
-import { UseLogout } from "../hooks/useLogOut";
+import { useLogout } from "../hooks/useLogOut";
 export function NavigationBar() {
   const currentPath = useLocation().pathname;
-  const { Logout } = UseLogout();
+  const { Logout } = useLogout();
   return (
     <>
       <Navbar className="bg-gray-200 border-gray-200 dark:bg-gray-900 dark:border-gray-700">

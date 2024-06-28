@@ -1,11 +1,11 @@
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import { useState } from "react";
-import { UseLogin } from "../hooks/useLogin";
+import { useLogin } from "../hooks/useLogin";
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
-  const { loginBackendCommunication, isLoading, error } = UseLogin();
+  const { loginBackendCommunication, isLoading, error } = useLogin();
   const handleSubmit = async (e) => {
     e.preventDefault();
     await loginBackendCommunication(email, password, rememberMe);

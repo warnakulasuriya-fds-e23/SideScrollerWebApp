@@ -1,6 +1,6 @@
 import { useAuthContext } from "./useAuthContext";
 import { useGameSettings } from "./useGameSettings";
-export const UseLogout = () => {
+export const useLogout = () => {
   const { dispatch } = useAuthContext();
   const { dispatch: GameSettingsDispatch } = useGameSettings();
   const Logout = () => {
