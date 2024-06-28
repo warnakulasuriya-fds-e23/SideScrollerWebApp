@@ -1,11 +1,12 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { Label, RangeSlider } from "flowbite-react";
 import { NavigationBar } from "./components/NavigationBar";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Signup } from "./pages/Signup";
 import { Flowbite } from "flowbite-react";
+import { useAuthContext } from "./hooks/useAuthContext";
 function App() {
+  const { user } = useAuthContext();
   return (
     <div className="App h-screen overflow-auto  bg-white dark:bg-gray-700">
       <Flowbite>
@@ -13,9 +14,18 @@ function App() {
           <NavigationBar />
           <div className="pages">
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/signup" element={<Signup />} />
+              <Route
+                path="/"
+                element={user ? <Home /> : <Navigate to="/login" />}
+              />
+              <Route
+                path="/login"
+                element={!user ? <Login /> : <Navigate to="/" />}
+              />
+              <Route
+                path="/signup"
+                element={!user ? <Signup /> : <Navigate to="/" />}
+              />
             </Routes>
           </div>
         </BrowserRouter>
