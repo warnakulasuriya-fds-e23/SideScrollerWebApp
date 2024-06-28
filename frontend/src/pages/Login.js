@@ -4,10 +4,11 @@ import { UseLogin } from "../hooks/useLogin";
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [rememberMe, setRememberMe] = useState(false);
   const { loginBackendCommunication, isLoading, error } = UseLogin();
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await loginBackendCommunication(email, password);
+    await loginBackendCommunication(email, password, rememberMe);
   };
   return (
     <form
@@ -44,7 +45,13 @@ export const Login = () => {
         />
       </div>
       <div className="flex items-center gap-2">
-        <Checkbox id="remember" />
+        <Checkbox
+          id="remember"
+          checked={rememberMe}
+          onChange={(e) => {
+            setRememberMe(e.target.checked);
+          }}
+        />
         <Label htmlFor="remember">Remember me</Label>
       </div>
       <Button gradientDuoTone="greenToBlue" type="submit" disabled={isLoading}>

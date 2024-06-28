@@ -6,7 +6,7 @@ export const UseLogin = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { dispatch } = useAuthContext();
 
-  const loginBackendCommunication = async (Email, Password) => {
+  const loginBackendCommunication = async (Email, Password, rememberMe) => {
     setError(null);
     try {
       const response = await fetch("/api/users/login", {
@@ -23,7 +23,11 @@ export const UseLogin = () => {
         setError(jsonForm.error);
       }
       if (response.ok) {
-        localStorage.setItem("user", JSON.stringify(jsonForm));
+        if (rememberMe) {
+          localStorage.setItem("user", JSON.stringify(jsonForm));
+        } else {
+          sessionStorage.setItem("user", JSON.stringify(jsonForm));
+        }
 
         dispatch({ type: "LOGIN", payload: jsonForm });
 
