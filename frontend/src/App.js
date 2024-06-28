@@ -3,6 +3,7 @@ import { NavigationBar } from "./components/NavigationBar";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { Signup } from "./pages/Signup";
+import { PageNotFound } from "./pages/PageNotFound";
 import { Flowbite } from "flowbite-react";
 import { useAuthContext } from "./hooks/useAuthContext";
 function App() {
@@ -26,6 +27,7 @@ function App() {
                 path="/signup"
                 element={!user ? <Signup /> : <Navigate to="/" />}
               />
+              <Route path="*" element={<PageNotFound />} />
             </Routes>
           </div>
         </BrowserRouter>
