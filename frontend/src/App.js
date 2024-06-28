@@ -7,7 +7,7 @@ import { Signup } from "./pages/Signup";
 import { Flowbite } from "flowbite-react";
 function App() {
   return (
-    <div className="App h-screen  bg-white dark:bg-gray-700">
+    <div className="App h-screen overflow-auto  bg-white dark:bg-gray-700">
       <Flowbite>
         <BrowserRouter>
           <NavigationBar />
