@@ -5,10 +5,14 @@ import {
   NavbarLink,
   NavbarToggle,
   DarkThemeToggle,
+  Button,
 } from "flowbite-react";
 import { useLocation } from "react-router-dom";
+import { HiLogout } from "react-icons/hi";
+import { UseLogout } from "../hooks/useLogOut";
 export function NavigationBar() {
   const currentPath = useLocation().pathname;
+  const { Logout } = UseLogout();
   return (
     <>
       <Navbar className="bg-gray-200 border-gray-200 dark:bg-gray-900 dark:border-gray-700">
@@ -34,6 +38,10 @@ export function NavigationBar() {
             Signup
           </NavbarLink>
         </NavbarCollapse>
+        <Button color="yellow" onClick={Logout}>
+          <HiLogout />
+        </Button>
+
         <DarkThemeToggle />
       </Navbar>
     </>
