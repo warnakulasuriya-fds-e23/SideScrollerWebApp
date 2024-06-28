@@ -1,4 +1,11 @@
-import { Button, Checkbox, Label, TextInput, Alert } from "flowbite-react";
+import {
+  Button,
+  Checkbox,
+  Label,
+  TextInput,
+  Alert,
+  Spinner,
+} from "flowbite-react";
 import { useState } from "react";
 import { useLogin } from "../hooks/useLogin";
 import { Link } from "react-router-dom";
@@ -68,7 +75,7 @@ export const Login = () => {
         </Alert>
       )}
       <Button gradientDuoTone="cyanToBlue" type="submit" disabled={isLoading}>
-        Log In
+        {isLoading ? <Spinner color="info" /> : "Log In"}
       </Button>
     </form>
   );
