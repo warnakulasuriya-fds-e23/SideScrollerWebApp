@@ -1,6 +1,8 @@
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
+import { Button, Checkbox, Label, TextInput, Alert } from "flowbite-react";
 import { useState } from "react";
 import { useSignup } from "../hooks/useSignup";
+import { Link } from "react-router-dom";
+import { HiInformationCircle } from "react-icons/hi";
 export const Signup = () => {
   const [email, setEmail] = useState("");
   const [userName, setUserName] = useState("");
@@ -13,7 +15,7 @@ export const Signup = () => {
   };
   return (
     <form
-      className="h-fit m-auto my-8 py-5 px-20 flex max-w-3xl flex-col gap-14 bg-gray-200 dark:bg-gray-900 "
+      className="h-fit m-auto my-8 py-5 px-20 flex max-w-3xl flex-col gap-10 bg-gray-200 dark:bg-gray-900 "
       onSubmit={handleSubmit}
     >
       <div>
@@ -70,14 +72,20 @@ export const Signup = () => {
         />
         <Label htmlFor="remember">Remember me</Label>
       </div>
+      <Link
+        className="text-green-600 hover:underline dark:text-green-500"
+        to="/login"
+      >
+        Already Have an Account? Login
+      </Link>
+      {error && (
+        <Alert color="failure" icon={HiInformationCircle}>
+          <span className="font-medium">Error!</span> {error}
+        </Alert>
+      )}
       <Button gradientDuoTone="greenToBlue" type="submit" disabled={isLoading}>
         Sign up
       </Button>
-      {error && (
-        <div className="border-solid border-2  border-red-600 rounded-lg bg-red-100 text-red-600 my-0 mx-0">
-          {error}
-        </div>
-      )}
     </form>
   );
 };

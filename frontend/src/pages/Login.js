@@ -1,6 +1,8 @@
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
+import { Button, Checkbox, Label, TextInput, Alert } from "flowbite-react";
 import { useState } from "react";
 import { useLogin } from "../hooks/useLogin";
+import { Link } from "react-router-dom";
+import { HiInformationCircle } from "react-icons/hi";
 export const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -12,12 +14,12 @@ export const Login = () => {
   };
   return (
     <form
-      className="h-fit m-auto my-8 py-20 px-20 flex max-w-3xl flex-col gap-16 bg-gray-200 dark:bg-gray-900 "
+      className="h-fit m-auto my-8 py-20 px-20 flex max-w-3xl flex-col gap-12 bg-gray-200 dark:bg-gray-900 "
       onSubmit={handleSubmit}
     >
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="email1" value="Your email" />
+          <Label htmlFor="email1" value="Email:" />
         </div>
         <TextInput
           id="email1"
@@ -32,7 +34,7 @@ export const Login = () => {
       </div>
       <div>
         <div className="mb-2 block">
-          <Label htmlFor="password1" value="Your password" />
+          <Label htmlFor="password1" value="Password:" />
         </div>
         <TextInput
           id="password1"
@@ -54,14 +56,20 @@ export const Login = () => {
         />
         <Label htmlFor="remember">Remember me</Label>
       </div>
-      <Button gradientDuoTone="greenToBlue" type="submit" disabled={isLoading}>
+      <Link
+        className="text-cyan-600 hover:underline dark:text-cyan-500"
+        to="/signup"
+      >
+        Dont have an account? Sign Up
+      </Link>
+      {error && (
+        <Alert color="failure" icon={HiInformationCircle}>
+          <span className="font-medium">Error!</span> {error}
+        </Alert>
+      )}
+      <Button gradientDuoTone="cyanToBlue" type="submit" disabled={isLoading}>
         Log In
       </Button>
-      {error && (
-        <div className="border-solid border-2  border-red-600 rounded-lg bg-red-100 text-red-600 my-0 mx-0">
-          {error}
-        </div>
-      )}
     </form>
   );
 };
