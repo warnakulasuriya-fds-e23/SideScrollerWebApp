@@ -1,12 +1,12 @@
-import { useGameSettings } from "./useGameSettings";
+import { useGameSettingsContext } from "./useGameSettingsContext";
 import { useAuthContext } from "./useAuthContext";
 
-export const useGetGameSettings = () => {
-  const { dispatch } = useGameSettings();
+export const useLoadUpGameSettings = () => {
+  const { dispatch } = useGameSettingsContext();
   const { user } = useAuthContext();
 
   const LoadUpGameSettings = async () => {
-    const response = await fetch("/api/workouts/" + workout._id, {
+    const response = await fetch("/api/gameSettings", {
       method: "GET",
       headers: {
         Authorization: `Bearer ${user.createdToken}`,
