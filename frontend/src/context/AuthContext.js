@@ -22,7 +22,13 @@ export const AuthContextProvider = ({ children }) => {
     user: null,
   });
   useEffect(() => {
-    const loggedInUser = JSON.parse(localStorage.getItem("user"));
+    let loggedInUser = null;
+    if (localStorage.getItem("user")) {
+      loggedInUser = JSON.parse(localStorage.getItem("user"));
+    }
+    if (sessionStorage.getItem("user")) {
+      loggedInUser = JSON.parse(sessionStorage.getItem("user"));
+    }
     if (loggedInUser) {
       dispatch({ type: "LOGIN", payload: loggedInUser });
     }

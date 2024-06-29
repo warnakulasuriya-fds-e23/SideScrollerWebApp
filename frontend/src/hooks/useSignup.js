@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
 
-export const UseSignup = () => {
+export const useSignup = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const { dispatch } = useAuthContext();
 
-  const signupBackendCommunication = async (Email, UserName, Password) => {
+  const signupBackendCommunication = async (
+    Email,
+    UserName,
+    Password,
+    rememberMe
+  ) => {
     setError(null);
     const response = await fetch("/api/users/signup", {
       method: "POST",
@@ -23,7 +28,11 @@ export const UseSignup = () => {
       setError(jsonForm.error);
     }
     if (response.ok) {
-      localStorage.setItem("user", JSON.stringify(jsonForm));
+      if (rememberMe) {
+        localStorage.setItem("user", JSON.stringify(jsonForm));
+      } else {
+        sessionStorage.setItem("user", JSON.stringify(jsonForm));
+      }
 
       dispatch({ type: "LOGIN", payload: jsonForm });
 
