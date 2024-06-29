@@ -4,7 +4,7 @@ export const GameSettingsContext = createContext();
 
 const GameSettingsReducer = (state, action) => {
   switch (action.type) {
-    case "LOAD_IN":
+    case "LOAD_UP":
       return {
         gameSettings: action.payload,
       };
