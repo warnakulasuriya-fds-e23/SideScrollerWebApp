@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { useLoadUpGameSettings } from "../hooks/useLoadUpGameSetting";
 import { useGameSettingsContext } from "../hooks/useGameSettingsContext";
-import { Select, TextInput, Kbd, Label } from "flowbite-react";
+import { Select, Kbd, Label } from "flowbite-react";
 export const GameSettingsBox = () => {
   const { gameSettings } = useGameSettingsContext();
   const [UserId, setUserId] = useState(gameSettings.UserId);
@@ -26,7 +25,7 @@ export const GameSettingsBox = () => {
   return (
     <>
       <div className="flex flex-col gap-2 w-fit">
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Background Type" />
           </span>
@@ -40,7 +39,7 @@ export const GameSettingsBox = () => {
             <option>City</option>
           </Select>
         </div>
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="CharacterType" />
           </span>
@@ -54,7 +53,7 @@ export const GameSettingsBox = () => {
             <option>Red</option>
           </Select>
         </div>
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Mute Background Music" />
           </span>
@@ -68,7 +67,7 @@ export const GameSettingsBox = () => {
             <option>{false.toString()}</option>
           </Select>
         </div>
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Mute Effects" />
           </span>
@@ -83,7 +82,7 @@ export const GameSettingsBox = () => {
           </Select>
         </div>
 
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Backward" />
           </span>
@@ -91,7 +90,7 @@ export const GameSettingsBox = () => {
             {DebugKey}
           </Kbd>
         </div>
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Backward" />
           </span>
@@ -99,7 +98,7 @@ export const GameSettingsBox = () => {
             {PauseKey}
           </Kbd>
         </div>
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Backward" />
           </span>
@@ -107,7 +106,7 @@ export const GameSettingsBox = () => {
             {RollKey}
           </Kbd>
         </div>
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Backward" />
           </span>
@@ -115,7 +114,7 @@ export const GameSettingsBox = () => {
             {CrouchKey}
           </Kbd>
         </div>
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Backward" />
           </span>
@@ -123,7 +122,7 @@ export const GameSettingsBox = () => {
             {JumpKey}
           </Kbd>
         </div>
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Backward" />
           </span>
@@ -131,7 +130,7 @@ export const GameSettingsBox = () => {
             {BackwardKey}
           </Kbd>
         </div>
-        <div className="flex gap-4 items-center">
+        <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Backward" />
           </span>
