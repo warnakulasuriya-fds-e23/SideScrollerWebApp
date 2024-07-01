@@ -84,7 +84,7 @@ export const GameSettingsBox = () => {
 
         <div className="flex gap-4 items-centergit">
           <span className="w-40">
-            <Label value="Backward" />
+            <Label value="Debug Key" />
           </span>
           <Kbd className=" rounded-2xl text-lg text-center min-w-32">
             {DebugKey}
@@ -92,7 +92,7 @@ export const GameSettingsBox = () => {
         </div>
         <div className="flex gap-4 items-centergit">
           <span className="w-40">
-            <Label value="Backward" />
+            <Label value="Pause Key" />
           </span>
           <Kbd className=" rounded-2xl text-lg text-center min-w-32">
             {PauseKey}
@@ -100,7 +100,7 @@ export const GameSettingsBox = () => {
         </div>
         <div className="flex gap-4 items-centergit">
           <span className="w-40">
-            <Label value="Backward" />
+            <Label value="Roll Key" />
           </span>
           <Kbd className=" rounded-2xl text-lg text-center min-w-32">
             {RollKey}
@@ -108,7 +108,7 @@ export const GameSettingsBox = () => {
         </div>
         <div className="flex gap-4 items-centergit">
           <span className="w-40">
-            <Label value="Backward" />
+            <Label value="Crouch Key" />
           </span>
           <Kbd className=" rounded-2xl text-lg text-center min-w-32">
             {CrouchKey}
@@ -116,7 +116,7 @@ export const GameSettingsBox = () => {
         </div>
         <div className="flex gap-4 items-centergit">
           <span className="w-40">
-            <Label value="Backward" />
+            <Label value="Jump Key" />
           </span>
           <Kbd className=" rounded-2xl text-lg text-center min-w-32">
             {JumpKey}
@@ -132,7 +132,7 @@ export const GameSettingsBox = () => {
         </div>
         <div className="flex gap-4 items-centergit">
           <span className="w-40">
-            <Label value="Backward" />
+            <Label value="Forward Key" />
           </span>
           <Kbd className=" rounded-2xl text-lg text-center min-w-32">
             {ForwardKey}
