@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useGameSettingsContext } from "../hooks/useGameSettingsContext";
+import { useGameSettingsContext } from "../hooks";
 import { Select, Kbd, Label } from "flowbite-react";
 export const GameSettingsBox = () => {
   const { gameSettings } = useGameSettingsContext();

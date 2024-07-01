@@ -7,7 +7,7 @@ import {
   Spinner,
 } from "flowbite-react";
 import { useState } from "react";
-import { useSignup } from "../hooks/useSignup";
+import { useSignup } from "../hooks";
 import { Link } from "react-router-dom";
 import { HiInformationCircle } from "react-icons/hi";
 export const Signup = () => {

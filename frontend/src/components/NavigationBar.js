@@ -10,7 +10,7 @@ import {
 } from "flowbite-react";
 import { useLocation } from "react-router-dom";
 import { HiLogout } from "react-icons/hi";
-import { useLogout } from "../hooks/useLogOut";
+import { useLogout } from "../hooks";
 export function NavigationBar() {
   const currentPath = useLocation().pathname;
   const { Logout } = useLogout();

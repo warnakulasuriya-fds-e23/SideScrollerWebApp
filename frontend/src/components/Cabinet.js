@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Drawer, Button, Tooltip, Sidebar } from "flowbite-react";
-import { useGameSettingsContext } from "../hooks/useGameSettingsContext";
+import { useGameSettingsContext } from "../hooks";
 import { GameSettingsBox } from "./GameSettingsBox";
 import { HiOutlineCog } from "react-icons/hi";
 import { GiSave, GiLoad, GiCycle } from "react-icons/gi";

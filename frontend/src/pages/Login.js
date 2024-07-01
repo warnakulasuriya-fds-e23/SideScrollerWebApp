@@ -7,7 +7,7 @@ import {
   Spinner,
 } from "flowbite-react";
 import { useState } from "react";
-import { useLogin } from "../hooks/useLogin";
+import { useLogin } from "../hooks";
 import { Link } from "react-router-dom";
 import { HiInformationCircle } from "react-icons/hi";
 export const Login = () => {

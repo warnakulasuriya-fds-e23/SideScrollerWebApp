@@ -1,11 +1,8 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { NavigationBar } from "./components/NavigationBar";
-import { Home } from "./pages/Home";
-import { Login } from "./pages/Login";
-import { Signup } from "./pages/Signup";
-import { PageNotFound } from "./pages/PageNotFound";
+import { NavigationBar } from "./components";
+import { Home, Login, Signup, PageNotFound } from "./pages";
 import { Flowbite } from "flowbite-react";
-import { useAuthContext } from "./hooks/useAuthContext";
+import { useAuthContext } from "./hooks";
 function App() {
   const { user } = useAuthContext();
   return (
