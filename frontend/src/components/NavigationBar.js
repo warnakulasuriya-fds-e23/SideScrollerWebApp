@@ -16,7 +16,7 @@ export function NavigationBar() {
   const { Logout } = useLogout();
   return (
     <>
-      <Navbar className="bg-gray-200 border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+      <Navbar className=" h-[8vh] bg-gray-200 border-gray-200 dark:bg-gray-900 dark:border-gray-700">
         <NavbarBrand>
           <img
             src="/favicon.svg"
@@ -39,7 +39,7 @@ export function NavigationBar() {
             Signup
           </NavbarLink>
         </NavbarCollapse>
-        <Button color="yellow" onClick={Logout}>
+        <Button onClick={Logout}>
           <HiLogout />
         </Button>
 

@@ -1,10 +1,56 @@
-//File should make a vertical bar that has several buttons.
-/*buttons are for
-game Settings
-Save Game
-Restart Game
-Load Game
-Game Screenshot(maybe)
+import React, { useState } from "react";
+import { Drawer, Button, Tooltip, Sidebar } from "flowbite-react";
+import { useGameSettingsContext } from "../hooks/useGameSettingsContext";
+import { GameSettingsBox } from "./GameSettingsBox";
+import { HiOutlineCog } from "react-icons/hi";
+import { GiSave, GiLoad, GiCycle } from "react-icons/gi";
+export const Cabinet = () => {
+  const { gameSettings } = useGameSettingsContext();
+  const [gameSettingsOpen, setGameSettingsOpen] = useState(false);
 
-each of these buttons should a flowbite Drawer and these drawer should contain further
-options and buttons inside, according to the extent that is required.*/
+  const handleGameSettingsClose = () => {
+    setGameSettingsOpen(false);
+  };
+  return (
+    <>
+      <div className="w-fit h-[92vh] bg-gray-200 border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+        <div className="py-10 flex flex-col gap-10 content-around">
+          <Tooltip content="Settings">
+            <Button
+              color="blue"
+              onClick={() => {
+                setGameSettingsOpen(!gameSettingsOpen);
+              }}
+            >
+              <HiOutlineCog className="size-6 " />
+            </Button>
+          </Tooltip>
+          <Tooltip content="Save Game">
+            <Button color="blue">
+              <GiSave className="size-6 " />
+            </Button>
+          </Tooltip>
+          <Tooltip content="Load Game">
+            <Button color="blue">
+              <GiLoad className="size-6 " />
+            </Button>
+          </Tooltip>
+          <Tooltip content="Restart Game">
+            <Button color="blue">
+              <GiCycle className="size-6 " />
+            </Button>
+          </Tooltip>
+        </div>
+      </div>
+
+      <Drawer
+        open={gameSettingsOpen}
+        onClose={handleGameSettingsClose}
+        position="right"
+      >
+        <Drawer.Header title="Drawer" />
+        <Drawer.Items>{gameSettings && <GameSettingsBox />}</Drawer.Items>
+      </Drawer>
+    </>
+  );
+};

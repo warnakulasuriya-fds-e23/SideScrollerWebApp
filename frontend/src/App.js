@@ -12,8 +12,10 @@ function App() {
     <div className="App h-screen overflow-auto  bg-white dark:bg-gray-700">
       <Flowbite>
         <BrowserRouter>
-          <NavigationBar />
-          <div className="pages">
+          <div className="h-14">
+            <NavigationBar />
+          </div>
+          <div>
             <Routes>
               <Route
                 path="/"
