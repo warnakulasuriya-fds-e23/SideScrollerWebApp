@@ -13,7 +13,7 @@ export const Cabinet = () => {
   };
   return (
     <>
-      <div className="w-fit h-[92vh] bg-gray-200 border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+      <div className="w-fit h-[84vh] bg-gray-200 border-gray-200 dark:bg-gray-900 dark:border-gray-700">
         <div className="py-10 flex flex-col gap-10 content-around">
           <Tooltip content="Settings">
             <Button
@@ -48,7 +48,7 @@ export const Cabinet = () => {
         onClose={handleGameSettingsClose}
         position="right"
       >
-        <Drawer.Header title="Drawer" />
+        <Drawer.Header title="Game Settings" titleIcon={HiOutlineCog} />
         <Drawer.Items>{gameSettings && <GameSettingsBox />}</Drawer.Items>
       </Drawer>
     </>
