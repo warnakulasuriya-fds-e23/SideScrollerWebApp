@@ -16,7 +16,7 @@ export const Home = () => {
     <div className="flex justify-between ">
       <LeftCabinet />
 
-      <div className="flex flex-col h-[84vh] w-[90vw]">
+      <div className="grow flex flex-col h-[84vh] ">
         <div className=" flex h-4/6  bg-green-400 items-center justify-center">
           <p className=" text-7xl text-white">Game Canvas</p>
         </div>

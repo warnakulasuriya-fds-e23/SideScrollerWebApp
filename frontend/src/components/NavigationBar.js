@@ -20,7 +20,7 @@ export function NavigationBar() {
         <NavbarBrand>
           <img
             src="/favicon.svg"
-            className="mr-3 h-s sm:h-9"
+            className="mr-3 h-6 sm:h-9"
             alt="Flowbite React Logo"
           />
 
@@ -34,7 +34,7 @@ export function NavigationBar() {
           </Link>
         </NavbarBrand>
         <NavbarToggle />
-        <NavbarCollapse>
+        <NavbarCollapse className="bg-gray-200 border-gray-200 dark:bg-gray-900 dark:border-gray-700 z-10">
           <NavbarLink href="/" active={currentPath === "/"}>
             Home
           </NavbarLink>

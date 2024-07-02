@@ -23,7 +23,7 @@ export const RightCabinet = () => {
                 setGameSettingsOpen(!gameSettingsOpen);
               }}
             >
-              <HiOutlineCog className="size-6 " />
+              <HiOutlineCog className="size-3 sm:size-6 " />
             </Button>
           </Tooltip>
           <Tooltip placement="left" content="Save Game">
@@ -31,7 +31,7 @@ export const RightCabinet = () => {
               className="transform hover:scale-150 hover:-translate-x-5 transition ease-linear duration-300"
               color="blue"
             >
-              <GiSave className="size-6 " />
+              <GiSave className="size-3 sm:size-6 " />
             </Button>
           </Tooltip>
           <Tooltip placement="left" content="Load Game">
@@ -39,7 +39,7 @@ export const RightCabinet = () => {
               className="transform hover:scale-150 hover:-translate-x-5 transition ease-linear duration-300"
               color="blue"
             >
-              <GiLoad className="size-6 " />
+              <GiLoad className="size-3 sm:size-6 " />
             </Button>
           </Tooltip>
           <Tooltip placement="left" content="Restart Game">
@@ -47,7 +47,7 @@ export const RightCabinet = () => {
               className="transform hover:scale-150 hover:-translate-x-5 transition ease-linear duration-300"
               color="blue"
             >
-              <GiCycle className="size-6 " />
+              <GiCycle className="size-3 sm:size-6 " />
             </Button>
           </Tooltip>
         </div>

@@ -21,7 +21,7 @@ export const LeftCabinet = () => {
               className="transform hover:scale-150 hover:translate-x-5 transition ease-linear duration-300"
               color="blue"
             >
-              <GiCharacter className="size-6 " />
+              <GiCharacter className="size-3 sm:size-6 " />
             </Button>
           </Tooltip>
           <Tooltip placement="right" content="Customize Background">
@@ -29,7 +29,7 @@ export const LeftCabinet = () => {
               className="transform hover:scale-150 hover:translate-x-5 transition ease-linear duration-300"
               color="blue"
             >
-              <PiCityFill className="size-6 " />
+              <PiCityFill className="size-3 sm:size-6 " />
             </Button>
           </Tooltip>
           <Tooltip placement="right" content="Play Game">
@@ -37,7 +37,7 @@ export const LeftCabinet = () => {
               className="transform hover:scale-150 hover:translate-x-5 transition ease-linear duration-300"
               color="blue"
             >
-              <GiPlayButton className="size-6 " />
+              <GiPlayButton className="size-3 sm:size-6 " />
             </Button>
           </Tooltip>
           <Tooltip placement="right" content="Stop Game">
@@ -48,7 +48,7 @@ export const LeftCabinet = () => {
                 setGameSettingsOpen(!gameSettingsOpen);
               }}
             >
-              <HiStop className="size-6 " />
+              <HiStop className="size-3 sm:size-6 " />
             </Button>
           </Tooltip>
         </div>
