@@ -11,11 +11,7 @@ export const PageNotFound = () => {
       <div className="text-5xl text-center dark:text-white">
         would you like to go to Home page?
       </div>
-      <Button
-        className="mx-auto my-10 w-36"
-        size="xl"
-        gradientDuoTone="greenToBlue"
-      >
+      <Button className="mx-auto my-5 w-36" size="xl" color="blue">
         <Link to="/">Home</Link>
       </Button>
     </div>
