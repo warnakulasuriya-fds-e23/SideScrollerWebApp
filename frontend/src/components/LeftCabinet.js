@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { Drawer, Button, Tooltip } from "flowbite-react";
 import { useGameSettingsContext } from "../hooks";
 import { GameSettingsBox } from "./GameSettingsBox";
-import { HiOutlineCog } from "react-icons/hi";
-import { GiSave, GiLoad, GiCycle } from "react-icons/gi";
+import { HiStop } from "react-icons/hi";
+import { GiPlayButton, GiCharacter } from "react-icons/gi";
+import { PiCityFill } from "react-icons/pi";
 export const LeftCabinet = () => {
   const { gameSettings } = useGameSettingsContext();
   const [gameSettingsOpen, setGameSettingsOpen] = useState(false);
@@ -15,29 +16,39 @@ export const LeftCabinet = () => {
     <>
       <div className="w-fit h-[84vh] bg-gray-200 border-gray-200 dark:bg-gray-900 dark:border-gray-700">
         <div className="py-10 flex flex-col gap-10 content-around">
-          <Tooltip placement="right" content="Settings">
+          <Tooltip placement="right" content="Customize Character">
             <Button
+              className="transform hover:scale-150 hover:translate-x-5 transition ease-linear duration-300"
+              color="blue"
+            >
+              <GiCharacter className="size-6 " />
+            </Button>
+          </Tooltip>
+          <Tooltip placement="right" content="Customize Background">
+            <Button
+              className="transform hover:scale-150 hover:translate-x-5 transition ease-linear duration-300"
+              color="blue"
+            >
+              <PiCityFill className="size-6 " />
+            </Button>
+          </Tooltip>
+          <Tooltip placement="right" content="Play Game">
+            <Button
+              className="transform hover:scale-150 hover:translate-x-5 transition ease-linear duration-300"
+              color="blue"
+            >
+              <GiPlayButton className="size-6 " />
+            </Button>
+          </Tooltip>
+          <Tooltip placement="right" content="Stop Game">
+            <Button
+              className="transform hover:scale-150 hover:translate-x-5 transition ease-linear duration-300"
               color="blue"
               onClick={() => {
                 setGameSettingsOpen(!gameSettingsOpen);
               }}
             >
-              <HiOutlineCog className="size-6 " />
-            </Button>
-          </Tooltip>
-          <Tooltip placement="right" content="Save Game">
-            <Button color="blue">
-              <GiSave className="size-6 " />
-            </Button>
-          </Tooltip>
-          <Tooltip placement="right" content="Load Game">
-            <Button color="blue">
-              <GiLoad className="size-6 " />
-            </Button>
-          </Tooltip>
-          <Tooltip placement="right" content="Restart Game">
-            <Button color="blue">
-              <GiCycle className="size-6 " />
+              <HiStop className="size-6 " />
             </Button>
           </Tooltip>
         </div>
@@ -48,7 +59,7 @@ export const LeftCabinet = () => {
         onClose={handleGameSettingsClose}
         position="right"
       >
-        <Drawer.Header title="Game Settings" titleIcon={HiOutlineCog} />
+        <Drawer.Header title="Game Settings" titleIcon={HiStop} />
         <Drawer.Items>{gameSettings && <GameSettingsBox />}</Drawer.Items>
       </Drawer>
     </>

@@ -17,6 +17,7 @@ export const RightCabinet = () => {
         <div className="py-10 flex flex-col gap-10 content-around">
           <Tooltip placement="left" content="Settings">
             <Button
+              className="transform hover:scale-150 hover:-translate-x-5 transition ease-linear duration-300"
               color="blue"
               onClick={() => {
                 setGameSettingsOpen(!gameSettingsOpen);
@@ -26,17 +27,26 @@ export const RightCabinet = () => {
             </Button>
           </Tooltip>
           <Tooltip placement="left" content="Save Game">
-            <Button color="blue">
+            <Button
+              className="transform hover:scale-150 hover:-translate-x-5 transition ease-linear duration-300"
+              color="blue"
+            >
               <GiSave className="size-6 " />
             </Button>
           </Tooltip>
           <Tooltip placement="left" content="Load Game">
-            <Button color="blue">
+            <Button
+              className="transform hover:scale-150 hover:-translate-x-5 transition ease-linear duration-300"
+              color="blue"
+            >
               <GiLoad className="size-6 " />
             </Button>
           </Tooltip>
           <Tooltip placement="left" content="Restart Game">
-            <Button color="blue">
+            <Button
+              className="transform hover:scale-150 hover:-translate-x-5 transition ease-linear duration-300"
+              color="blue"
+            >
               <GiCycle className="size-6 " />
             </Button>
           </Tooltip>
