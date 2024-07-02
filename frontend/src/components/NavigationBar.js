@@ -8,7 +8,7 @@ import {
   DarkThemeToggle,
   Button,
 } from "flowbite-react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { HiLogout } from "react-icons/hi";
 import { useLogout } from "../hooks";
 export function NavigationBar() {
@@ -23,9 +23,15 @@ export function NavigationBar() {
             className="mr-3 h-s sm:h-9"
             alt="Flowbite React Logo"
           />
-          <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">
-            Side Scroller
-          </span>
+
+          <Link to="/">
+            <div className="self-center flex justify-evenly  text-xl font-semibold dark:text-white">
+              <div className="bg-blue-600 rounded-lg px-4 transform -skew-x-12 text-gray-200 dark:text-gray-900">
+                Zyd
+              </div>
+              <div>Scroller</div>
+            </div>
+          </Link>
         </NavbarBrand>
         <NavbarToggle />
         <NavbarCollapse>

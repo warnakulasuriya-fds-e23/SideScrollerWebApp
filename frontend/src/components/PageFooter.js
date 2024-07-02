@@ -6,7 +6,7 @@ export const PageFooter = () => {
       className="h-[8vh] bg-gray-200 border-gray-200 dark:bg-gray-900 dark:border-gray-700"
       container
     >
-      <Footer.Copyright href="#" by="Side Scroller" year={2024} />
+      <Footer.Copyright href="#" by="ZydScroller" year={2024} />
       <Footer.LinkGroup>
         <Footer.Link href="#">About</Footer.Link>
         <Footer.Link href="#">Privacy Policy</Footer.Link>
