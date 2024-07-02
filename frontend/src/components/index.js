@@ -1,4 +1,5 @@
-export { Cabinet } from "./Cabinet";
 export { GameSettingsBox } from "./GameSettingsBox";
+export { LeftCabinet } from "./LeftCabinet";
 export { NavigationBar } from "./NavigationBar";
 export { PageFooter } from "./PageFooter";
+export { RightCabinet } from "./RightCabinet";

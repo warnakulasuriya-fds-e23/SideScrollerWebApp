@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useLoadUpGameSettings } from "../hooks";
-import { Cabinet } from "../components";
+import { LeftCabinet, RightCabinet } from "../components";
 
 export const Home = () => {
   const { LoadUpGameSettings } = useLoadUpGameSettings();
@@ -14,7 +14,8 @@ export const Home = () => {
 
   return (
     <div className="flex justify-between ">
-      <Cabinet />
+      <LeftCabinet />
+
       <div className="flex flex-col h-[84vh] w-[90vw]">
         <div className=" flex h-4/6  bg-green-400 items-center justify-center">
           <p className=" text-7xl text-white">Game Canvas</p>
@@ -24,7 +25,7 @@ export const Home = () => {
         </div>
       </div>
 
-      <Cabinet />
+      <RightCabinet />
     </div>
   );
 };
