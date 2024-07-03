@@ -10,20 +10,20 @@ import {
 } from "flowbite-react";
 import { Link, useLocation } from "react-router-dom";
 import { HiLogout } from "react-icons/hi";
-import { useLogout } from "../hooks";
+import { useLogout, useAuthContext } from "../hooks";
 export function NavigationBar() {
+  const { user } = useAuthContext();
   const currentPath = useLocation().pathname;
   const { Logout } = useLogout();
   return (
     <>
-      <Navbar className=" h-[8vh] bg-gray-200 border-gray-200 dark:bg-gray-900 dark:border-gray-700">
+      <Navbar className="  h-[8vh] bg-gray-200 border-gray-200 dark:bg-gray-900 dark:border-gray-700 items-center ">
         <NavbarBrand>
           <img
             src="/favicon.svg"
             className="mr-3 h-6 sm:h-9"
             alt="Flowbite React Logo"
           />
-
           <Link to="/">
             <div className="self-center flex justify-evenly  text-xl font-semibold dark:text-white">
               <div className="bg-blue-600 rounded-lg px-4 transform -skew-x-12 text-gray-200 dark:text-gray-900">
@@ -33,23 +33,33 @@ export function NavigationBar() {
             </div>
           </Link>
         </NavbarBrand>
+        <div className="flex md:order-2">
+          <DarkThemeToggle />
+          {user && (
+            <Button onClick={Logout}>
+              <HiLogout />
+            </Button>
+          )}
+        </div>
+
         <NavbarToggle />
         <NavbarCollapse className="bg-gray-200 border-gray-200 dark:bg-gray-900 dark:border-gray-700 z-10">
-          <NavbarLink href="/" active={currentPath === "/"}>
-            Home
-          </NavbarLink>
-          <NavbarLink href="/login" active={currentPath === "/login"}>
-            Login
-          </NavbarLink>
-          <NavbarLink href="/signup" active={currentPath === "/signup"}>
-            Signup
-          </NavbarLink>
+          {user && (
+            <NavbarLink href="/" active={currentPath === "/"}>
+              Home
+            </NavbarLink>
+          )}
+          {!user && (
+            <NavbarLink href="/login" active={currentPath === "/login"}>
+              Login
+            </NavbarLink>
+          )}
+          {!user && (
+            <NavbarLink href="/signup" active={currentPath === "/signup"}>
+              Signup
+            </NavbarLink>
+          )}
         </NavbarCollapse>
-        <Button onClick={Logout}>
-          <HiLogout />
-        </Button>
-
-        <DarkThemeToggle />
       </Navbar>
     </>
   );

@@ -3,7 +3,7 @@ import { Footer } from "flowbite-react";
 export const PageFooter = () => {
   return (
     <Footer
-      className="h-[8vh] bg-gray-200 border-gray-200 dark:bg-gray-900 dark:border-gray-700"
+      className="h-fit sm:h-[8vh] bg-gray-200 border-gray-200 dark:bg-gray-900 dark:border-gray-700"
       container
     >
       <Footer.Copyright href="#" by="ZydScroller" year={2024} />
