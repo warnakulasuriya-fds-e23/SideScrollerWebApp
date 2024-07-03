@@ -34,12 +34,12 @@ export function NavigationBar() {
           </Link>
         </NavbarBrand>
         <div className="flex md:order-2">
-          <DarkThemeToggle />
           {user && (
             <Button onClick={Logout}>
               <HiLogout />
             </Button>
           )}
+          <DarkThemeToggle />
         </div>
 
         <NavbarToggle />
