@@ -1,3 +1,4 @@
+export { GameCanvas } from "./GameCanvas";
 export { GameSettingsBox } from "./GameSettingsBox";
 export { LeftCabinet } from "./LeftCabinet";
 export { NavigationBar } from "./NavigationBar";
