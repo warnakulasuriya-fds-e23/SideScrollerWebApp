@@ -1,8 +1,8 @@
 import { useAuthContext } from "./useAuthContext";
-import { useGameSettings } from "./useGameSettings";
+import { useGameSettingsContext } from "./useGameSettingsContext";
 export const useLogout = () => {
   const { dispatch } = useAuthContext();
-  const { dispatch: GameSettingsDispatch } = useGameSettings();
+  const { dispatch: GameSettingsDispatch } = useGameSettingsContext();
   const Logout = () => {
     if (localStorage.getItem("user")) {
       localStorage.removeItem("user");

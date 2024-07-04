@@ -1,7 +1,7 @@
 import { GameSettingsContext } from "../context/GameSettingsContext";
 import { useContext } from "react";
 
-export const useGameSettings = () => {
+export const useGameSettingsContext = () => {
   const context = useContext(GameSettingsContext);
   if (!context) {
     throw Error(

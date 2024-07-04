@@ -1,19 +1,18 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { NavigationBar } from "./components/NavigationBar";
-import { Home } from "./pages/Home";
-import { Login } from "./pages/Login";
-import { Signup } from "./pages/Signup";
-import { PageNotFound } from "./pages/PageNotFound";
+import { NavigationBar, PageFooter } from "./components";
+import { Home, Login, Signup, PageNotFound } from "./pages";
 import { Flowbite } from "flowbite-react";
-import { useAuthContext } from "./hooks/useAuthContext";
+import { useAuthContext } from "./hooks";
 function App() {
   const { user } = useAuthContext();
   return (
     <div className="App h-screen overflow-auto  bg-white dark:bg-gray-700">
       <Flowbite>
         <BrowserRouter>
-          <NavigationBar />
-          <div className="pages">
+          <div className="h-[8vh]">
+            <NavigationBar />
+          </div>
+          <div className="h-[84vh]">
             <Routes>
               <Route
                 path="/"
@@ -31,6 +30,9 @@ function App() {
             </Routes>
           </div>
         </BrowserRouter>
+        <div className="h-[8vh]">
+          <PageFooter />
+        </div>
       </Flowbite>
     </div>
   );

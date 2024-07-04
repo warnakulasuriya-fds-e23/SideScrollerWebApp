@@ -4,9 +4,9 @@ export const GameSettingsContext = createContext();
 
 const GameSettingsReducer = (state, action) => {
   switch (action.type) {
-    case "LOAD_IN":
+    case "LOAD_UP":
       return {
-        gameSettings: action.payload,
+        gameSettings: action.payload[0],
       };
     case "CLEAR":
       return {
@@ -22,7 +22,7 @@ export const GameSettingsProvider = ({ children }) => {
   const [state, dispatch] = useReducer(GameSettingsReducer, {
     gameSettings: null,
   });
-
+  console.log("Game Settings COntext: ", state);
   return (
     <GameSettingsContext.Provider value={{ ...state, dispatch }}>
       {children}
