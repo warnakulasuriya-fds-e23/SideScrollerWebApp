@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "flowbite-react";
 import { GameState } from "../GameFiles/GameState.js";
 export const GameCanvas = () => {
-  const navaigate = useNavigate();
+  const navigate = useNavigate();
   const [isGameRunning, setIsGameRunnig] = useState(false);
   const gameRef = useRef(null);
   useEffect(() => {}, []);
@@ -40,16 +40,11 @@ export const GameCanvas = () => {
   };
 
   const goHome = () => {
-    navaigate("/*");
+    navigate("/*");
   };
 
   return (
     <div>
-      {/* {isGameRunning ? (
-        <canvas id="gameCanvas"></canvas>
-      ) : (
-        <Button onClick={playgame}>Play Game</Button>
-      )} */}
       <canvas
         className={isGameRunning ? "block" : "hidden"}
         id="gameCanvas"
