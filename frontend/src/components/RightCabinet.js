@@ -21,6 +21,7 @@ export const RightCabinet = (props) => {
               color="blue"
               onClick={() => {
                 setGameSettingsOpen(!gameSettingsOpen);
+                props.gameSettingsMethod();
               }}
             >
               <HiOutlineCog className="size-3 sm:size-6 " />

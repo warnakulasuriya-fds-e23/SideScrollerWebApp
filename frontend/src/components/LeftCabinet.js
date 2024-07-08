@@ -20,6 +20,7 @@ export const LeftCabinet = (props) => {
             <Button
               className="transform hover:scale-150 hover:translate-x-5 transition ease-linear duration-300"
               color="blue"
+              onClick={props.customizeCharacterMethod}
             >
               <GiCharacter className="size-3 sm:size-6 " />
             </Button>
@@ -28,6 +29,7 @@ export const LeftCabinet = (props) => {
             <Button
               className="transform hover:scale-150 hover:translate-x-5 transition ease-linear duration-300"
               color="blue"
+              onClick={props.customizeBackgroundMethod}
             >
               <PiCityFill className="size-3 sm:size-6 " />
             </Button>
@@ -36,7 +38,7 @@ export const LeftCabinet = (props) => {
             <Button
               className="transform hover:scale-150 hover:translate-x-5 transition ease-linear duration-300"
               color="blue"
-              onClick={props.runGame}
+              onClick={props.runGameMethod}
             >
               <GiPlayButton className="size-3 sm:size-6 " />
             </Button>
@@ -45,7 +47,7 @@ export const LeftCabinet = (props) => {
             <Button
               className="transform hover:scale-150 hover:translate-x-5 transition ease-linear duration-300"
               color="blue"
-              onClick={props.stopGame}
+              onClick={props.stopGameMethod}
             >
               <HiStop className="size-3 sm:size-6 " />
             </Button>
