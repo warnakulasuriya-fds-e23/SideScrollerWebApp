@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useGameSettingsContext } from "../hooks";
+import { useGameSettingsContext } from "../../hooks";
 import { Select, Kbd, Label } from "flowbite-react";
-export const GameSettingsBox = () => {
+import { Drawer } from "flowbite-react";
+import { HiOutlineCog } from "react-icons/hi";
+import { GiSave, GiLoad, GiCycle } from "react-icons/gi";
+const GameSettingsBox = () => {
   const { gameSettings } = useGameSettingsContext();
   const [UserId, setUserId] = useState(gameSettings.UserId);
   const [BackgroundType, setBackgroundType] = useState(
@@ -140,5 +143,15 @@ export const GameSettingsBox = () => {
         </div>
       </div>
     </>
+  );
+};
+
+export const GameSettingsDrawer = (props) => {
+  const { gameSettings } = useGameSettingsContext();
+  return (
+    <Drawer open={props.open} onClose={props.onClose} position={props.position}>
+      <Drawer.Header title="Game Settings" titleIcon={HiOutlineCog} />
+      <Drawer.Items>{gameSettings && <GameSettingsBox />}</Drawer.Items>
+    </Drawer>
   );
 };

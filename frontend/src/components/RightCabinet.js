@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Drawer, Button, Tooltip } from "flowbite-react";
 import { useGameSettingsContext } from "../hooks";
-import { GameSettingsBox } from "./GameSettingsBox";
+// import { GameSettingsBox } from "./GameSettingsBox";
 import { HiOutlineCog } from "react-icons/hi";
 import { GiSave, GiLoad, GiCycle } from "react-icons/gi";
+import { GameSettingsDrawer } from "./cabinetDrawers/GameSettingsDrawer";
 export const RightCabinet = (props) => {
   const { gameSettings } = useGameSettingsContext();
   const [gameSettingsOpen, setGameSettingsOpen] = useState(false);
@@ -57,14 +58,11 @@ export const RightCabinet = (props) => {
         </div>
       </div>
 
-      <Drawer
+      <GameSettingsDrawer
         open={gameSettingsOpen}
         onClose={handleGameSettingsClose}
         position="right"
-      >
-        <Drawer.Header title="Game Settings" titleIcon={HiOutlineCog} />
-        <Drawer.Items>{gameSettings && <GameSettingsBox />}</Drawer.Items>
-      </Drawer>
+      />
     </>
   );
 };
