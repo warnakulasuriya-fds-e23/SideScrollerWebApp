@@ -8,9 +8,11 @@ export const RightCabinet = (props) => {
   const [restartGameOpen, setRestartGameOpen] = useState(false);
   const handleGameSettingsClose = () => {
     setGameSettingsOpen(false);
+    props.togglePauseGameMethod();
   };
   const handleRestartGameClose = () => {
     setRestartGameOpen(false);
+    props.togglePauseGameMethod();
   };
   return (
     <>
@@ -22,6 +24,7 @@ export const RightCabinet = (props) => {
               color="blue"
               onClick={() => {
                 setGameSettingsOpen(!gameSettingsOpen);
+                props.togglePauseGameMethod();
               }}
             >
               <HiOutlineCog className="size-3 sm:size-6 " />
@@ -51,6 +54,7 @@ export const RightCabinet = (props) => {
               color="blue"
               onClick={() => {
                 setRestartGameOpen(true);
+                props.togglePauseGameMethod();
               }}
             >
               <GiCycle className="size-3 sm:size-6 " />

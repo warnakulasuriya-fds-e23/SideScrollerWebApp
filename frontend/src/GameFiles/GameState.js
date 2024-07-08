@@ -45,7 +45,7 @@ export class GameState {
     this.collisionHandler.draw(context);
     this.PickUpHandler.draw(context);
   }
-  Pause() {
+  TogglePause() {
     this.paused = !this.paused;
     if (this.paused) {
       this.UIHandler.pauseScreen();

@@ -8,6 +8,9 @@ const RestartGameBox = (props) => {
     props.onClose();
     props.restartGameMethod();
   };
+  const cancelOption = () => {
+    props.onClose();
+  };
   return (
     <div className=" flex flex-col gap-10 items-center my-48">
       <Label className="text-3xl text-center">
@@ -17,7 +20,7 @@ const RestartGameBox = (props) => {
         <Button gradientMonochrome="success" onClick={confirmOption}>
           <FaCheck />
         </Button>
-        <Button gradientMonochrome="failure">
+        <Button gradientMonochrome="failure" onClick={cancelOption}>
           <FaXmark />
         </Button>
       </div>

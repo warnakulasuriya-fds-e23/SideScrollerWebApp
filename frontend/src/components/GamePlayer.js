@@ -51,14 +51,15 @@ export const GamePlayer = () => {
     gameRef.current.Restart();
   };
 
-  const pauseGame = () => {
+  const togglePauseGame = () => {
     if (isGameRunning) {
-      gameRef.current.Pause();
+      gameRef.current.TogglePause();
     }
   };
   return (
     <div className="flex justify-between ">
       <LeftCabinet
+        togglePauseGameMethod={togglePauseGame}
         customizeCharacterMethod={customizeCharacter}
         customizeBackgroundMethod={customizeBackground}
         runGameMethod={runGame}
@@ -73,7 +74,7 @@ export const GamePlayer = () => {
             }`}
             id="gameCanvas"
           ></canvas>
-          <Button onClick={pauseGame}>Pause Game</Button>
+          <Button onClick={togglePauseGame}>Pause Game</Button>
           <Button onClick={runGame}>Run Game</Button>
           <Button onClick={stopGame}>Stop Game</Button>
         </div>
@@ -83,6 +84,7 @@ export const GamePlayer = () => {
       </div>
 
       <RightCabinet
+        togglePauseGameMethod={togglePauseGame}
         gameSettingsMethod={gameSettings}
         saveGameMethod={saveGame}
         loadGameMethod={loadGame}
