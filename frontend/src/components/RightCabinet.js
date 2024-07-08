@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { Drawer, Button, Tooltip } from "flowbite-react";
-import { useGameSettingsContext } from "../hooks";
-// import { GameSettingsBox } from "./GameSettingsBox";
+import { Button, Tooltip } from "flowbite-react";
 import { HiOutlineCog } from "react-icons/hi";
 import { GiSave, GiLoad, GiCycle } from "react-icons/gi";
-import { GameSettingsDrawer } from "./cabinetDrawers/GameSettingsDrawer";
+import { GameSettingsDrawer, RestartGameDrawer } from "./cabinetDrawers";
 export const RightCabinet = (props) => {
-  const { gameSettings } = useGameSettingsContext();
   const [gameSettingsOpen, setGameSettingsOpen] = useState(false);
-
+  const [restartGameOpen, setRestartGameOpen] = useState(false);
   const handleGameSettingsClose = () => {
     setGameSettingsOpen(false);
+  };
+  const handleRestartGameClose = () => {
+    setRestartGameOpen(false);
   };
   return (
     <>
@@ -22,7 +22,6 @@ export const RightCabinet = (props) => {
               color="blue"
               onClick={() => {
                 setGameSettingsOpen(!gameSettingsOpen);
-                props.gameSettingsMethod();
               }}
             >
               <HiOutlineCog className="size-3 sm:size-6 " />
@@ -50,7 +49,9 @@ export const RightCabinet = (props) => {
             <Button
               className="transform hover:scale-150 hover:-translate-x-5 transition ease-linear duration-300"
               color="blue"
-              onClick={props.restartGameMethod}
+              onClick={() => {
+                setRestartGameOpen(true);
+              }}
             >
               <GiCycle className="size-3 sm:size-6 " />
             </Button>
@@ -62,6 +63,13 @@ export const RightCabinet = (props) => {
         open={gameSettingsOpen}
         onClose={handleGameSettingsClose}
         position="right"
+        gameSettingsMethod={props.gameSettingsMethod}
+      />
+      <RestartGameDrawer
+        open={restartGameOpen}
+        onClose={handleRestartGameClose}
+        position="right"
+        restartGameMethod={props.restartGameMethod}
       />
     </>
   );
