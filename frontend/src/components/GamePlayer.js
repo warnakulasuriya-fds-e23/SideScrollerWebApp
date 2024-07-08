@@ -19,8 +19,7 @@ export const GamePlayer = () => {
       const ctx = canvas.getContext("2d");
       canvas.width = 1000;
       canvas.height = 500;
-      console.log(canvas.width);
-      console.log(canvas.height);
+
       gameRef.current = new GameState(canvas.width, canvas.height);
       let lastTime = 0;
       function animate(timeStamp) {
@@ -31,8 +30,10 @@ export const GamePlayer = () => {
           gameRef.current.update(deltaTime);
           gameRef.current.draw(ctx);
         }
-
-        requestAnimationFrame(animate); //this function passes the current time stamp to the animate function automatically
+        if (!gameRef.current.exitGameLoop) {
+          console.log("game is running");
+          requestAnimationFrame(animate); //this function passes the current time stamp to the animate function automatically
+        }
       }
       animate(0);
       setIsGameRunnig(true);
@@ -46,7 +47,9 @@ export const GamePlayer = () => {
   const gameSettings = () => {};
   const saveGame = () => {};
   const loadGame = () => {};
-  const restartGame = () => {};
+  const restartGame = () => {
+    gameRef.current.Restart();
+  };
 
   const pauseGame = () => {
     if (isGameRunning) {
@@ -83,7 +86,7 @@ export const GamePlayer = () => {
         gameSettingsMethod={gameSettings}
         saveGameMethod={saveGame}
         loadGameMethod={loadGame}
-        restartGame={restartGame}
+        restartGameMethod={restartGame}
       />
     </div>
   );

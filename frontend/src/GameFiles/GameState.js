@@ -11,6 +11,7 @@ export class GameState {
   constructor(width, height) {
     this.keyboardConfig = new KeyBoardConfiguration();
     this.paused = false;
+    this.exitGameLoop = false;
     this.width = width;
     this.height = height;
     this.score = 0;
@@ -49,5 +50,20 @@ export class GameState {
     if (this.paused) {
       this.UIHandler.pauseScreen();
     }
+  }
+  Restart() {
+    this.exitGameLoop = true;
+    this.score = 0;
+    this.gameTime = 0;
+    this.speedFraction = 0;
+    this.maxSpeed = 5;
+    this.background = new Background(this);
+    this.player = new Player(this);
+    this.input = new InputHandler(this);
+    this.enemyHandler = new EnemyHandler(this);
+    this.UIHandler = new UIHandler(this);
+    this.collisionHandler = new CollisionHandler(this);
+    this.PickUpHandler = new PickUpHandler(this);
+    this.exitGameLoop = false;
   }
 }
