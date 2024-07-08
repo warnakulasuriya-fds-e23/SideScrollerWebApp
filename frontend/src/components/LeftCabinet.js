@@ -5,7 +5,7 @@ import { GameSettingsBox } from "./GameSettingsBox";
 import { HiStop } from "react-icons/hi";
 import { GiPlayButton, GiCharacter } from "react-icons/gi";
 import { PiCityFill } from "react-icons/pi";
-export const LeftCabinet = () => {
+export const LeftCabinet = (props) => {
   const { gameSettings } = useGameSettingsContext();
   const [gameSettingsOpen, setGameSettingsOpen] = useState(false);
 
@@ -36,6 +36,7 @@ export const LeftCabinet = () => {
             <Button
               className="transform hover:scale-150 hover:translate-x-5 transition ease-linear duration-300"
               color="blue"
+              onClick={props.runGame}
             >
               <GiPlayButton className="size-3 sm:size-6 " />
             </Button>
@@ -44,9 +45,7 @@ export const LeftCabinet = () => {
             <Button
               className="transform hover:scale-150 hover:translate-x-5 transition ease-linear duration-300"
               color="blue"
-              onClick={() => {
-                setGameSettingsOpen(!gameSettingsOpen);
-              }}
+              onClick={props.stopGame}
             >
               <HiStop className="size-3 sm:size-6 " />
             </Button>

@@ -4,7 +4,7 @@ import { useGameSettingsContext } from "../hooks";
 import { GameSettingsBox } from "./GameSettingsBox";
 import { HiOutlineCog } from "react-icons/hi";
 import { GiSave, GiLoad, GiCycle } from "react-icons/gi";
-export const RightCabinet = () => {
+export const RightCabinet = (props) => {
   const { gameSettings } = useGameSettingsContext();
   const [gameSettingsOpen, setGameSettingsOpen] = useState(false);
 
@@ -30,6 +30,7 @@ export const RightCabinet = () => {
             <Button
               className="transform hover:scale-150 hover:-translate-x-5 transition ease-linear duration-300"
               color="blue"
+              onClick={props.saveGameMethod}
             >
               <GiSave className="size-3 sm:size-6 " />
             </Button>
@@ -38,6 +39,7 @@ export const RightCabinet = () => {
             <Button
               className="transform hover:scale-150 hover:-translate-x-5 transition ease-linear duration-300"
               color="blue"
+              onClick={props.loadGameMethod}
             >
               <GiLoad className="size-3 sm:size-6 " />
             </Button>
@@ -46,6 +48,7 @@ export const RightCabinet = () => {
             <Button
               className="transform hover:scale-150 hover:-translate-x-5 transition ease-linear duration-300"
               color="blue"
+              onClick={props.restartGameMethod}
             >
               <GiCycle className="size-3 sm:size-6 " />
             </Button>
