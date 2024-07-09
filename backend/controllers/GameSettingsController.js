@@ -4,7 +4,7 @@ const getGameSettings = async (req, res) => {
   try {
     const userId = req.userFromMiddleWare._id;
     const retrievedGameSettings = await GameSettings.find({ UserId: userId });
-    res.status(200).json(retrievedGameSettings);
+    res.status(200).json(retrievedGameSettings[0]);
   } catch (err) {
     res.status(400).json({ error: err.message });
   }

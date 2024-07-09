@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useGameSettingsContext } from "../../hooks";
+import { useGameSettingsContext, useUpdateGameSettings } from "../../hooks";
 import {
   Select,
   Kbd,
@@ -7,9 +7,11 @@ import {
   Modal,
   ModalBody,
   ModalHeader,
+  Button,
 } from "flowbite-react";
 import { Drawer } from "flowbite-react";
 import { HiOutlineCog } from "react-icons/hi";
+import { FaCheck, FaXmark } from "react-icons/fa6";
 
 const KeyPressRecorder = (props) => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -47,7 +49,7 @@ const KeyPressRecorder = (props) => {
   );
 };
 
-const GameSettingsBox = () => {
+const GameSettingsBox = (props) => {
   const { gameSettings } = useGameSettingsContext();
   const [UserId, setUserId] = useState(gameSettings.UserId);
   const [BackgroundType, setBackgroundType] = useState(
@@ -67,7 +69,24 @@ const GameSettingsBox = () => {
   const [JumpKey, setJumpKey] = useState(gameSettings.JumpKey);
   const [BackwardKey, setBackwardKey] = useState(gameSettings.BackwardKey);
   const [ForwardKey, setForwardKey] = useState(gameSettings.ForwardKey);
-
+  const { UpdateGameSettings } = useUpdateGameSettings();
+  const saveChangedSettings = async () => {
+    await UpdateGameSettings({
+      UserId,
+      BackgroundType,
+      CharacterType,
+      MuteBackgroundMusic,
+      MuteEffects,
+      DebugKey,
+      PauseKey,
+      RollKey,
+      CrouchKey,
+      JumpKey,
+      BackwardKey,
+      ForwardKey,
+    });
+    props.closeDrawer();
+  };
   return (
     <>
       <div className="flex flex-col gap-2 w-fit">
@@ -184,6 +203,14 @@ const GameSettingsBox = () => {
             {ForwardKey}
           </KeyPressRecorder>
         </div>
+        <div className="flex gap-5 justify-center">
+          <Button gradientMonochrome="success" onClick={saveChangedSettings}>
+            <FaCheck />
+          </Button>
+          <Button gradientMonochrome="failure">
+            <FaXmark />
+          </Button>
+        </div>
       </div>
     </>
   );
@@ -204,7 +231,12 @@ export const GameSettingsDrawer = (props) => {
     >
       <Drawer.Header title="Game Settings" titleIcon={HiOutlineCog} />
       <Drawer.Items>
-        {gameSettings && <GameSettingsBox key={gameSettingsBoxKey} />}
+        {gameSettings && (
+          <GameSettingsBox
+            key={gameSettingsBoxKey}
+            closeDrawer={handleDrawerClose}
+          />
+        )}
       </Drawer.Items>
     </Drawer>
   );
