@@ -39,7 +39,9 @@ const KeyPressRecorder = (props) => {
         }}
       >
         <ModalHeader>Key Selection</ModalHeader>
-        <ModalBody>{props.children}</ModalBody>
+        <ModalBody className="text-center text-2xl">
+          - Press Any Key -
+        </ModalBody>
       </Modal>
     </>
   );
@@ -189,10 +191,21 @@ const GameSettingsBox = () => {
 
 export const GameSettingsDrawer = (props) => {
   const { gameSettings } = useGameSettingsContext();
+  const [gameSettingsBoxKey, setGameSettingsBoxKey] = useState(1);
+  const handleDrawerClose = () => {
+    setGameSettingsBoxKey((gameSettingsBoxKey + 1) % 10); //im changing the key so that the GameSettingsBox Component will re-render when opening and closing the drawer. Im doing this to make sure that the gameSettigns stored in the game settings contenxt is loaded up everytime that the drawer is opened.
+    props.onClose();
+  };
   return (
-    <Drawer open={props.open} onClose={props.onClose} position={props.position}>
+    <Drawer
+      open={props.open}
+      onClose={handleDrawerClose}
+      position={props.position}
+    >
       <Drawer.Header title="Game Settings" titleIcon={HiOutlineCog} />
-      <Drawer.Items>{gameSettings && <GameSettingsBox />}</Drawer.Items>
+      <Drawer.Items>
+        {gameSettings && <GameSettingsBox key={gameSettingsBoxKey} />}
+      </Drawer.Items>
     </Drawer>
   );
 };
