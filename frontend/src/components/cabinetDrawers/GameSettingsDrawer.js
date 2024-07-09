@@ -1,9 +1,50 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useGameSettingsContext } from "../../hooks";
-import { Select, Kbd, Label } from "flowbite-react";
+import {
+  Select,
+  Kbd,
+  Label,
+  Modal,
+  ModalBody,
+  ModalHeader,
+} from "flowbite-react";
 import { Drawer } from "flowbite-react";
 import { HiOutlineCog } from "react-icons/hi";
-import { GiSave, GiLoad, GiCycle } from "react-icons/gi";
+
+const KeyPressRecorder = (props) => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+  const captureKeyPress = (key) => {
+    props.setKeyMethod(key);
+    setModalOpen(false);
+  };
+  return (
+    <>
+      <Kbd
+        className=" rounded-2xl text-lg text-center min-w-32"
+        onClick={openModal}
+      >
+        {props.children}
+      </Kbd>
+      <Modal
+        show={modalOpen}
+        onClose={handleModalClose}
+        onKeyDown={(e) => {
+          captureKeyPress(e.key);
+        }}
+      >
+        <ModalHeader>Key Selection</ModalHeader>
+        <ModalBody>{props.children}</ModalBody>
+      </Modal>
+    </>
+  );
+};
+
 const GameSettingsBox = () => {
   const { gameSettings } = useGameSettingsContext();
   const [UserId, setUserId] = useState(gameSettings.UserId);
@@ -89,57 +130,57 @@ const GameSettingsBox = () => {
           <span className="w-40">
             <Label value="Debug Key" />
           </span>
-          <Kbd className=" rounded-2xl text-lg text-center min-w-32">
+          <KeyPressRecorder setKeyMethod={setDebugKey}>
             {DebugKey}
-          </Kbd>
+          </KeyPressRecorder>
         </div>
         <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Pause Key" />
           </span>
-          <Kbd className=" rounded-2xl text-lg text-center min-w-32">
+          <KeyPressRecorder setKeyMethod={setPauseKey}>
             {PauseKey}
-          </Kbd>
+          </KeyPressRecorder>
         </div>
         <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Roll Key" />
           </span>
-          <Kbd className=" rounded-2xl text-lg text-center min-w-32">
+          <KeyPressRecorder setKeyMethod={setRollKey}>
             {RollKey}
-          </Kbd>
+          </KeyPressRecorder>
         </div>
         <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Crouch Key" />
           </span>
-          <Kbd className=" rounded-2xl text-lg text-center min-w-32">
+          <KeyPressRecorder setKeyMethod={setCrouchKey}>
             {CrouchKey}
-          </Kbd>
+          </KeyPressRecorder>
         </div>
         <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Jump Key" />
           </span>
-          <Kbd className=" rounded-2xl text-lg text-center min-w-32">
+          <KeyPressRecorder setKeyMethod={setJumpKey}>
             {JumpKey}
-          </Kbd>
+          </KeyPressRecorder>
         </div>
         <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Backward" />
           </span>
-          <Kbd className=" rounded-2xl text-lg text-center min-w-32">
+          <KeyPressRecorder setKeyMethod={setBackwardKey}>
             {BackwardKey}
-          </Kbd>
+          </KeyPressRecorder>
         </div>
         <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Forward Key" />
           </span>
-          <Kbd className=" rounded-2xl text-lg text-center min-w-32">
+          <KeyPressRecorder setKeyMethod={setForwardKey}>
             {ForwardKey}
-          </Kbd>
+          </KeyPressRecorder>
         </div>
       </div>
     </>
