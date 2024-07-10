@@ -51,6 +51,9 @@ export class GameState {
       this.UIHandler.pauseScreen();
     }
   }
+  UpdateGameSettings(newSettings) {
+    this.keyboardConfig.setKeyBoardConfiguration(newSettings);
+  }
   Restart() {
     this.exitGameLoop = true;
     this.score = 0;

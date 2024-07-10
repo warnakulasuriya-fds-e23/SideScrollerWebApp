@@ -10,5 +10,13 @@ export class KeyBoardConfiguration {
       PAUSE: "Escape",
     };
   }
-  //implement setters to configure buttons for relevant key press
+  setKeyBoardConfiguration(newSettings) {
+    this.keySettings.FORWARD = newSettings.ForwardKey;
+    this.keySettings.BACKWARD = newSettings.BackwardKey;
+    this.keySettings.JUMP = newSettings.JumpKey;
+    this.keySettings.CROUCH = newSettings.CrouchKey;
+    this.keySettings.ROLL = newSettings.RollKey;
+    this.keySettings.DEBUGMODE = newSettings.DebugKey;
+    this.keySettings.PAUSE = newSettings.PauseKey;
+  }
 }

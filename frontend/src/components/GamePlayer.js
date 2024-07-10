@@ -44,7 +44,9 @@ export const GamePlayer = () => {
   };
 
   // Right Cabinet Methods to interact with game state
-  const gameSettings = () => {};
+  const UpdateGameSettings = (newSettings) => {
+    gameRef.current.UpdateGameSettings(newSettings);
+  };
   const saveGame = () => {};
   const loadGame = () => {};
   const restartGame = () => {
@@ -85,7 +87,7 @@ export const GamePlayer = () => {
 
       <RightCabinet
         togglePauseGameMethod={togglePauseGame}
-        gameSettingsMethod={gameSettings}
+        gameSettingsMethod={UpdateGameSettings}
         saveGameMethod={saveGame}
         loadGameMethod={loadGame}
         restartGameMethod={restartGame}

@@ -85,6 +85,20 @@ const GameSettingsBox = (props) => {
       BackwardKey,
       ForwardKey,
     });
+    props.gameSettingsMethod({
+      UserId,
+      BackgroundType,
+      CharacterType,
+      MuteBackgroundMusic,
+      MuteEffects,
+      DebugKey,
+      PauseKey,
+      RollKey,
+      CrouchKey,
+      JumpKey,
+      BackwardKey,
+      ForwardKey,
+    });
     props.closeDrawer();
   };
   return (
@@ -235,6 +249,7 @@ export const GameSettingsDrawer = (props) => {
           <GameSettingsBox
             key={gameSettingsBoxKey}
             closeDrawer={handleDrawerClose}
+            gameSettingsMethod={props.gameSettingsMethod}
           />
         )}
       </Drawer.Items>
