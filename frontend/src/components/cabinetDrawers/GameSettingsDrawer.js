@@ -207,7 +207,7 @@ const GameSettingsBox = (props) => {
           <Button gradientMonochrome="success" onClick={saveChangedSettings}>
             <FaCheck />
           </Button>
-          <Button gradientMonochrome="failure">
+          <Button gradientMonochrome="failure" onClick={props.closeDrawer}>
             <FaXmark />
           </Button>
         </div>
