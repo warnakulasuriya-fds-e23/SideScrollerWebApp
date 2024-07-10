@@ -55,7 +55,9 @@ export const GamePlayer = () => {
   const UpdateGameSettings = (newSettings) => {
     gameRef.current.UpdateGameSettings(newSettings);
   };
-  const saveGame = () => {};
+  const saveGame = () => {
+    return gameRef.current;
+  };
   const loadGame = () => {};
   const restartGame = () => {
     gameRef.current.Restart();

@@ -2,13 +2,21 @@ import React, { useState } from "react";
 import { Button, Tooltip } from "flowbite-react";
 import { HiOutlineCog } from "react-icons/hi";
 import { GiSave, GiLoad, GiCycle } from "react-icons/gi";
-import { GameSettingsDrawer, RestartGameDrawer } from "./cabinetDrawers";
+import {
+  GameSettingsDrawer,
+  RestartGameDrawer,
+  SaveGameDrawer,
+} from "./cabinetDrawers";
 export const RightCabinet = (props) => {
   const [gameSettingsOpen, setGameSettingsOpen] = useState(false);
+  const [saveGameOpen, setSaveGameOpen] = useState(false);
   const [restartGameOpen, setRestartGameOpen] = useState(false);
   const handleGameSettingsClose = () => {
     setGameSettingsOpen(false);
     props.togglePauseGameMethod();
+  };
+  const handleSaveGameClose = () => {
+    setSaveGameOpen(false);
   };
   const handleRestartGameClose = () => {
     setRestartGameOpen(false);
@@ -34,7 +42,10 @@ export const RightCabinet = (props) => {
             <Button
               className="transform hover:scale-150 hover:-translate-x-5 transition ease-linear duration-300"
               color="blue"
-              onClick={props.saveGameMethod}
+              onClick={() => {
+                setSaveGameOpen(true);
+                props.togglePauseGameMethod();
+              }}
             >
               <GiSave className="size-3 sm:size-6 " />
             </Button>
@@ -68,6 +79,12 @@ export const RightCabinet = (props) => {
         onClose={handleGameSettingsClose}
         position="right"
         gameSettingsMethod={props.gameSettingsMethod}
+      />
+      <SaveGameDrawer
+        open={saveGameOpen}
+        onClose={handleSaveGameClose}
+        position="right"
+        saveGameMethod={props.saveGameMethod}
       />
       <RestartGameDrawer
         open={restartGameOpen}
