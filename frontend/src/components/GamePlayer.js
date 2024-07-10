@@ -48,6 +48,7 @@ export const GamePlayer = () => {
   const stopGame = () => {
     gameRef.current.Stop();
     navigate("/*");
+    window.location.reload();
   };
 
   // Right Cabinet Methods to interact with game state
