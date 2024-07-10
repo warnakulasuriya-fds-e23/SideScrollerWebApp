@@ -12,6 +12,7 @@ export class GameState {
     this.keyboardConfig = new KeyBoardConfiguration();
     this.paused = false;
     this.exitGameLoop = false;
+    this.stopGame = false;
     this.width = width;
     this.height = height;
     this.score = 0;
@@ -68,5 +69,8 @@ export class GameState {
     this.collisionHandler = new CollisionHandler(this);
     this.PickUpHandler = new PickUpHandler(this);
     this.exitGameLoop = false;
+  }
+  Stop() {
+    this.stopGame = true;
   }
 }

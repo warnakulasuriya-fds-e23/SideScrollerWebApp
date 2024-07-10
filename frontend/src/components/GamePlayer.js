@@ -25,6 +25,7 @@ export const GamePlayer = () => {
       gameRef.current = new GameState(canvas.width, canvas.height);
       gameRef.current.UpdateGameSettings(gameSettings); // updates to the latest settings loaded from database into the gameSettings Context
       let lastTime = 0;
+      let animationLoop = null;
       function animate(timeStamp) {
         let deltaTime = timeStamp - lastTime;
         lastTime = timeStamp;
@@ -33,9 +34,11 @@ export const GamePlayer = () => {
           gameRef.current.update(deltaTime);
           gameRef.current.draw(ctx);
         }
-        if (!gameRef.current.exitGameLoop) {
-          console.log("game is running");
-          requestAnimationFrame(animate); //this function passes the current time stamp to the animate function automatically
+        if (!gameRef.current.exitGameLoop || !gameRef.current.stopGame) {
+          animationLoop = requestAnimationFrame(animate); //this function passes the current time stamp to the animate function automatically
+        }
+        if (gameRef.current.stopGame) {
+          window.cancelAnimationFrame(animationLoop);
         }
       }
       animate(0);
@@ -43,6 +46,7 @@ export const GamePlayer = () => {
     }
   };
   const stopGame = () => {
+    gameRef.current.Stop();
     navigate("/*");
   };
 
