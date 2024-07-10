@@ -4,7 +4,9 @@ import { RightCabinet } from "./RightCabinet";
 import { useNavigate } from "react-router-dom";
 import { Button } from "flowbite-react";
 import { GameState } from "../GameFiles/GameState.js";
+import { useGameSettingsContext } from "../hooks/useGameSettingsContext.js";
 export const GamePlayer = () => {
+  const { gameSettings } = useGameSettingsContext();
   const navigate = useNavigate();
   const [isGameRunning, setIsGameRunnig] = useState(false);
   const gameRef = useRef(null);
@@ -21,6 +23,7 @@ export const GamePlayer = () => {
       canvas.height = 500;
 
       gameRef.current = new GameState(canvas.width, canvas.height);
+      gameRef.current.UpdateGameSettings(gameSettings); // updates to the latest settings loaded from database into the gameSettings Context
       let lastTime = 0;
       function animate(timeStamp) {
         let deltaTime = timeStamp - lastTime;
