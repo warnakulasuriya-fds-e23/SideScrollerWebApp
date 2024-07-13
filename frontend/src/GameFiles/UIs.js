@@ -1,7 +1,7 @@
 class UIComponent {
   constructor(game) {
-    this.game = game;
-    this.player = game.player;
+    this.gameReref = game;
+    this.playerReref = game.player;
     this.verticalGap = 20;
     this.markedForDeletion = false;
   }
@@ -13,7 +13,8 @@ export class HealthComponenet extends UIComponent {
     this.fontSize = 20;
     this.fontFamily = "Arial";
     this.fontColor = "black";
-    this.healthPercent = this.game.player.playerHealthHandler.HealthPercentage;
+    this.healthPercent =
+      this.gameReref.player.playerHealthHandler.HealthPercentage;
   }
   HealthBarColor() {
     if (this.healthPercent > 75) return "#009900";
@@ -22,7 +23,8 @@ export class HealthComponenet extends UIComponent {
     else return "#cc0000";
   }
   update() {
-    this.healthPercent = this.game.player.playerHealthHandler.HealthPercentage;
+    this.healthPercent =
+      this.gameReref.player.playerHealthHandler.HealthPercentage;
   }
   draw(context) {
     context.save();
@@ -52,10 +54,12 @@ export class EnergyComponent extends UIComponent {
     this.fontSize = 20;
     this.fontFamily = "Arial";
     this.fontColor = "black";
-    this.energyPercent = this.game.player.playerEnergyHandler.energyPercent;
+    this.energyPercent =
+      this.gameReref.player.playerEnergyHandler.energyPercent;
   }
   update() {
-    this.energyPercent = this.game.player.playerEnergyHandler.energyPercent;
+    this.energyPercent =
+      this.gameReref.player.playerEnergyHandler.energyPercent;
   }
   draw(context) {
     context.save();
@@ -93,7 +97,11 @@ export class ScoreComponent extends UIComponent {
     context.fillStyle = this.fontColor;
     context.fillText("Score    :", 20, this.verticalGap * 3);
     context.fillStyle = "#006bb3";
-    context.fillText("<" + this.game.score + ">", 100, this.verticalGap * 3);
+    context.fillText(
+      "<" + this.gameReref.score + ">",
+      100,
+      this.verticalGap * 3
+    );
     context.restore();
   }
 }
@@ -106,7 +114,7 @@ export class TimeComponent extends UIComponent {
     this.fontColor = "black";
   }
   timeToDisplay() {
-    let totSeconds = this.game.gameTime / 1000;
+    let totSeconds = this.gameReref.gameTime / 1000;
     let hours = Math.floor(totSeconds / 3600);
     let minutes = Math.floor((totSeconds % 3600) / 60);
     let seconds = Math.floor((totSeconds % 3600) % 60);
@@ -132,23 +140,23 @@ export class TimeComponent extends UIComponent {
 export class HitPopup extends UIComponent {
   constructor(enemy) {
     super(enemy.game);
-    this.enemy = enemy;
+    this.enemyReref = enemy;
     this.fontSize = 150;
     this.fontFamily = "Arial";
     this.fontColor = "#006bb3";
-    this.spawnX = this.enemy.posX + this.enemy.spriteWidth;
-    this.spawnY = this.enemy.posY + this.enemy.spriteHeight;
+    this.spawnX = this.enemyReref.posX + this.enemyReref.spriteWidth;
+    this.spawnY = this.enemyReref.posY + this.enemyReref.spriteHeight;
     this.posX = this.spawnX;
     this.posY = this.spawnY;
     this.xVleocity = 0;
     this.yVleocity = -10;
   }
   PopUpValue() {
-    if (this.enemy.name == "Fly") {
+    if (this.enemyReref.name == "Fly") {
       return "+1";
-    } else if (this.enemy.name == "Plant") {
+    } else if (this.enemyReref.name == "Plant") {
       return "+2";
-    } else if (this.enemy.name == "Spider_Big") {
+    } else if (this.enemyReref.name == "Spider_Big") {
       return "+3";
     } else return "+NotDefined";
   }
@@ -173,21 +181,23 @@ export class HitPopup extends UIComponent {
 export class HealthUpPopUp extends UIComponent {
   constructor(pickUp) {
     super(pickUp.game);
-    this.pickUp = pickUp;
+    this.pickUpReref = pickUp;
     this.fontSize = 150;
     this.fontFamily = "Arial";
     this.fontColor = "green";
     this.spawnX =
-      this.pickUp.posX + this.pickUp.spriteWidth * this.pickUp.sizeModifier;
+      this.pickUpReref.posX +
+      this.pickUpReref.spriteWidth * this.pickUpReref.sizeModifier;
     this.spawnY =
-      this.pickUp.posY + this.pickUp.spriteHeight * this.pickUp.sizeModifier;
+      this.pickUpReref.posY +
+      this.pickUpReref.spriteHeight * this.pickUpReref.sizeModifier;
     this.posX = this.spawnX;
     this.posY = this.spawnY;
     this.xVleocity = 0;
     this.yVleocity = -10;
   }
   PopUpValue() {
-    if (this.pickUp.name == "HealthPickUp") {
+    if (this.pickUpReref.name == "HealthPickUp") {
       return "+30";
     } else return "+NotDefined";
   }

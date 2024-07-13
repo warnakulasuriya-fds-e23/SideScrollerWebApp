@@ -15,15 +15,15 @@ export class PlayerStateHandler {
   constructor(player) {
     this.playerReref = player;
     this.states = [
-      new Sitting(player), // [Checked for circular references] [Checked for places that use .game and .player]
-      new Running(player), // [Checked for circular references] [Checked for places that use .game and .player]
-      new Jumping(player), // [Checked for circular references] [Checked for places that use .game and .player]
-      new Falling(player), // [Checked for circular references] [Checked for places that use .game and .player]
-      new Idling(player), // [Checked for circular references] [Checked for places that use .game and .player]
-      new Rolling(player), // [Checked for circular references] [Checked for places that use .game and .player]
-      new Diving(player), // [Checked for circular references] [Checked for places that use .game and .player]
-      new GotHit(player), // [Checked for circular references] [Checked for places that use .game and .player]
-      new HyperSpeed(player), // [Checked for circular references] [Checked for places that use .game and .player]
+      new Sitting(player), // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
+      new Running(player), // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
+      new Jumping(player), // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
+      new Falling(player), // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
+      new Idling(player), // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
+      new Rolling(player), // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
+      new Diving(player), // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
+      new GotHit(player), // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
+      new HyperSpeed(player), // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
     ];
     this.stateNums = stateNums;
     this.previousState = this.states[4];

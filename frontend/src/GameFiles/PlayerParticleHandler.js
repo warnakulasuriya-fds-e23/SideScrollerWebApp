@@ -19,23 +19,23 @@ export class PlayerParticleHandler {
     );
   }
   addDustParticle() {
-    this.currentlyActiveParticles.unshift(new DustParticle(this.playerReref)); // [Checked for circular references] [Checked for places that use .game and .player]
+    this.currentlyActiveParticles.unshift(new DustParticle(this.playerReref)); // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
   }
   addFireParticle() {
-    this.currentlyActiveParticles.unshift(new FireParticle(this.playerReref)); // [Checked for circular references] [Checked for places that use .game and .player]
+    this.currentlyActiveParticles.unshift(new FireParticle(this.playerReref)); // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
   }
   addSplashParticles() {
     //will be called within the handleKeyBoardInput method of the Diving class
     this.clearCurrentParticles();
     for (let i = 1; i <= 100; i++) {
       this.currentlyActiveParticles.unshift(
-        new SplashParticle(this.playerReref) // [Checked for circular references] [Checked for places that use .game and .player]
+        new SplashParticle(this.playerReref) // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
       );
     }
   }
   addVerticalShockWave() {
     this.currentlyActiveParticles.unshift(
-      new VerticalShockWave(this.playerReref) // [Checked for circular references] [Checked for places that use .game and .player]
+      new VerticalShockWave(this.playerReref) // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
     );
   }
   update(deltaTime) {

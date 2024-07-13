@@ -1,7 +1,7 @@
 import { HealthPickUp, SpeedBoostPickUp } from "./PickUps.js";
 export class PickUpHandler {
   constructor(game) {
-    this.game = game;
+    this.gameReref = game;
     this.currentlyActivePickUps = [];
     this.healthPickUpTimer = 0;
     this.healthPickUpInterval = 60000 * Math.random();
@@ -9,7 +9,8 @@ export class PickUpHandler {
     this.speedBoostPickUpInterval = 120000 * Math.random();
   }
   healthPickUpSpawner(deltaTime) {
-    let HealthPercent = this.game.player.playerHealthHandler.HealthPercentage;
+    let HealthPercent =
+      this.gameReref.player.playerHealthHandler.HealthPercentage;
 
     if (
       this.healthPickUpTimer > this.healthPickUpInterval &&
@@ -18,7 +19,7 @@ export class PickUpHandler {
     ) {
       this.healthPickUpTimer = 0;
       this.healthPickUpInterval = 60000 * Math.random();
-      this.currentlyActivePickUps.push(new HealthPickUp(this.game));
+      this.currentlyActivePickUps.push(new HealthPickUp(this.gameReref)); // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
     } else {
       this.healthPickUpTimer += deltaTime;
     }
@@ -26,13 +27,14 @@ export class PickUpHandler {
   speedBoostPickUpSpawner(deltaTime) {
     if (
       this.speedBoostPickUpTimer > this.speedBoostPickUpInterval &&
-      this.game.speedFraction > 0 &&
-      this.game.player.playerStateHandler.currentState.state != "HYPERSPEED" &&
+      this.gameReref.speedFraction > 0 &&
+      this.gameReref.player.playerStateHandler.currentState.state !=
+        "HYPERSPEED" &&
       Math.random() > 0.5
     ) {
       this.speedBoostPickUpTimer = 0;
       this.speedBoostPickUpInterval = 120000 * Math.random();
-      this.currentlyActivePickUps.push(new SpeedBoostPickUp(this.game));
+      this.currentlyActivePickUps.push(new SpeedBoostPickUp(this.gameReref)); // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
     } else {
       this.speedBoostPickUpTimer += deltaTime;
     }

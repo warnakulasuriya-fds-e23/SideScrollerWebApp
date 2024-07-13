@@ -1,6 +1,6 @@
 class pickUpParticle {
   constructor(pickUp) {
-    this.pickUp = pickUp;
+    this.pickUpReref = pickUp;
     this.markedForDeletion = false;
   }
 }
@@ -12,18 +12,21 @@ export class HealthStar extends pickUpParticle {
     this.spriteWidth = 535;
     this.spriteHeight = 535;
     this.spawnX =
-      this.pickUp.posX -
+      this.pickUpReref.posX -
       20 +
-      this.pickUp.spriteWidth * this.pickUp.sizeModifier * Math.random();
+      this.pickUpReref.spriteWidth *
+        this.pickUpReref.sizeModifier *
+        Math.random();
     this.spawnY =
-      this.pickUp.posY + this.pickUp.spriteHeight * this.pickUp.sizeModifier;
+      this.pickUpReref.posY +
+      this.pickUpReref.spriteHeight * this.pickUpReref.sizeModifier;
     this.posX = this.spawnX;
     this.posY = this.spawnY;
     this.yVelocity = -1;
     this.size = 0.05;
   }
   update() {
-    this.posX += this.pickUp.xVelocity;
+    this.posX += this.pickUpReref.xVelocity;
     this.posY += this.yVelocity;
     this.size -= 0.0005;
     if (this.size < 0.001) {
@@ -54,18 +57,21 @@ export class SpeedBoostStar extends pickUpParticle {
     this.spriteWidth = 545;
     this.spriteHeight = 545;
     this.spawnX =
-      this.pickUp.posX -
+      this.pickUpReref.posX -
       20 +
-      this.pickUp.spriteWidth * this.pickUp.sizeModifier * Math.random();
+      this.pickUpReref.spriteWidth *
+        this.pickUpReref.sizeModifier *
+        Math.random();
     this.spawnY =
-      this.pickUp.posY + this.pickUp.spriteHeight * this.pickUp.sizeModifier;
+      this.pickUpReref.posY +
+      this.pickUpReref.spriteHeight * this.pickUpReref.sizeModifier;
     this.posX = this.spawnX;
     this.posY = this.spawnY;
     this.yVelocity = -1;
     this.size = 0.05;
   }
   update() {
-    this.posX += this.pickUp.xVelocity;
+    this.posX += this.pickUpReref.xVelocity;
     this.posY += this.yVelocity;
     this.size -= 0.0005;
     if (this.size < 0.001) {

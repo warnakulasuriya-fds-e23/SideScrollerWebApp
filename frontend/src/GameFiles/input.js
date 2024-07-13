@@ -1,7 +1,7 @@
 export class InputHandler {
   constructor(game) {
-    this.game = game;
-    this.keySettings = this.game.keyboardConfig.keySettings;
+    this.gameReref = game;
+    this.keySettings = this.gameReref.keyboardConfig.keySettings;
     this.keys = [];
     window.addEventListener("keydown", (e) => {
       if (
@@ -14,19 +14,19 @@ export class InputHandler {
       ) {
         this.keys.push(e.key);
       } else if (e.key == this.keySettings["DEBUGMODE"]) {
-        this.game.debugMode = !this.game.debugMode;
+        this.gameReref.debugMode = !this.gameReref.debugMode;
       }
 
       if (e.key == this.keySettings["PAUSE"]) {
-        this.game.paused = !this.game.paused;
-        if (this.game.paused) {
-          this.game.UIHandler.pauseScreen();
+        this.gameReref.paused = !this.gameReref.paused;
+        if (this.gameReref.paused) {
+          this.gameReref.UIHandler.pauseScreen();
         }
       }
     });
     window.addEventListener("keyup", (e) => {
       if (e.key == this.keySettings["JUMP"]) {
-        this.game.player.playerMovementHandler.interuptJump();
+        this.gameReref.player.playerMovementHandler.interuptJump();
       }
 
       if (

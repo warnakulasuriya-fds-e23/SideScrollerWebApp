@@ -1,7 +1,7 @@
 export class CollisionAnimation {
   constructor(enemy) {
-    this.enemy = enemy;
-    this.game = enemy.game;
+    this.enemyReref = enemy;
+    this.gameReref = enemy.game;
     this.sizeModifier = Math.random() + 0.5;
     this.frameX = 0;
     this.frameY = 0;
@@ -12,7 +12,7 @@ export class CollisionAnimation {
     this.frameTimer = 0;
   }
   update(deltaTime) {
-    this.posX -= this.game.maxSpeed;
+    this.posX -= this.gameReref.maxSpeed;
     if (this.frameTimer > this.frameInterval) {
       this.frameTimer = 0;
       this.frameX++;
@@ -48,7 +48,7 @@ export class ExplosionCollision extends CollisionAnimation {
     this.totalSpriteFrames = 5;
     this.modifiedWidth = this.spriteWidth * this.sizeModifier;
     this.modifiedHeight = this.spriteHeight * this.sizeModifier;
-    this.posX = this.enemy.posX - this.modifiedWidth * 0.5;
-    this.posY = this.enemy.posY - this.modifiedHeight * 0.5;
+    this.posX = this.enemyReref.posX - this.modifiedWidth * 0.5;
+    this.posY = this.enemyReref.posY - this.modifiedHeight * 0.5;
   }
 }

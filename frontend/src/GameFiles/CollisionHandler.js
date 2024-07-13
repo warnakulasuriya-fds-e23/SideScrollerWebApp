@@ -2,58 +2,58 @@ import { CollisionAnimationHandler } from "./CollisionAnimationHandler.js";
 
 export class CollisionHandler {
   constructor(game) {
-    this.game = game;
-    this.player = game.player;
-    this.collisionAnimationHandler = new CollisionAnimationHandler(game);
+    this.gameReref = game;
+    this.playerReref = game.player;
+    this.collisionAnimationHandler = new CollisionAnimationHandler(game); // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
   }
   increaseScoreAccordingToEnemy(enemy) {
     if (enemy.name == "Fly") {
-      this.game.score += 1;
-      this.game.UIHandler.addHitPopUp(enemy);
+      this.gameReref.score += 1;
+      this.gameReref.UIHandler.addHitPopUp(enemy);
     } else if (enemy.name == "Plant") {
-      this.game.score += 2;
-      this.game.UIHandler.addHitPopUp(enemy);
+      this.gameReref.score += 2;
+      this.gameReref.UIHandler.addHitPopUp(enemy);
     } else if (enemy.name == "Spider_Big") {
-      this.game.score += 3;
-      this.game.UIHandler.addHitPopUp(enemy);
+      this.gameReref.score += 3;
+      this.gameReref.UIHandler.addHitPopUp(enemy);
     }
   }
   UsePicKUp(pickUp) {
     if (pickUp.name == "HealthPickUp") {
       pickUp.UseOnPlayer();
-      this.game.UIHandler.addHealthUpPopUp(pickUp);
+      this.gameReref.UIHandler.addHealthUpPopUp(pickUp);
     } else if (pickUp.name == "SpeedBoostPickUp") {
       pickUp.UseOnPlayer();
     }
   }
   playerCollisionWithEnemyDetection() {
-    this.game.enemyHandler.currentlyActiveEnemies.forEach((enemy) => {
+    this.gameReref.enemyHandler.currentlyActiveEnemies.forEach((enemy) => {
       if (
-        enemy.posX < this.player.posX + this.player.spriteWidth &&
-        enemy.posX > this.player.posX &&
-        enemy.posY < this.player.posY + this.player.spriteHeight &&
-        enemy.posY > this.player.posY
+        enemy.posX < this.playerReref.posX + this.playerReref.spriteWidth &&
+        enemy.posX > this.playerReref.posX &&
+        enemy.posY < this.playerReref.posY + this.playerReref.spriteHeight &&
+        enemy.posY > this.playerReref.posY
       ) {
         enemy.markedForDeletion = true;
         this.collisionAnimationHandler.addExplosionCollision(enemy);
         if (
-          this.player.playerStateHandler.currentState.state == "ROLLING" ||
-          this.player.playerStateHandler.currentState.state == "DIVING" ||
-          this.player.playerStateHandler.currentState.state == "HYPERSPEED"
+          this.playerReref.playerStateHandler.currentState.state == "ROLLING" ||
+          this.playerReref.playerStateHandler.currentState.state == "DIVING" ||
+          this.playerReref.playerStateHandler.currentState.state == "HYPERSPEED"
         ) {
           this.increaseScoreAccordingToEnemy(enemy);
         } else {
-          this.player.playerHealthHandler.playerHealth -= 5;
+          this.playerReref.playerHealthHandler.playerHealth -= 5;
           let indexOfGotHit =
-            this.player.playerStateHandler.stateNums["GOTHIT"];
-          this.player.playerStateHandler.setState(indexOfGotHit);
+            this.playerReref.playerStateHandler.stateNums["GOTHIT"];
+          this.playerReref.playerStateHandler.setState(indexOfGotHit);
         }
       }
     });
   }
   attackParticleCollisionWithEnemyDetection() {
-    this.game.enemyHandler.currentlyActiveEnemies.forEach((enemy) => {
-      this.player.playerParticleHandler.currentlyActiveParticles.forEach(
+    this.gameReref.enemyHandler.currentlyActiveEnemies.forEach((enemy) => {
+      this.playerReref.playerParticleHandler.currentlyActiveParticles.forEach(
         (particle) => {
           if (
             enemy.posX < particle.posX + particle.size &&
@@ -70,12 +70,12 @@ export class CollisionHandler {
     });
   }
   playerCollisionWithPickUpDetection() {
-    this.game.PickUpHandler.currentlyActivePickUps.forEach((pickUp) => {
+    this.gameReref.PickUpHandler.currentlyActivePickUps.forEach((pickUp) => {
       if (
-        pickUp.posX < this.player.posX + this.player.spriteWidth &&
-        pickUp.posX > this.player.posX &&
-        pickUp.posY < this.player.posY + this.player.spriteHeight &&
-        pickUp.posY > this.player.posY
+        pickUp.posX < this.playerReref.posX + this.playerReref.spriteWidth &&
+        pickUp.posX > this.playerReref.posX &&
+        pickUp.posY < this.playerReref.posY + this.playerReref.spriteHeight &&
+        pickUp.posY > this.playerReref.posY
       ) {
         this.UsePicKUp(pickUp);
         pickUp.markedForDeletion = true;
@@ -83,9 +83,9 @@ export class CollisionHandler {
     });
   }
   collisionDetection() {
-    this.playerCollisionWithEnemyDetection();
+    this.playerRerefCollisionWithEnemyDetection();
     this.attackParticleCollisionWithEnemyDetection();
-    this.playerCollisionWithPickUpDetection();
+    this.playerRerefCollisionWithPickUpDetection();
   }
 
   update(deltaTime) {

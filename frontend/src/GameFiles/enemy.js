@@ -1,7 +1,7 @@
 //CHECK THE DRAW FUNCTIONS
 class Enemy {
   constructor(game) {
-    this.game = game;
+    this.gameReref = game;
     this.frameX = 0;
     this.frameY = 0;
     this.fps = 20;
@@ -11,7 +11,8 @@ class Enemy {
   }
   update(deltaTime) {
     //movement (the properties utilized here will be accessed from the child class in which the update method is called)
-    this.posX += this.xVelocity - this.game.maxSpeed * this.game.speedFraction;
+    this.posX +=
+      this.xVelocity - this.gameReref.maxSpeed * this.gameReref.speedFraction;
     this.posY += this.yVelocity;
 
     //sprite animation
@@ -31,7 +32,7 @@ class Enemy {
   }
   draw(context) {
     context.save();
-    if (this.game.debugMode) {
+    if (this.gameReref.debugMode) {
       context.strokeStyle = "red";
       context.strokeRect(
         this.posX,
@@ -134,7 +135,7 @@ export class Spider_Big extends ClimbingEnemy {
     super.update(deltaTime);
     if (
       this.posY >
-      this.game.height - this.game.groundMargin - this.spriteHeight
+      this.gameReref.height - this.gameReref.groundMargin - this.spriteHeight
     ) {
       this.yVelocity = -1;
     }

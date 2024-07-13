@@ -15,12 +15,12 @@ export class Player {
       this.gameReref.height - this.spriteHeight - this.gameReref.groundMargin;
     this.spriteSheet = document.getElementById("playerSprites");
     this.playerHealth = 100;
-    this.playerHealthHandler = new PlayerHealthHandler(this); // [Checked for circular references]
-    this.playerEnergyHandler = new PlayerEnergyHandler(this); // [Checked for circular references]
-    this.playerMovementHandler = new PlayerMovementHandler(this); // [Checked for circular references]
-    this.playerAnimationHandler = new PlayerAnimationHandler(this); // [Checked for circular references]
-    this.playerStateHandler = new PlayerStateHandler(this); // [Checked for circular references] [Checked for places that use .game and .player]
-    this.playerParticleHandler = new PlayerParticleHandler(this); // [Checked for circular references] [Checked for places that use .game and .player]
+    this.playerHealthHandler = new PlayerHealthHandler(this); // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
+    this.playerEnergyHandler = new PlayerEnergyHandler(this); // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
+    this.playerMovementHandler = new PlayerMovementHandler(this); // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
+    this.playerAnimationHandler = new PlayerAnimationHandler(this); // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
+    this.playerStateHandler = new PlayerStateHandler(this); // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
+    this.playerParticleHandler = new PlayerParticleHandler(this); // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
   }
   update(pressedDownKeys, deltaTime) {
     this.playerStateHandler.update(pressedDownKeys, deltaTime);

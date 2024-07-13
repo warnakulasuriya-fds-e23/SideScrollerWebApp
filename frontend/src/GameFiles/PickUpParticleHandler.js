@@ -2,16 +2,20 @@ import { HealthStar, SpeedBoostStar } from "./PickUpParticles.js";
 
 export class PickUpParticleHandler {
   constructor(pickUp) {
-    this.pickUp = pickUp;
+    this.pickUpReref = pickUp;
     this.currentlyActivePickUpParticles = [];
     this.pickUpParticleTimer = 0;
     this.pickUpParticleInterval = 200;
   }
   addPickUpParticle() {
-    if (this.pickUp.name == "HealthPickUp") {
-      this.currentlyActivePickUpParticles.push(new HealthStar(this.pickUp));
-    } else if (this.pickUp.name == "SpeedBoostPickUp") {
-      this.currentlyActivePickUpParticles.push(new SpeedBoostStar(this.pickUp));
+    if (this.pickUpReref.name == "HealthPickUp") {
+      this.currentlyActivePickUpParticles.push(
+        new HealthStar(this.pickUpReref) // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
+      );
+    } else if (this.pickUpReref.name == "SpeedBoostPickUp") {
+      this.currentlyActivePickUpParticles.push(
+        new SpeedBoostStar(this.pickUpReref) // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
+      );
     }
   }
   update(deltaTime) {
