@@ -13,17 +13,17 @@ import {
 
 export class PlayerStateHandler {
   constructor(player) {
-    this.player = player;
+    this.playerReref = player;
     this.states = [
-      new Sitting(player),
-      new Running(player),
-      new Jumping(player),
-      new Falling(player),
-      new Idling(player),
-      new Rolling(player),
-      new Diving(player),
-      new GotHit(player),
-      new HyperSpeed(player),
+      new Sitting(player), // [Checked for circular references] [Checked for places that use .game and .player]
+      new Running(player), // [Checked for circular references] [Checked for places that use .game and .player]
+      new Jumping(player), // [Checked for circular references] [Checked for places that use .game and .player]
+      new Falling(player), // [Checked for circular references] [Checked for places that use .game and .player]
+      new Idling(player), // [Checked for circular references] [Checked for places that use .game and .player]
+      new Rolling(player), // [Checked for circular references] [Checked for places that use .game and .player]
+      new Diving(player), // [Checked for circular references] [Checked for places that use .game and .player]
+      new GotHit(player), // [Checked for circular references] [Checked for places that use .game and .player]
+      new HyperSpeed(player), // [Checked for circular references] [Checked for places that use .game and .player]
     ];
     this.stateNums = stateNums;
     this.previousState = this.states[4];
@@ -39,6 +39,6 @@ export class PlayerStateHandler {
 
   update(pressedDownKeys, deltaTime) {
     this.deltaTime = deltaTime;
-    this.currentState.update(pressedDownKeys, this.player.keySettings);
+    this.currentState.update(pressedDownKeys, this.playerReref.keySettings);
   }
 }

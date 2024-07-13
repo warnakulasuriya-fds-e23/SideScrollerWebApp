@@ -7,7 +7,7 @@ import {
 
 export class PlayerParticleHandler {
   constructor(player) {
-    this.player = player;
+    this.playerReref = player;
     this.currentlyActiveParticles = [];
     this.maxParticles = 100;
     this.deltaTime = 0;
@@ -19,29 +19,35 @@ export class PlayerParticleHandler {
     );
   }
   addDustParticle() {
-    this.currentlyActiveParticles.unshift(new DustParticle(this.player));
+    this.currentlyActiveParticles.unshift(new DustParticle(this.playerReref)); // [Checked for circular references] [Checked for places that use .game and .player]
   }
   addFireParticle() {
-    this.currentlyActiveParticles.unshift(new FireParticle(this.player));
+    this.currentlyActiveParticles.unshift(new FireParticle(this.playerReref)); // [Checked for circular references] [Checked for places that use .game and .player]
   }
   addSplashParticles() {
     //will be called within the handleKeyBoardInput method of the Diving class
     this.clearCurrentParticles();
     for (let i = 1; i <= 100; i++) {
-      this.currentlyActiveParticles.unshift(new SplashParticle(this.player));
+      this.currentlyActiveParticles.unshift(
+        new SplashParticle(this.playerReref) // [Checked for circular references] [Checked for places that use .game and .player]
+      );
     }
   }
   addVerticalShockWave() {
-    this.currentlyActiveParticles.unshift(new VerticalShockWave(this.player));
+    this.currentlyActiveParticles.unshift(
+      new VerticalShockWave(this.playerReref) // [Checked for circular references] [Checked for places that use .game and .player]
+    );
   }
   update(deltaTime) {
     this.deltaTime = deltaTime;
-    if (this.player.playerStateHandler.currentState.state == "RUNNING") {
+    if (this.playerReref.playerStateHandler.currentState.state == "RUNNING") {
       this.addDustParticle();
-    } else if (this.player.playerStateHandler.currentState.state == "ROLLING") {
+    } else if (
+      this.playerReref.playerStateHandler.currentState.state == "ROLLING"
+    ) {
       this.addFireParticle();
     } else if (
-      this.player.playerStateHandler.currentState.state == "HYPERSPEED"
+      this.playerReref.playerStateHandler.currentState.state == "HYPERSPEED"
     ) {
       this.addVerticalShockWave();
     }

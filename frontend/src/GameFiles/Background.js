@@ -1,6 +1,6 @@
 class Layer {
   constructor(game, layerWidth, layerHeight, speedModifier, layerImage) {
-    this.game = game;
+    this.gameReref = game;
     this.layerWidth = layerWidth;
     this.layerHeight = layerHeight;
     this.speedModifier = speedModifier;
@@ -12,7 +12,9 @@ class Layer {
     if (this.posX < -this.layerWidth) this.posX = 0;
     else
       this.posX -=
-        this.game.maxSpeed * this.game.speedFraction * this.speedModifier;
+        this.gameReref.maxSpeed *
+        this.gameReref.speedFraction *
+        this.speedModifier;
   }
   draw(context) {
     //here we will be drawing the layer image twice to make things seamless
@@ -37,7 +39,7 @@ class Layer {
 
 export class Background {
   constructor(game) {
-    this.game = game;
+    this.gameReref = game;
     this.width = 1667;
     this.height = 500;
     this.layer1image = document.getElementById("layer1");
@@ -47,35 +49,35 @@ export class Background {
     this.layer5image = document.getElementById("layer5");
 
     this.layer1 = new Layer(
-      this.game,
+      this.gameReref,
       this.width,
       this.height,
       0,
       this.layer1image
     );
     this.layer2 = new Layer(
-      this.game,
+      this.gameReref,
       this.width,
       this.height,
       0.2,
       this.layer2image
     );
     this.layer3 = new Layer(
-      this.game,
+      this.gameReref,
       this.width,
       this.height,
       0.4,
       this.layer3image
     );
     this.layer4 = new Layer(
-      this.game,
+      this.gameReref,
       this.width,
       this.height,
       0.8,
       this.layer4image
     );
     this.layer5 = new Layer(
-      this.game,
+      this.gameReref,
       this.width,
       this.height,
       1,

@@ -12,7 +12,7 @@ const FullAutoAttackCosts = {
 
 export class PlayerEnergyHandler {
   constructor(player) {
-    this.player = player;
+    this.playerReref = player;
     this.playerEnergy = 200;
     this.maxEnergy = 200;
     this.energyPercent = (this.playerEnergy / this.maxEnergy) * 100;
@@ -28,7 +28,7 @@ export class PlayerEnergyHandler {
   update() {
     this.energyPercent = (this.playerEnergy / this.maxEnergy) * 100;
     let currentPlayerStateName =
-      this.player.playerStateHandler.currentState.state;
+      this.playerReref.playerStateHandler.currentState.state;
     if (_FullAutoAttacks.includes(currentPlayerStateName)) {
       this.fullAutoAttack(currentPlayerStateName);
     } else {

@@ -1,8 +1,8 @@
 export class PlayerMovementHandler {
   constructor(player) {
-    this.player = player;
-    this.game = player.game;
-    this.keySettings = this.game.keyboardConfig.keySettings;
+    this.playerReref = player;
+    this.gameReref = player.game;
+    this.keySettings = this.gameReref.keyboardConfig.keySettings;
     this.xVelocity = 0;
     this.max_xVelocity = 10;
     this.yVelocity = 0;
@@ -12,22 +12,30 @@ export class PlayerMovementHandler {
 
   boundaryHandling() {
     //stop player from going out of bounds from left side of screen
-    if (this.player.posX < 0) {
-      this.player.posX = 0;
+    if (this.playerReref.posX < 0) {
+      this.playerReref.posX = 0;
     }
 
     //stops player from going out of bounds from right side of screen
-    if (this.player.posX > this.game.width - this.player.spriteWidth) {
-      this.player.posX = this.game.width - this.player.spriteWidth;
+    if (
+      this.playerReref.posX >
+      this.gameReref.width - this.playerReref.spriteWidth
+    ) {
+      this.playerReref.posX =
+        this.gameReref.width - this.playerReref.spriteWidth;
     }
 
     //stops player from going below the ground margin
     if (
-      this.player.posY >
-      this.game.height - this.game.groundMargin - this.player.spriteHeight
+      this.playerReref.posY >
+      this.gameReref.height -
+        this.gameReref.groundMargin -
+        this.playerReref.spriteHeight
     ) {
-      this.player.posY =
-        this.game.height - this.game.groundMargin - this.player.spriteHeight;
+      this.playerReref.posY =
+        this.gameReref.height -
+        this.gameReref.groundMargin -
+        this.playerReref.spriteHeight;
     }
   }
 
@@ -43,12 +51,14 @@ export class PlayerMovementHandler {
     }
   }
   midAirMovement() {
-    this.player.posY = this.game.height / 2;
+    this.playerReref.posY = this.gameReref.height / 2;
   }
   horizontalMotion(pressedDownKeys) {
-    if (this.player.playerStateHandler.currentState.state == "ROLLING") {
+    if (this.playerReref.playerStateHandler.currentState.state == "ROLLING") {
       this.setPlayerSpeedMode("FAST");
-    } else if (this.player.playerStateHandler.currentState.state == "GOTHIT") {
+    } else if (
+      this.playerReref.playerStateHandler.currentState.state == "GOTHIT"
+    ) {
       this.setPlayerSpeedMode("STOPPED");
     } else {
       this.setPlayerSpeedMode("NORMAL");
@@ -67,7 +77,7 @@ export class PlayerMovementHandler {
     } else {
       this.xVelocity = 0;
     }
-    this.player.posX += this.xVelocity; //motion along x axis
+    this.playerReref.posX += this.xVelocity; //motion along x axis
     this.boundaryHandling();
   }
 
@@ -75,26 +85,28 @@ export class PlayerMovementHandler {
     /*will be executed if the player releases the jump button
     intended effect of interrupting the jump midway, is to make it so that 
     the longer the user presses Jump the higher the character will jump*/
-    if (this.player.playerStateHandler.currentState.state == "JUMPING") {
+    if (this.playerReref.playerStateHandler.currentState.state == "JUMPING") {
       this.yVelocity = 0;
     }
   }
   //PLEASE NOTE!! : here we are dealing with an inverted y-axis
   verticalMotion(pressedDownKeys) {
-    if (this.player.playerStateHandler.currentState.state != "HYPERSPEED") {
-      if (this.player.playerStateHandler.currentState.state == "DIVING") {
+    if (
+      this.playerReref.playerStateHandler.currentState.state != "HYPERSPEED"
+    ) {
+      if (this.playerReref.playerStateHandler.currentState.state == "DIVING") {
         this.yVelocity = 40;
       } else if (
         pressedDownKeys.includes(this.keySettings["JUMP"]) &&
-        this.player.onGround() &&
+        this.playerReref.onGround() &&
         !pressedDownKeys.includes(this.keySettings["CROUCH"])
       ) {
         this.yVelocity = -28;
       }
 
-      this.player.posY += this.yVelocity; //motion along y axis
+      this.playerReref.posY += this.yVelocity; //motion along y axis
 
-      if (!this.player.onGround()) {
+      if (!this.playerReref.onGround()) {
         this.yVelocity += this.g; //the is deceleration taking place (the g is added and not subtracted because y axis is inverted)
       } else this.yVelocity = 0; //final velocity (stops player from falling through the floor)
 

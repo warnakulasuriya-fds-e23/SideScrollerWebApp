@@ -12,7 +12,7 @@ export const stateNums = {
 
 class State {
   constructor(player, state) {
-    this.player = player;
+    this.playerReref = player;
     this.state = state;
   }
 }
@@ -22,8 +22,8 @@ export class Sitting extends State {
     super(player, "SITTING");
   }
   activate() {
-    this.player.playerAnimationHandler.frameY = 5;
-    this.player.game.speedFraction = 0;
+    this.playerReref.playerAnimationHandler.frameY = 5;
+    this.playerReref.gameReref.speedFraction = 0;
   }
   update(pressedDownKeys, keySettings) {
     if (
@@ -31,17 +31,17 @@ export class Sitting extends State {
         pressedDownKeys.includes(keySettings["FORWARD"])) &&
       !pressedDownKeys.includes(keySettings["CROUCH"])
     ) {
-      this.player.playerStateHandler.setState(stateNums.RUNNING);
+      this.playerReref.playerStateHandler.setState(stateNums.RUNNING);
     } else if (
       pressedDownKeys.includes(keySettings["JUMP"]) &&
       !pressedDownKeys.includes(keySettings["CROUCH"])
     ) {
-      this.player.playerStateHandler.setState(stateNums.JUMPING);
+      this.playerReref.playerStateHandler.setState(stateNums.JUMPING);
     } else if (
       pressedDownKeys.includes(keySettings["ROLL"]) &&
       !pressedDownKeys.includes(keySettings["CROUCH"])
     ) {
-      this.player.playerStateHandler.setState(stateNums.ROLLING);
+      this.playerReref.playerStateHandler.setState(stateNums.ROLLING);
     }
   }
 }
@@ -51,16 +51,16 @@ export class Running extends State {
     super(player, "RUNNING");
   }
   activate() {
-    this.player.playerAnimationHandler.frameY = 3;
-    this.player.game.speedFraction = 1;
+    this.playerReref.playerAnimationHandler.frameY = 3;
+    this.playerReref.gameReref.speedFraction = 1;
   }
   update(pressedDownKeys, keySettings) {
     if (pressedDownKeys.includes(keySettings["CROUCH"])) {
-      this.player.playerStateHandler.setState(stateNums.SITTING);
+      this.playerReref.playerStateHandler.setState(stateNums.SITTING);
     } else if (pressedDownKeys.includes(keySettings["JUMP"])) {
-      this.player.playerStateHandler.setState(stateNums.JUMPING);
+      this.playerReref.playerStateHandler.setState(stateNums.JUMPING);
     } else if (pressedDownKeys.includes(keySettings["ROLL"])) {
-      this.player.playerStateHandler.setState(stateNums.ROLLING);
+      this.playerReref.playerStateHandler.setState(stateNums.ROLLING);
     }
   }
 }
@@ -70,16 +70,16 @@ export class Jumping extends State {
     super(player, "JUMPING");
   }
   activate() {
-    this.player.playerAnimationHandler.frameY = 1;
-    this.player.game.speedFraction = 1;
+    this.playerReref.playerAnimationHandler.frameY = 1;
+    this.playerReref.gameReref.speedFraction = 1;
   }
   update(pressedDownKeys, keySettings) {
-    if (this.player.playerMovementHandler.yVelocity == 0) {
-      this.player.playerStateHandler.setState(stateNums.FALLING);
+    if (this.playerReref.playerMovementHandler.yVelocity == 0) {
+      this.playerReref.playerStateHandler.setState(stateNums.FALLING);
     } else if (pressedDownKeys.includes(keySettings["ROLL"])) {
-      this.player.playerStateHandler.setState(stateNums.ROLLING);
+      this.playerReref.playerStateHandler.setState(stateNums.ROLLING);
     } else if (pressedDownKeys.includes(keySettings["CROUCH"])) {
-      this.player.playerStateHandler.setState(stateNums.DIVING);
+      this.playerReref.playerStateHandler.setState(stateNums.DIVING);
     }
   }
 }
@@ -89,20 +89,20 @@ export class Falling extends State {
     super(player, "FALLING");
   }
   activate() {
-    this.player.playerAnimationHandler.frameY = 2;
-    this.player.game.speedFraction = 1;
+    this.playerReref.playerAnimationHandler.frameY = 2;
+    this.playerReref.gameReref.speedFraction = 1;
   }
   update(pressedDownKeys, keySettings) {
-    if (this.player.onGround()) {
+    if (this.playerReref.onGround()) {
       if (pressedDownKeys.includes(keySettings["CROUCH"])) {
-        this.player.playerStateHandler.setState(stateNums.SITTING);
+        this.playerReref.playerStateHandler.setState(stateNums.SITTING);
       } else {
-        this.player.playerStateHandler.setState(stateNums.RUNNING);
+        this.playerReref.playerStateHandler.setState(stateNums.RUNNING);
       }
     } else if (pressedDownKeys.includes(keySettings["ROLL"])) {
-      this.player.playerStateHandler.setState(stateNums.ROLLING);
+      this.playerReref.playerStateHandler.setState(stateNums.ROLLING);
     } else if (pressedDownKeys.includes(keySettings["CROUCH"])) {
-      this.player.playerStateHandler.setState(stateNums.DIVING);
+      this.playerReref.playerStateHandler.setState(stateNums.DIVING);
     }
   }
 }
@@ -113,19 +113,19 @@ export class Idling extends State {
     super(player, "IDLING");
   }
   activate() {
-    this.player.playerAnimationHandler.frameY = 0;
-    this.player.game.speedFraction = 0;
+    this.playerReref.playerAnimationHandler.frameY = 0;
+    this.playerReref.gameReref.speedFraction = 0;
   }
   update(pressedDownKeys, keySettings) {
     if (
       pressedDownKeys.includes(keySettings["BACKWARD"]) ||
       pressedDownKeys.includes(keySettings["FORWARD"])
     ) {
-      this.player.playerStateHandler.setState(stateNums.RUNNING);
+      this.playerReref.playerStateHandler.setState(stateNums.RUNNING);
     } else if (pressedDownKeys.includes(keySettings["CROUCH"])) {
-      this.player.playerStateHandler.setState(stateNums.SITTING);
+      this.playerReref.playerStateHandler.setState(stateNums.SITTING);
     } else if (pressedDownKeys.includes(keySettings["JUMP"])) {
-      this.player.playerStateHandler.setState(stateNums.JUMPING);
+      this.playerReref.playerStateHandler.setState(stateNums.JUMPING);
     }
   }
 }
@@ -135,26 +135,26 @@ export class Rolling extends State {
     super(player, "ROLLING");
   }
   activate() {
-    if (this.player.playerEnergyHandler.playerEnergy > 20) {
-      this.player.playerAnimationHandler.frameY = 6;
-      this.player.game.speedFraction = 1;
+    if (this.playerReref.playerEnergyHandler.playerEnergy > 20) {
+      this.playerReref.playerAnimationHandler.frameY = 6;
+      this.playerReref.gameReref.speedFraction = 1;
     } else {
-      if (this.player.onGround()) {
-        this.player.playerStateHandler.setState(stateNums.RUNNING);
+      if (this.playerReref.onGround()) {
+        this.playerReref.playerStateHandler.setState(stateNums.RUNNING);
       } else {
-        this.player.playerStateHandler.setState(stateNums.FALLING);
+        this.playerReref.playerStateHandler.setState(stateNums.FALLING);
       }
     }
   }
   update(pressedDownKeys, keySettings) {
     if (
       !pressedDownKeys.includes(keySettings["ROLL"]) ||
-      this.player.playerEnergyHandler.playerEnergy < 10
+      this.playerReref.playerEnergyHandler.playerEnergy < 10
     ) {
-      if (this.player.onGround()) {
-        this.player.playerStateHandler.setState(stateNums.RUNNING);
+      if (this.playerReref.onGround()) {
+        this.playerReref.playerStateHandler.setState(stateNums.RUNNING);
       } else {
-        this.player.playerStateHandler.setState(stateNums.FALLING);
+        this.playerReref.playerStateHandler.setState(stateNums.FALLING);
       }
     }
   }
@@ -165,25 +165,25 @@ export class Diving extends State {
     super(player, "DIVING");
   }
   activate() {
-    if (this.player.playerEnergyHandler.playerEnergy > 100) {
-      this.player.playerEnergyHandler.singleShotAttack(this.state);
-      this.player.playerAnimationHandler.frameY = 6;
-      this.player.game.speedFraction = 1;
+    if (this.playerReref.playerEnergyHandler.playerEnergy > 100) {
+      this.playerReref.playerEnergyHandler.singleShotAttack(this.state);
+      this.playerReref.playerAnimationHandler.frameY = 6;
+      this.playerReref.gameReref.speedFraction = 1;
     } else {
-      if (this.player.onGround()) {
-        this.player.playerStateHandler.setState(stateNums.RUNNING);
+      if (this.playerReref.onGround()) {
+        this.playerReref.playerStateHandler.setState(stateNums.RUNNING);
       } else {
-        this.player.playerStateHandler.setState(stateNums.FALLING);
+        this.playerReref.playerStateHandler.setState(stateNums.FALLING);
       }
     }
   }
   update(pressedDownKeys, keySettings) {
-    if (this.player.onGround()) {
+    if (this.playerReref.onGround()) {
       if (!pressedDownKeys.includes(keySettings["ROLL"])) {
-        this.player.playerParticleHandler.addSplashParticles();
-        this.player.playerStateHandler.setState(stateNums.SITTING);
+        this.playerReref.playerParticleHandler.addSplashParticles();
+        this.playerReref.playerStateHandler.setState(stateNums.SITTING);
       } else {
-        this.player.playerStateHandler.setState(stateNums.ROLLING);
+        this.playerReref.playerStateHandler.setState(stateNums.ROLLING);
       }
     }
   }
@@ -194,15 +194,15 @@ export class GotHit extends State {
     super(player, "GOTHIT");
   }
   activate() {
-    this.player.playerAnimationHandler.frameY = 4;
-    this.player.game.speedFraction = 0;
+    this.playerReref.playerAnimationHandler.frameY = 4;
+    this.playerReref.gameReref.speedFraction = 0;
   }
   update(pressedDownKeys, keySettings) {
-    if (this.player.playerAnimationHandler.frameX >= 10) {
-      if (this.player.onGround()) {
-        this.player.playerStateHandler.setState(stateNums.RUNNING);
+    if (this.playerReref.playerAnimationHandler.frameX >= 10) {
+      if (this.playerReref.onGround()) {
+        this.playerReref.playerStateHandler.setState(stateNums.RUNNING);
       } else {
-        this.player.playerStateHandler.setState(stateNums.FALLING);
+        this.playerReref.playerStateHandler.setState(stateNums.FALLING);
       }
     }
   }
@@ -215,15 +215,15 @@ export class HyperSpeed extends State {
     this.timeLimit = 7000;
   }
   activate() {
-    this.player.playerAnimationHandler.frameY = 6;
-    this.player.game.speedFraction = 10;
+    this.playerReref.playerAnimationHandler.frameY = 6;
+    this.playerReref.gameReref.speedFraction = 10;
   }
   update(pressedDownKeys, keySettings) {
     if (this.timer > this.timeLimit) {
       this.timer = 0;
-      this.player.playerStateHandler.setState(stateNums.FALLING);
-    } else if (this.player.playerStateHandler.deltaTime != null) {
-      this.timer += this.player.playerStateHandler.deltaTime;
+      this.playerReref.playerStateHandler.setState(stateNums.FALLING);
+    } else if (this.playerReref.playerStateHandler.deltaTime != null) {
+      this.timer += this.playerReref.playerStateHandler.deltaTime;
     }
   }
 }

@@ -9,7 +9,7 @@ import { PickUpHandler } from "./PickupHandler.js";
 
 export class GameState {
   constructor(width, height) {
-    this.keyboardConfig = new KeyBoardConfiguration();
+    this.keyboardConfig = new KeyBoardConfiguration(); // [Checked for circular references]
     this.paused = false;
     this.exitGameLoop = false;
     this.stopGame = false;
@@ -21,8 +21,8 @@ export class GameState {
     this.speedFraction = 0;
     this.maxSpeed = 5;
     this.debugMode = false;
-    this.background = new Background(this);
-    this.player = new Player(this);
+    this.background = new Background(this); // [Checked for circular references]
+    this.player = new Player(this); // [Checked for circular references]
     this.input = new InputHandler(this);
     this.enemyHandler = new EnemyHandler(this);
     this.UIHandler = new UIHandler(this);
@@ -72,5 +72,39 @@ export class GameState {
   }
   Stop() {
     this.stopGame = true;
+  }
+  ReplacerFunction(key, value) {
+    if (key == "this.gameReref") {
+      return null;
+      /*places where this.gameReref is present
+      Background.js (prev Refactored properties: Background.game=>Background.gameReref , Layer.game=>Layer.gameReref)
+      player.js (prev Refactored properties: player.game=>player.gameReref)
+      PlayerMovementHandler.js (prev Refactored properties: PlayerMovementHandler.game=>PlayerMovementHandler.gameReref, PlayerMovementHandler.player=>PlayerMovementHandler.playerReref)
+      PlayerParticles.js (prev Refactored properties: SpeedLine.game=>SpeedLine.gameReref)
+      */
+    }
+    if (key == "this.playerReref") {
+      return null;
+      /*places where this.playerRered is present
+      PlayerHealthHandler.js (prev Refactored properties: PlayerHealthHandler.player=>PlayerHealthHandler.playerReref,)
+      PlayerEnergyHandler.js (prev Refactored properties: PlayerEnergyHandler.player=>PlayerEnergyHandler.playerReref,)
+      PlayerMovementHandler.js (prev Refactored properties: PlayerMovementHandler.player=>PlayerMovementHandler.playerReref, PlayerMovementHandler.game=>PlayerMovementHandler.gameReref) 
+      playerAnimationHandler.js (prev Refactored properties: PlayerAnimationHandler.player=>PlayerAnimationHandler.playerReref) 
+      PlayerStateHandler.js (prev Refactored properties: PlayerStateHandler.player=>PlayerStateHandler.playerReref)
+      playerStates.js (prev Refactored properties: State.player=>State.playerReref)
+      PlayerParticleHandler.js (prev Refactored properties: PlayerParticleHandler.player=>PlayerParticleHandler.playerReref)
+      PlayerParticles.js (prev Refactored properties: Particle.player=>Particle.playerReref )
+      */
+    }
+
+    /*Properties that might also need to be filtered out
+    PlayerMovementHandler.keySettings (cause it uses the PlayerMovementHandler.gameReref property in its initial definition) 
+    */
+
+    //NOTE THAT I MUST MAKE THE NECESSARY CHANGES TO THE PLACES THAT WOULD ACCESS .game and .player properties because they are now renamed to .gameReref and .playerReref
+    /*Special Edited places that use .game and or .player (they dont directly use the property)
+    playerStates.js (this.playerReref.game...=>this.playerReref.gameReref)
+    PlayerParticles.js (this.playerReref.game...=>this.playerReref.gameReref) */
+    return value;
   }
 }

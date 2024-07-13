@@ -12,7 +12,7 @@ const totalFramesPerState = {
 
 export class PlayerAnimationHandler {
   constructor(player) {
-    this.player = player;
+    this.playerReref = player;
     this.frameX = 0;
     this.frameY = 0;
     this.playerstate = "SITTING";
