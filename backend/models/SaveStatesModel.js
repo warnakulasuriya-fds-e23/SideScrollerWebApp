@@ -20,4 +20,13 @@ const SaveStatesSchema = new Schema(
   { timestamps: true }
 );
 
+SaveStatesSchema.statics.createDefaultSaveStatesDoc = function (UserId) {
+  this.create({
+    UserId,
+    SaveSlot_A: "Clear",
+    SaveSlot_B: "Clear",
+    SaveSlot_C: "Clear",
+  });
+};
+
 module.exports = mongoose.model("SaveStates", SaveStatesSchema);
