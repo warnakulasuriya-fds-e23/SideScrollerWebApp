@@ -74,7 +74,7 @@ export class GameState {
     this.stopGame = true;
   }
   ReplacerFunction(key, value) {
-    if (key == "this.gameReref") {
+    if (key == "gameReref") {
       return null;
       /*places where this.gameReref is present
       Background.js (prev Refactored properties: Background.game=>Background.gameReref , Layer.game=>Layer.gameReref)
@@ -92,7 +92,7 @@ export class GameState {
       PickUpHandler.js (prev Refactored properties: PickUpHandler.game=>PickUpHandler.gameReref)
       PickUps.js (prev Refactored properties: PickUp.game=>PickUp.gameReref)
       */
-    } else if (key == "this.playerReref") {
+    } else if (key == "playerReref") {
       return null;
       /*places where this.playerRered is present
       PlayerHealthHandler.js (prev Refactored properties: PlayerHealthHandler.player=>PlayerHealthHandler.playerReref,)
@@ -107,13 +107,13 @@ export class GameState {
       EnemyHandler.js (prev Refactored properties: EnemyHandler.player=>EnemyHandler.playerReref , EnemyHandler.game=>EnemyHandler.gameReref )
       CollisionHandler.js (prev Refactored properties: CollisionHandler.player=>CollisionHandler.playerReref , CollisionHandler.game=>CollisionHandler.gameReref)
       */
-    } else if (key == "this.enemyReref") {
+    } else if (key == "enemyReref") {
       return null;
       /*places where this.enemyReref is present
       CollisionAnimations.js (prev Refactored properties: CollisionAnimation.enemy=>CollisionAnimation.enemyReref, CollisionAnimation.game=>CollisionAnimation.gameReref)
       UI.js (prev Refactored properties: HitPopup.enemy=>HitPopup.enemyReref, UIComponent.player=>UIComponent.playerReref, UIComponent.game=>UIComponent.gameReref, HealthUpPopUp.pickUp=>HealthUpPopUp.pickUpReref)
       */
-    } else if (key == "this.pickUpReref") {
+    } else if (key == "pickUpReref") {
       return null;
       /*places where this.pickUpReref is present
       PickUpParticleHandler.js (prev Refactored properties: PickUpParticleHandler.pickUp=>PickUpParticleHandler.pickUpReref)
