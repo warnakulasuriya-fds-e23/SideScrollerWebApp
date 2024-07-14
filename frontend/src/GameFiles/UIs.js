@@ -1,7 +1,7 @@
 class UIComponent {
   constructor(game) {
     this.gameReref = game;
-    this.playerReref = game.player;
+    // this.playerReref = game.player;
     this.verticalGap = 20;
     this.markedForDeletion = false;
   }

@@ -134,4 +134,7 @@ export class GameState {
     PlayerParticles.js (this.playerReref.game...=>this.playerReref.gameReref) */
     return value;
   }
+  SerializeGameState() {
+    return JSON.stringify(this, this.ReplacerFunction);
+  }
 }

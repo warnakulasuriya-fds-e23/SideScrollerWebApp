@@ -56,7 +56,7 @@ export const GamePlayer = () => {
     gameRef.current.UpdateGameSettings(newSettings);
   };
   const saveGame = () => {
-    return gameRef.current;
+    return gameRef.current.SerializeGameState();
   };
   const loadGame = () => {};
   const restartGame = () => {

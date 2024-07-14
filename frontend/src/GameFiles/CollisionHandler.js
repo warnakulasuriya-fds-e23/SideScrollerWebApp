@@ -83,9 +83,9 @@ export class CollisionHandler {
     });
   }
   collisionDetection() {
-    this.playerRerefCollisionWithEnemyDetection();
+    this.playerCollisionWithEnemyDetection();
     this.attackParticleCollisionWithEnemyDetection();
-    this.playerRerefCollisionWithPickUpDetection();
+    this.playerCollisionWithPickUpDetection();
   }
 
   update(deltaTime) {

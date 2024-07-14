@@ -1,7 +1,7 @@
 export class PlayerMovementHandler {
   constructor(player) {
     this.playerReref = player;
-    this.gameReref = player.game;
+    this.gameReref = player.gameReref;
     this.keySettings = this.gameReref.keyboardConfig.keySettings;
     this.xVelocity = 0;
     this.max_xVelocity = 10;

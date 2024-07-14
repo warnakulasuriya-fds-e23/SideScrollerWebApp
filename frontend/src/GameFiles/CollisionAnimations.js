@@ -1,7 +1,7 @@
 export class CollisionAnimation {
   constructor(enemy) {
     this.enemyReref = enemy;
-    this.gameReref = enemy.game;
+    this.gameReref = enemy.gameReref;
     this.sizeModifier = Math.random() + 0.5;
     this.frameX = 0;
     this.frameY = 0;

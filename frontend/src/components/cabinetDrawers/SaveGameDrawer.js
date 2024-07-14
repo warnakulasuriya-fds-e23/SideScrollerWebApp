@@ -4,7 +4,7 @@ import { GiSave } from "react-icons/gi";
 import { FaCheck, FaXmark } from "react-icons/fa6";
 const SaveGameBox = (props) => {
   const saveGame = () => {
-    console.log(JSON.stringify(props.saveGameMethod()));
+    console.log(props.saveGameMethod());
   };
   return (
     <>
