@@ -3,8 +3,9 @@ import React from "react";
 import { GiSave } from "react-icons/gi";
 import { FaCheck, FaXmark } from "react-icons/fa6";
 const SaveGameBox = (props) => {
-  const saveGame = () => {
-    console.log(props.saveGameMethod());
+  const saveGame = async () => {
+    await props.saveGameMethod();
+    props.closeDrawer();
   };
   return (
     <>

@@ -4,12 +4,14 @@ import { RightCabinet } from "./RightCabinet";
 import { useNavigate } from "react-router-dom";
 import { Button } from "flowbite-react";
 import { GameState } from "../GameFiles/GameState.js";
-import { useGameSettingsContext } from "../hooks/useGameSettingsContext.js";
+import { useGameSettingsContext, useSaveGame } from "../hooks";
 export const GamePlayer = () => {
   const { gameSettings } = useGameSettingsContext();
+  const { saveGameBackendCommunication } = useSaveGame();
   const navigate = useNavigate();
   const [isGameRunning, setIsGameRunnig] = useState(false);
   const gameRef = useRef(null);
+
   useEffect(() => {}, []);
 
   // Left Cabinet Methods to interact with game state
@@ -55,8 +57,11 @@ export const GamePlayer = () => {
   const UpdateGameSettings = (newSettings) => {
     gameRef.current.UpdateGameSettings(newSettings);
   };
-  const saveGame = () => {
-    return gameRef.current.SerializeGameState();
+  const saveGame = async () => {
+    await saveGameBackendCommunication(
+      "A",
+      gameRef.current.SerializeGameState()
+    );
   };
   const loadGame = () => {};
   const restartGame = () => {

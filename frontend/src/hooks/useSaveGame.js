@@ -3,13 +3,23 @@ import { useAuthContext } from "./useAuthContext";
 export const useSaveGame = () => {
   const { user } = useAuthContext();
   const saveGameBackendCommunication = async (Slot, SerialzedGameState) => {
-    const response = fetch(`/api/saveStates/update/${Slot}`, {
+    var ToBeSent = null;
+    if (Slot === "A") {
+      ToBeSent = { SaveSlot_A: JSON.parse(SerialzedGameState) };
+    } else if (Slot === "B") {
+      ToBeSent = { SaveSlot_B: JSON.parse(SerialzedGameState) };
+    } else if (Slot === "C") {
+      ToBeSent = { SaveSlot_A: JSON.parse(SerialzedGameState) };
+    } else {
+      return null;
+    }
+    const response = fetch("/api/saveStates/update", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${user.createdToken}`,
       },
-      body: SerialzedGameState,
+      body: JSON.stringify(ToBeSent),
     });
   };
 

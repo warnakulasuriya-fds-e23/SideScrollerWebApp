@@ -4,4 +4,5 @@ export { useLoadUpGameSettings } from "./useLoadUpGameSetting";
 export { useLogin } from "./useLogin";
 export { useLogout } from "./useLogOut";
 export { useSignup } from "./useSignup";
+export { useSaveGame } from "./useSaveGame";
 export { useUpdateGameSettings } from "./useUpdateGameSettings";

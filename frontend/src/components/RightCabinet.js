@@ -17,6 +17,7 @@ export const RightCabinet = (props) => {
   };
   const handleSaveGameClose = () => {
     setSaveGameOpen(false);
+    props.togglePauseGameMethod();
   };
   const handleRestartGameClose = () => {
     setRestartGameOpen(false);
