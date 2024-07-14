@@ -30,7 +30,29 @@ const createSaveStates = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
-const updateSaveStates = async (req, res) => {};
+const updateSaveStates = async (req, res) => {
+  const UserId = req.userFromMiddleWare._id;
+  try {
+    if (!UserId) {
+      throw Error("UserId was not recieved from property set by middle ware");
+    }
+
+    const options = { returnDocument: "after" };
+    const updatedSaveStatesDoc = await SaveStates.findOneAndUpdate(
+      { UserId },
+      req.body,
+      options
+    );
+    if (!updatedSaveStatesDoc) {
+      throw Error(
+        "Unable to update SaveStates! This user doesnt have an already created SaveStates document"
+      );
+    }
+    res.status(200).json(updatedSaveStatesDoc);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
 const deleteSaveStates = async (req, res) => {};
 
 module.exports = { createSaveStates, updateSaveStates, deleteSaveStates };

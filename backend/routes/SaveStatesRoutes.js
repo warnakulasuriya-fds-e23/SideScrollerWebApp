@@ -11,4 +11,6 @@ router.use(RequireAuth);
 
 router.post("/create", createSaveStates);
 
+router.patch("/update", updateSaveStates);
+
 module.exports = router;

@@ -8,13 +8,13 @@ const SaveStatesSchema = new Schema(
       required: true,
     },
     SaveSlot_A: {
-      type: String,
+      type: Object,
     },
     SaveSlot_B: {
-      type: String,
+      type: Object,
     },
     SaveSlot_C: {
-      type: String,
+      type: Object,
     },
   },
   { timestamps: true }
