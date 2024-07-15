@@ -4,12 +4,14 @@ import { HiOutlineCog } from "react-icons/hi";
 import { GiSave, GiLoad, GiCycle } from "react-icons/gi";
 import {
   GameSettingsDrawer,
-  RestartGameDrawer,
   SaveGameDrawer,
+  LoadGameDrawer,
+  RestartGameDrawer,
 } from "./cabinetDrawers";
 export const RightCabinet = (props) => {
   const [gameSettingsOpen, setGameSettingsOpen] = useState(false);
   const [saveGameOpen, setSaveGameOpen] = useState(false);
+  const [loadGameOpen, setLoadGameOpen] = useState(false);
   const [restartGameOpen, setRestartGameOpen] = useState(false);
   const handleGameSettingsClose = () => {
     setGameSettingsOpen(false);
@@ -17,6 +19,10 @@ export const RightCabinet = (props) => {
   };
   const handleSaveGameClose = () => {
     setSaveGameOpen(false);
+    props.togglePauseGameMethod();
+  };
+  const handleLoadGameClose = () => {
+    setLoadGameOpen(false);
     props.togglePauseGameMethod();
   };
   const handleRestartGameClose = () => {
@@ -55,7 +61,10 @@ export const RightCabinet = (props) => {
             <Button
               className="transform hover:scale-150 hover:-translate-x-5 transition ease-linear duration-300"
               color="blue"
-              onClick={props.loadGameMethod}
+              onClick={() => {
+                setLoadGameOpen(true);
+                props.togglePauseGameMethod();
+              }}
             >
               <GiLoad className="size-3 sm:size-6 " />
             </Button>
@@ -86,6 +95,12 @@ export const RightCabinet = (props) => {
         onClose={handleSaveGameClose}
         position="right"
         saveGameMethod={props.saveGameMethod}
+      />
+      <LoadGameDrawer
+        open={loadGameOpen}
+        onClose={handleLoadGameClose}
+        position="right"
+        LoadGameMethod={props.LoadGameMethod}
       />
       <RestartGameDrawer
         open={restartGameOpen}
