@@ -53,6 +53,59 @@ const updateSaveStates = async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 };
+const getSaveStateA = async (req, res) => {
+  const UserId = req.userFromMiddleWare._id;
+  try {
+    if (!UserId) {
+      throw Error("UserId was not recieved from property set by middle ware");
+    }
+    const recievedSaveState = await SaveStates.findOne({ UserId });
+    if (!recievedSaveState) {
+      throw Error("Unable to get Save Stae A from database");
+    }
+    console.log(recievedSaveState);
+    res.status(200).json(recievedSaveState.SaveSlot_A);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+const getSaveStateB = async (req, res) => {
+  const UserId = req.userFromMiddleWare._id;
+  try {
+    if (!UserId) {
+      throw Error("UserId was not recieved from property set by middle ware");
+    }
+    const recievedSaveState = await SaveStates.findOne({ UserId });
+    if (!recievedSaveState) {
+      throw Error("Unable to get Save Stae B from database");
+    }
+    res.status(200).json(recievedSaveState.SaveSlot_B);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+const getSaveStateC = async (req, res) => {
+  const UserId = req.userFromMiddleWare._id;
+  try {
+    if (!UserId) {
+      throw Error("UserId was not recieved from property set by middle ware");
+    }
+    const recievedSaveState = await SaveStates.findOne({ UserId });
+    if (!recievedSaveState) {
+      throw Error("Unable to get Save Stae C from database");
+    }
+    res.status(200).json(recievedSaveState.SaveSlot_C);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
 const deleteSaveStates = async (req, res) => {};
 
-module.exports = { createSaveStates, updateSaveStates, deleteSaveStates };
+module.exports = {
+  createSaveStates,
+  updateSaveStates,
+  deleteSaveStates,
+  getSaveStateA,
+  getSaveStateB,
+  getSaveStateC,
+};
