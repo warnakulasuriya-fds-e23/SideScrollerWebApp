@@ -30,4 +30,7 @@ export class CollisionAnimationHandler {
       });
     }
   }
+  PropLoader(GameStateData) {
+    this.currentlyActiveCollisionAnimations = [];
+  }
 }

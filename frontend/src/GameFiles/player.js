@@ -66,4 +66,19 @@ export class Player {
       this.gameReref.height - this.spriteHeight - this.gameReref.groundMargin
     );
   }
+  PropLoader(GameStateData) {
+    this.keySettings = GameStateData.player.keySettings;
+    this.spriteWidth = GameStateData.player.spriteWidth;
+    this.spriteHeight = GameStateData.player.spriteHeight;
+    this.posX = GameStateData.player.posX;
+    this.posY = GameStateData.player.posY;
+    this.spriteSheet = GameStateData.player.spriteSheet;
+    this.playerHealth = GameStateData.player.playerHealth;
+    this.playerHealthHandler.PropLoader(GameStateData); // [Completed Prop Loader]
+    this.playerEnergyHandler.PropLoader(GameStateData); // [Completed Prop Loader]
+    this.playerMovementHandler.PropLoader(GameStateData); // [Completed Prop Loader]
+    this.playerAnimationHandler.PropLoader(GameStateData); // [Completed Prop Loader]
+    this.playerStateHandler.PropLoader(GameStateData); // [Completed Prop Loader]
+    this.playerParticleHandler.PropLoader(GameStateData); // [Completed Prop Loader]
+  }
 }

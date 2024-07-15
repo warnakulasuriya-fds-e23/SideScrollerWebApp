@@ -37,4 +37,10 @@ export class PlayerEnergyHandler {
       }
     }
   }
+  PropLoader(GameStateData) {
+    this.playerEnergy = GameStateData.player.playerEnergyHandler.playerEnergy;
+    this.maxEnergy = GameStateData.player.playerEnergyHandler.maxEnergy;
+    this.energyPercent = GameStateData.player.playerEnergyHandler.energyPercent;
+    this.regeneration = GameStateData.player.playerEnergyHandler.regeneration;
+  }
 }

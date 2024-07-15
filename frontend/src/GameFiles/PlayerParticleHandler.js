@@ -70,4 +70,7 @@ export class PlayerParticleHandler {
       particle.draw(context);
     });
   }
+  PropLoader(GameStateData) {
+    this.currentlyActiveParticles = [];
+  }
 }

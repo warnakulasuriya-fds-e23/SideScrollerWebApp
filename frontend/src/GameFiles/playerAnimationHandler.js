@@ -39,4 +39,15 @@ export class PlayerAnimationHandler {
     this.deltaTime = deltaTime;
     this.animate();
   }
+  PropLoader(GameStateData) {
+    this.frameX = GameStateData.player.playerAnimationHandler.frameX;
+    this.frameY = GameStateData.player.playerAnimationHandler.frameY;
+    this.playerstate = GameStateData.player.playerAnimationHandler.playerstate;
+    this.maxFrames = GameStateData.player.playerAnimationHandler.maxFrames;
+    this.deltaTime = GameStateData.player.playerAnimationHandler.deltaTime;
+    this.fps = GameStateData.player.playerAnimationHandler.fps;
+    this.frameInterval =
+      GameStateData.player.playerAnimationHandler.frameInterval;
+    this.frameTimer = GameStateData.player.playerAnimationHandler.frameTimer;
+  }
 }

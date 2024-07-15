@@ -54,4 +54,14 @@ export class PickUpHandler {
       pickUp.draw(context);
     });
   }
+  PropLoader(GameStateData) {
+    this.currentlyActivePickUps = [];
+    this.healthPickUpTimer = GameStateData.PickUpHandler.healthPickUpTimer;
+    this.healthPickUpInterval =
+      GameStateData.PickUpHandler.healthPickUpInterval;
+    this.speedBoostPickUpTimer =
+      GameStateData.PickUpHandler.speedBoostPickUpTimer;
+    this.speedBoostPickUpInterval =
+      GameStateData.PickUpHandler.speedBoostPickUpInterval;
+  }
 }

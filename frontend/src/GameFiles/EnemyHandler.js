@@ -63,4 +63,7 @@ export class EnemyHandler {
       enemy.draw(context);
     });
   }
+  PropLoader(GameStateData) {
+    this.currentlyActiveEnemies = [];
+  }
 }

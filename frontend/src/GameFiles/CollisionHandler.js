@@ -95,4 +95,7 @@ export class CollisionHandler {
   draw(context) {
     this.collisionAnimationHandler.draw(context);
   }
+  PropLoader(GameStateData) {
+    this.collisionAnimationHandler.PropLoader(GameStateData); // [Completed Prop Loader]
+  }
 }

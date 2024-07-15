@@ -19,4 +19,7 @@ export class KeyBoardConfiguration {
     this.keySettings.DEBUGMODE = newSettings.DebugKey;
     this.keySettings.PAUSE = newSettings.PauseKey;
   }
+  PropLoader(GameStateData) {
+    this.keySettings = GameStateData.keyboardConfig.keySettings;
+  }
 }

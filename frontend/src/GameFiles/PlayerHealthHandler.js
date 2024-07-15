@@ -15,4 +15,10 @@ export class PlayerHealthHandler {
   update() {
     this.HealthPercentage = (this.playerHealth / this.maxHealth) * 100;
   }
+  PropLoader(GameStateData) {
+    this.playerHealth = GameStateData.player.playerHealthHandler.playerHealth;
+    this.maxHealth = GameStateData.player.playerHealthHandler.maxHealth;
+    this.HealthPercentage =
+      GameStateData.player.playerHealthHandler.HealthPercentage;
+  }
 }

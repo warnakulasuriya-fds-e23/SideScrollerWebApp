@@ -40,4 +40,8 @@ export class InputHandler {
       }
     });
   }
+  PropLoader(GameStateData) {
+    this.keySettings = GameStateData.input.keySettings;
+    this.keys = [];
+  }
 }

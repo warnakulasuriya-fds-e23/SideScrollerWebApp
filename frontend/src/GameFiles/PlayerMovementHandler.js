@@ -120,4 +120,15 @@ export class PlayerMovementHandler {
     this.horizontalMotion(pressedDownKeys);
     this.verticalMotion(pressedDownKeys);
   }
+
+  PropLoader(GameStateData) {
+    this.keySettings = GameStateData.player.playerMovementHandler.keySettings;
+    this.xVelocity = GameStateData.player.playerMovementHandler.xVelocity;
+    this.max_xVelocity =
+      GameStateData.player.playerMovementHandler.max_xVelocity;
+    this.yVelocity = GameStateData.player.playerMovementHandler.yVelocity;
+    this.max_yVelocity =
+      GameStateData.player.playerMovementHandler.max_yVelocity;
+    this.g = GameStateData.player.playerMovementHandler.g;
+  }
 }

@@ -137,4 +137,25 @@ export class GameState {
   SerializeGameState() {
     return JSON.stringify(this, this.ReplacerFunction);
   }
+  LoadGame(GameStateData) {
+    this.keyboardConfig.PropLoader(GameStateData); // [Completed Prop Loader]
+    this.paused = GameStateData.paused;
+    this.exitGameLoop = GameStateData.exitGameLoop;
+    this.stopGame = GameStateData.stopGame;
+    this.width = GameStateData.width;
+    this.height = GameStateData.height;
+    this.score = GameStateData.score;
+    this.gameTime = GameStateData.gameTime;
+    this.groundMargin = GameStateData.groundMargin;
+    this.speedFraction = GameStateData.speedFraction;
+    this.maxSpeed = GameStateData.maxSpeed;
+    this.debugMode = GameStateData.debugMode;
+    this.background.PropLoader(GameStateData); // [Completed Prop Loader]
+    this.player.PropLoader(GameStateData); // [Completed Prop Loader]
+    this.input.PropLoader(GameStateData); // [Completed Prop Loader]
+    this.enemyHandler.PropLoader(GameStateData); // [Completed Prop Loader]
+    this.UIHandler.PropLoader(GameStateData); // [Completed Prop Loader]
+    this.collisionHandler.PropLoader(GameStateData); // [Completed Prop Loader]
+    this.PickUpHandler.PropLoader(GameStateData); // [Completed Prop Loader]
+  }
 }

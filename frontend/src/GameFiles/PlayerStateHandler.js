@@ -41,4 +41,10 @@ export class PlayerStateHandler {
     this.deltaTime = deltaTime;
     this.currentState.update(pressedDownKeys, this.playerReref.keySettings);
   }
+  PropLoader(GameStateData) {
+    this.previousState.state =
+      GameStateData.player.playerStateHandler.previousState.state;
+    this.currentState.state =
+      GameStateData.player.playerStateHandler.currentState.state;
+  }
 }

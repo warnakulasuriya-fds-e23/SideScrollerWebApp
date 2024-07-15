@@ -40,4 +40,21 @@ export class UIHandler {
     let pauseScreen = new PauseScreen(this.gameReref); // [Checked for circular references] [Checked for places that use .game and .player] [checked for .enemy] [checked for .pickUp]
     pauseScreen.Actitavte();
   }
+  PropLoader(GameStateData) {
+    while (this.currentlyActiveUIComponents.length > 4) {
+      this.currentlyActiveUIComponents.pop();
+    }
+    this.currentlyActiveUIComponents[0].PropLoader(
+      GameStateData.UIHandler.currentlyActiveUIComponents[0]
+    ); // [Completed Prop Loader]
+    this.currentlyActiveUIComponents[1].PropLoader(
+      GameStateData.UIHandler.currentlyActiveUIComponents[1]
+    ); // [Completed Prop Loader]
+    this.currentlyActiveUIComponents[2].PropLoader(
+      GameStateData.UIHandler.currentlyActiveUIComponents[2]
+    ); // [Completed Prop Loader]
+    this.currentlyActiveUIComponents[3].PropLoader(
+      GameStateData.UIHandler.currentlyActiveUIComponents[3]
+    ); // [Completed Prop Loader]
+  }
 }

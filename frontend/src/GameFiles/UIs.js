@@ -46,6 +46,12 @@ export class HealthComponenet extends UIComponent {
 
     context.restore();
   }
+  PropLoader(HealthComponentData) {
+    this.fontSize = HealthComponentData.fontSize;
+    this.fontFamily = HealthComponentData.fontFamily;
+    this.fontColor = HealthComponentData.fontColor;
+    this.healthPercent = HealthComponentData.healthPercent;
+  }
 }
 
 export class EnergyComponent extends UIComponent {
@@ -80,6 +86,12 @@ export class EnergyComponent extends UIComponent {
     );
     context.restore();
   }
+  PropLoader(EnergyComponentData) {
+    this.fontSize = EnergyComponentData.fontSize;
+    this.fontFamily = EnergyComponentData.fontFamily;
+    this.fontColor = EnergyComponentData.fontColor;
+    this.energyPercent = EnergyComponentData.energyPercent;
+  }
 }
 
 export class ScoreComponent extends UIComponent {
@@ -103,6 +115,11 @@ export class ScoreComponent extends UIComponent {
       this.verticalGap * 3
     );
     context.restore();
+  }
+  PropLoader(ScoreComponentData) {
+    this.fontSize = ScoreComponentData.fontSize;
+    this.fontFamily = ScoreComponentData.fontFamily;
+    this.fontColor = ScoreComponentData.fontColor;
   }
 }
 
@@ -134,6 +151,11 @@ export class TimeComponent extends UIComponent {
       this.verticalGap * 4
     );
     context.restore();
+  }
+  PropLoader(TimeComponentData) {
+    this.fontSize = TimeComponentData.fontSize;
+    this.fontFamily = TimeComponentData.fontFamily;
+    this.fontColor = TimeComponentData.fontColor;
   }
 }
 
