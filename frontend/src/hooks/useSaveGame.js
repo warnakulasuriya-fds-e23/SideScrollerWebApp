@@ -9,7 +9,7 @@ export const useSaveGame = () => {
     } else if (Slot === "B") {
       ToBeSent = { SaveSlot_B: JSON.parse(SerialzedGameState) };
     } else if (Slot === "C") {
-      ToBeSent = { SaveSlot_A: JSON.parse(SerialzedGameState) };
+      ToBeSent = { SaveSlot_C: JSON.parse(SerialzedGameState) };
     } else {
       return null;
     }

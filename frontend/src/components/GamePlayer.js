@@ -57,9 +57,9 @@ export const GamePlayer = () => {
   const UpdateGameSettings = (newSettings) => {
     gameRef.current.UpdateGameSettings(newSettings);
   };
-  const saveGame = async () => {
+  const saveGame = async (Slot) => {
     await saveGameBackendCommunication(
-      "A",
+      Slot,
       gameRef.current.SerializeGameState()
     );
   };
