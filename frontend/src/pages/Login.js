@@ -17,6 +17,7 @@ export const Login = () => {
   const { loginBackendCommunication, isLoading, error } = useLogin();
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("click registered");
     await loginBackendCommunication(email, password, rememberMe);
   };
   return (

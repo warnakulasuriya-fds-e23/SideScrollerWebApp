@@ -12,7 +12,9 @@
 /build
 
 #Secret
+backend/.env
 .env
+/backend/.env
 
 # misc
 .DS_Store
@@ -25,4 +27,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-/src/pages/Login.js
+frontend/src/pages/Login.js
+/frontend/src/pages/Login.js
