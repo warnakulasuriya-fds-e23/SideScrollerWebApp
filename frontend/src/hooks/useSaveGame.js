@@ -1,5 +1,5 @@
 import { useAuthContext } from "./useAuthContext";
-
+import axios from "axios";
 export const useSaveGame = () => {
   const { user } = useAuthContext();
   const saveGameBackendCommunication = async (Slot, SerialzedGameState) => {
@@ -13,13 +13,11 @@ export const useSaveGame = () => {
     } else {
       return null;
     }
-    const response = await fetch("/api/saveStates/update", {
-      method: "PATCH",
+    await axios.patch("/api/saveStates/update", JSON.stringify(ToBeSent), {
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${user.createdToken}`,
       },
-      body: JSON.stringify(ToBeSent),
     });
   };
 

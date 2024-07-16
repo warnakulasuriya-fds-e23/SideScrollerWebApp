@@ -1,5 +1,6 @@
 require("dotenv").config();
 const express = require("express");
+const cors = require("cors");
 const mongoose = require("mongoose");
 const userRouter = require("./routes/UserRoutes");
 const gameSettingsRouter = require("./routes/GameSettingsRoutes");
@@ -7,6 +8,7 @@ const saveStatesRouter = require("./routes/SaveStatesRoutes");
 const SideScrollerWebApp = express();
 
 SideScrollerWebApp.use(express.json());
+SideScrollerWebApp.use(cors());
 SideScrollerWebApp.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
