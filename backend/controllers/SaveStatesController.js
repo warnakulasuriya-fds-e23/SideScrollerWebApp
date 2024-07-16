@@ -63,7 +63,6 @@ const getSaveStateA = async (req, res) => {
     if (!recievedSaveState) {
       throw Error("Unable to get Save Stae A from database");
     }
-    console.log(recievedSaveState);
     res.status(200).json(recievedSaveState.SaveSlot_A);
   } catch (err) {
     res.status(400).json({ error: err.message });

@@ -1,22 +1,24 @@
 import { useGameSettingsContext } from "./useGameSettingsContext";
 import { useAuthContext } from "./useAuthContext";
+import axios from "axios";
 export const useUpdateGameSettings = () => {
   const { dispatch } = useGameSettingsContext();
   const { user } = useAuthContext();
 
   const UpdateGameSettings = async (gameSettingsObject) => {
-    const response = await fetch("/api/gameSettings", {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.createdToken}`,
-      },
-      body: JSON.stringify(gameSettingsObject),
-    });
-    const jsonForm = await response.json();
-    console.log(jsonForm);
-    if (response.ok) {
-      dispatch({ type: "LOAD_UP", payload: jsonForm });
+    const response = await axios.patch(
+      "/api/gameSettings",
+      JSON.stringify(gameSettingsObject),
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.createdToken}`,
+        },
+      }
+    );
+
+    if (response) {
+      dispatch({ type: "LOAD_UP", payload: response.data });
     }
   };
   return { UpdateGameSettings };

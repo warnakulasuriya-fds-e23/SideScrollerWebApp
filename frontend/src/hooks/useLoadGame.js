@@ -1,19 +1,15 @@
 import { useAuthContext } from "./useAuthContext";
-
+import axios from "axios";
 export const useLoadGame = () => {
   const { user } = useAuthContext();
   const loadGameBackendCommunication = async (Slot) => {
-    const response = await fetch(`/api/saveStates/${Slot}`, {
-      method: "GET",
+    const response = await axios.get(`/api/saveStates/${Slot}`, {
       headers: {
         Authorization: `Bearer ${user.createdToken}`,
       },
     });
-    if (!response.ok) {
-      return null;
-    }
-    const jsonForm = await response.json();
-    return jsonForm;
+
+    return response.data;
   };
   return { loadGameBackendCommunication };
 };

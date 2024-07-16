@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuthContext } from "./useAuthContext";
-
+import axios from "axios";
 export const useLogin = () => {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -9,27 +9,25 @@ export const useLogin = () => {
   const loginBackendCommunication = async (Email, Password, rememberMe) => {
     setError(null);
     try {
-      const response = await fetch("/api/users/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ Email, Password }),
-      });
-      const jsonForm = await response.json();
-
-      if (!response.ok) {
-        setIsLoading(false);
-        setError(jsonForm.error);
-      }
-      if (response.ok) {
+      const response = await axios
+        .post("/api/users/login", JSON.stringify({ Email, Password }), {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .catch(function (error) {
+          setIsLoading(false);
+          setError(error.response.data.error);
+          return { data: null };
+        });
+      if (response.data) {
         if (rememberMe) {
-          localStorage.setItem("user", JSON.stringify(jsonForm));
+          localStorage.setItem("user", JSON.stringify(response.data));
         } else {
-          sessionStorage.setItem("user", JSON.stringify(jsonForm));
+          sessionStorage.setItem("user", JSON.stringify(response.data));
         }
 
-        dispatch({ type: "LOGIN", payload: jsonForm });
+        dispatch({ type: "LOGIN", payload: response.data });
 
         setIsLoading(false);
       }
