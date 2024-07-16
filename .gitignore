@@ -6,7 +6,7 @@ backend/node_modules
 /node_modules
 /.pnp
 .pnp.js
-
+fnode_modules/
 # testing
 /coverage
 
@@ -26,6 +26,3 @@ backend/node_modules
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-frontend/src/pages/Login.js
-/frontend/src/pages/Login.js
