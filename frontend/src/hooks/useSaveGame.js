@@ -13,7 +13,7 @@ export const useSaveGame = () => {
     } else {
       return null;
     }
-    const response = fetch("/api/saveStates/update", {
+    const response = await fetch("/api/saveStates/update", {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

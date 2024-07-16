@@ -4,9 +4,19 @@ import { GiLoad } from "react-icons/gi";
 import { IoReaderSharp } from "react-icons/io5";
 import { FaXmark } from "react-icons/fa6";
 const LoadGameBox = (props) => {
-  const loadFromSlotA = () => {};
-  const loadFromSlotB = () => {};
-  const loadFromSlotC = () => {};
+  const LoadGame = async (Slot) => {
+    await props.loadGameMethod(Slot);
+    props.closeDrawer();
+  };
+  const loadFromSlotA = async () => {
+    await LoadGame("A");
+  };
+  const loadFromSlotB = async () => {
+    await LoadGame("B");
+  };
+  const loadFromSlotC = async () => {
+    await LoadGame("C");
+  };
   return (
     <div className="flex flex-col gap-5 justify-center">
       <Button gradientMonochrome="info" onClick={loadFromSlotA}>
@@ -32,7 +42,7 @@ export const LoadGameDrawer = (props) => {
       <Drawer.Items>
         <LoadGameBox
           closeDrawer={props.onClose}
-          saveGameMethod={props.saveGameMethod}
+          loadGameMethod={props.loadGameMethod}
         />
       </Drawer.Items>
     </Drawer>

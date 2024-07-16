@@ -100,7 +100,7 @@ export const RightCabinet = (props) => {
         open={loadGameOpen}
         onClose={handleLoadGameClose}
         position="right"
-        LoadGameMethod={props.LoadGameMethod}
+        loadGameMethod={props.loadGameMethod}
       />
       <RestartGameDrawer
         open={restartGameOpen}

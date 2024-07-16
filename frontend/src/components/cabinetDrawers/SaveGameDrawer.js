@@ -9,13 +9,13 @@ const SaveGameBox = (props) => {
     props.closeDrawer();
   };
   const savetoSlotA = async () => {
-    saveGame("A");
+    await saveGame("A");
   };
   const savetoSlotB = async () => {
-    saveGame("B");
+    await saveGame("B");
   };
   const savetoSlotC = async () => {
-    saveGame("C");
+    await saveGame("C");
   };
   return (
     <>

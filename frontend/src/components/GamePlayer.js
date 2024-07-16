@@ -4,10 +4,11 @@ import { RightCabinet } from "./RightCabinet";
 import { useNavigate } from "react-router-dom";
 import { Button } from "flowbite-react";
 import { GameState } from "../GameFiles/GameState.js";
-import { useGameSettingsContext, useSaveGame } from "../hooks";
+import { useGameSettingsContext, useSaveGame, useLoadGame } from "../hooks";
 export const GamePlayer = () => {
   const { gameSettings } = useGameSettingsContext();
   const { saveGameBackendCommunication } = useSaveGame();
+  const { loadGameBackendCommunication } = useLoadGame();
   const navigate = useNavigate();
   const [isGameRunning, setIsGameRunnig] = useState(false);
   const gameRef = useRef(null);
@@ -63,7 +64,13 @@ export const GamePlayer = () => {
       gameRef.current.SerializeGameState()
     );
   };
-  const loadGame = () => {};
+  const loadGame = async (Slot) => {
+    const fetchedGameData = await loadGameBackendCommunication(Slot);
+    console.log(fetchedGameData);
+    // if (fetchedGameData != null && fetchedGameData != "Clear") {
+    //   gameRef.current.LoadGame(fetchedGameData);
+    // }
+  };
   const restartGame = () => {
     gameRef.current.Restart();
   };
