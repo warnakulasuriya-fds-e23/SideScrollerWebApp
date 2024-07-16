@@ -12,7 +12,7 @@ fnode_modules/
 /build
 
 #Secret
-/backend/.env
+.env
 
 # misc
 .DS_Store
