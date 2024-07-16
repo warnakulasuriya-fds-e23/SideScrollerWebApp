@@ -1,5 +1,6 @@
 const User = require("../models/UserModel");
 const GameSettings = require("../models/GameSettingsModel");
+const SaveStates = require("../models/SaveStatesModel");
 const validator = require("validator");
 const jwt = require("jsonwebtoken");
 const CreateWebToken = (_id) => {
@@ -24,6 +25,7 @@ const signup = async (req, res) => {
     const createdGameSetting = await GameSettings.createdDefaultGameSettings(
       createdUser._id
     );
+    await SaveStates.createDefaultSaveStatesDoc(createdUser._id);
     const createdToken = CreateWebToken(createdUser._id);
     res.status(200).json({ Email, createdToken, createdGameSetting });
   } catch (err) {
@@ -121,6 +123,7 @@ const deleteUser = async (req, res) => {
       throw Error("Entered Confirmation Password is incorrect");
     }
 
+    await SaveStates.findOneAndDelete({ UserId });
     const deletedGameSetting = await GameSettings.findOneAndDelete({ UserId });
     const deletedUser = await User.findByIdAndDelete(UserId);
 

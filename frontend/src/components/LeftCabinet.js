@@ -1,17 +1,9 @@
-import React, { useState } from "react";
-import { Drawer, Button, Tooltip } from "flowbite-react";
-import { useGameSettingsContext } from "../hooks";
-import { GameSettingsBox } from "./GameSettingsBox";
+import React from "react";
+import { Button, Tooltip } from "flowbite-react";
 import { HiStop } from "react-icons/hi";
 import { GiPlayButton, GiCharacter } from "react-icons/gi";
 import { PiCityFill } from "react-icons/pi";
-export const LeftCabinet = () => {
-  const { gameSettings } = useGameSettingsContext();
-  const [gameSettingsOpen, setGameSettingsOpen] = useState(false);
-
-  const handleGameSettingsClose = () => {
-    setGameSettingsOpen(false);
-  };
+export const LeftCabinet = (props) => {
   return (
     <>
       <div className="w-fit h-[84vh] bg-gray-200 border-gray-200 dark:bg-gray-900 dark:border-gray-700">
@@ -20,6 +12,7 @@ export const LeftCabinet = () => {
             <Button
               className="transform hover:scale-150 hover:translate-x-5 transition ease-linear duration-300"
               color="blue"
+              onClick={props.customizeCharacterMethod}
             >
               <GiCharacter className="size-3 sm:size-6 " />
             </Button>
@@ -28,6 +21,7 @@ export const LeftCabinet = () => {
             <Button
               className="transform hover:scale-150 hover:translate-x-5 transition ease-linear duration-300"
               color="blue"
+              onClick={props.customizeBackgroundMethod}
             >
               <PiCityFill className="size-3 sm:size-6 " />
             </Button>
@@ -36,6 +30,7 @@ export const LeftCabinet = () => {
             <Button
               className="transform hover:scale-150 hover:translate-x-5 transition ease-linear duration-300"
               color="blue"
+              onClick={props.runGameMethod}
             >
               <GiPlayButton className="size-3 sm:size-6 " />
             </Button>
@@ -44,24 +39,13 @@ export const LeftCabinet = () => {
             <Button
               className="transform hover:scale-150 hover:translate-x-5 transition ease-linear duration-300"
               color="blue"
-              onClick={() => {
-                setGameSettingsOpen(!gameSettingsOpen);
-              }}
+              onClick={props.stopGameMethod}
             >
               <HiStop className="size-3 sm:size-6 " />
             </Button>
           </Tooltip>
         </div>
       </div>
-
-      <Drawer
-        open={gameSettingsOpen}
-        onClose={handleGameSettingsClose}
-        position="right"
-      >
-        <Drawer.Header title="Game Settings" titleIcon={HiStop} />
-        <Drawer.Items>{gameSettings && <GameSettingsBox />}</Drawer.Items>
-      </Drawer>
     </>
   );
 };

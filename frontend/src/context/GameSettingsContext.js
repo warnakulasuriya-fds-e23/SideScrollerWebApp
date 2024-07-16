@@ -6,7 +6,7 @@ const GameSettingsReducer = (state, action) => {
   switch (action.type) {
     case "LOAD_UP":
       return {
-        gameSettings: action.payload[0],
+        gameSettings: action.payload,
       };
     case "CLEAR":
       return {

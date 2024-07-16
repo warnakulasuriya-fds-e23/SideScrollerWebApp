@@ -1,7 +1,55 @@
-import React, { useEffect, useState } from "react";
-import { useGameSettingsContext } from "../hooks";
-import { Select, Kbd, Label } from "flowbite-react";
-export const GameSettingsBox = () => {
+import React, { useState } from "react";
+import { useGameSettingsContext, useUpdateGameSettings } from "../../hooks";
+import {
+  Select,
+  Kbd,
+  Label,
+  Modal,
+  ModalBody,
+  ModalHeader,
+  Button,
+} from "flowbite-react";
+import { Drawer } from "flowbite-react";
+import { HiOutlineCog } from "react-icons/hi";
+import { FaCheck, FaXmark } from "react-icons/fa6";
+
+const KeyPressRecorder = (props) => {
+  const [modalOpen, setModalOpen] = useState(false);
+  const openModal = () => {
+    setModalOpen(true);
+  };
+  const handleModalClose = () => {
+    setModalOpen(false);
+  };
+  const captureKeyPress = (key) => {
+    props.setKeyMethod(key);
+    setModalOpen(false);
+  };
+  return (
+    <>
+      <Kbd
+        className=" rounded-2xl text-lg text-center min-w-32"
+        onClick={openModal}
+      >
+        {props.children}
+      </Kbd>
+      <Modal
+        show={modalOpen}
+        onClose={handleModalClose}
+        onKeyDown={(e) => {
+          captureKeyPress(e.key);
+        }}
+      >
+        <ModalHeader>Key Selection</ModalHeader>
+        <ModalBody className="text-center text-2xl">
+          - Press Any Key -
+        </ModalBody>
+      </Modal>
+    </>
+  );
+};
+
+const GameSettingsBox = (props) => {
   const { gameSettings } = useGameSettingsContext();
   const [UserId, setUserId] = useState(gameSettings.UserId);
   const [BackgroundType, setBackgroundType] = useState(
@@ -21,7 +69,38 @@ export const GameSettingsBox = () => {
   const [JumpKey, setJumpKey] = useState(gameSettings.JumpKey);
   const [BackwardKey, setBackwardKey] = useState(gameSettings.BackwardKey);
   const [ForwardKey, setForwardKey] = useState(gameSettings.ForwardKey);
-
+  const { UpdateGameSettings } = useUpdateGameSettings();
+  const saveChangedSettings = async () => {
+    await UpdateGameSettings({
+      UserId,
+      BackgroundType,
+      CharacterType,
+      MuteBackgroundMusic,
+      MuteEffects,
+      DebugKey,
+      PauseKey,
+      RollKey,
+      CrouchKey,
+      JumpKey,
+      BackwardKey,
+      ForwardKey,
+    });
+    props.gameSettingsMethod({
+      UserId,
+      BackgroundType,
+      CharacterType,
+      MuteBackgroundMusic,
+      MuteEffects,
+      DebugKey,
+      PauseKey,
+      RollKey,
+      CrouchKey,
+      JumpKey,
+      BackwardKey,
+      ForwardKey,
+    });
+    props.closeDrawer();
+  };
   return (
     <>
       <div className="flex flex-col gap-2 w-fit">
@@ -86,59 +165,94 @@ export const GameSettingsBox = () => {
           <span className="w-40">
             <Label value="Debug Key" />
           </span>
-          <Kbd className=" rounded-2xl text-lg text-center min-w-32">
+          <KeyPressRecorder setKeyMethod={setDebugKey}>
             {DebugKey}
-          </Kbd>
+          </KeyPressRecorder>
         </div>
         <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Pause Key" />
           </span>
-          <Kbd className=" rounded-2xl text-lg text-center min-w-32">
+          <KeyPressRecorder setKeyMethod={setPauseKey}>
             {PauseKey}
-          </Kbd>
+          </KeyPressRecorder>
         </div>
         <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Roll Key" />
           </span>
-          <Kbd className=" rounded-2xl text-lg text-center min-w-32">
+          <KeyPressRecorder setKeyMethod={setRollKey}>
             {RollKey}
-          </Kbd>
+          </KeyPressRecorder>
         </div>
         <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Crouch Key" />
           </span>
-          <Kbd className=" rounded-2xl text-lg text-center min-w-32">
+          <KeyPressRecorder setKeyMethod={setCrouchKey}>
             {CrouchKey}
-          </Kbd>
+          </KeyPressRecorder>
         </div>
         <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Jump Key" />
           </span>
-          <Kbd className=" rounded-2xl text-lg text-center min-w-32">
+          <KeyPressRecorder setKeyMethod={setJumpKey}>
             {JumpKey}
-          </Kbd>
+          </KeyPressRecorder>
         </div>
         <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Backward" />
           </span>
-          <Kbd className=" rounded-2xl text-lg text-center min-w-32">
+          <KeyPressRecorder setKeyMethod={setBackwardKey}>
             {BackwardKey}
-          </Kbd>
+          </KeyPressRecorder>
         </div>
         <div className="flex gap-4 items-centergit">
           <span className="w-40">
             <Label value="Forward Key" />
           </span>
-          <Kbd className=" rounded-2xl text-lg text-center min-w-32">
+          <KeyPressRecorder setKeyMethod={setForwardKey}>
             {ForwardKey}
-          </Kbd>
+          </KeyPressRecorder>
+        </div>
+        <div className="flex gap-5 justify-center">
+          <Button gradientMonochrome="success" onClick={saveChangedSettings}>
+            <FaCheck />
+          </Button>
+          <Button gradientMonochrome="failure" onClick={props.closeDrawer}>
+            <FaXmark />
+          </Button>
         </div>
       </div>
     </>
+  );
+};
+
+export const GameSettingsDrawer = (props) => {
+  const { gameSettings } = useGameSettingsContext();
+  const [gameSettingsBoxKey, setGameSettingsBoxKey] = useState(1);
+  const handleDrawerClose = () => {
+    setGameSettingsBoxKey((gameSettingsBoxKey + 1) % 10); //im changing the key so that the GameSettingsBox Component will re-render when opening and closing the drawer. Im doing this to make sure that the gameSettigns stored in the game settings contenxt is loaded up everytime that the drawer is opened.
+    props.onClose();
+  };
+  return (
+    <Drawer
+      open={props.open}
+      onClose={handleDrawerClose}
+      position={props.position}
+    >
+      <Drawer.Header title="Game Settings" titleIcon={HiOutlineCog} />
+      <Drawer.Items>
+        {gameSettings && (
+          <GameSettingsBox
+            key={gameSettingsBoxKey}
+            closeDrawer={handleDrawerClose}
+            gameSettingsMethod={props.gameSettingsMethod}
+          />
+        )}
+      </Drawer.Items>
+    </Drawer>
   );
 };
