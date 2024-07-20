@@ -57,7 +57,21 @@ const deleteBackground = async (req, res) => {
   }
 };
 
+const returnBackground = async (req, res) => {
+  const { BackgroundName } = req.body;
+  try {
+    if (!BackgroundName) throw Error("Please enter a Background Name");
+    const recievedBackground = await Background.findOne({ BackgroundName });
+    if (!recievedBackground) throw Error("Unable to find background");
+
+    res.status(200).json(recievedBackground);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 module.exports = {
   addBackground,
   deleteBackground,
+  returnBackground,
 };
