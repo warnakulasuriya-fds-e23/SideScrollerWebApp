@@ -11,27 +11,33 @@ import {
 import { Link, useLocation } from "react-router-dom";
 import { HiLogout } from "react-icons/hi";
 import { useLogout, useAuthContext } from "../hooks";
+import { useNavigate } from "react-router-dom";
 export function NavigationBar() {
+  const navigate = useNavigate();
   const { user } = useAuthContext();
   const currentPath = useLocation().pathname;
   const { Logout } = useLogout();
+  const goHome = () => {
+    navigate("/");
+  };
+
   return (
     <>
       <Navbar className="  h-[8vh] bg-gray-200 border-gray-200 dark:bg-gray-900 dark:border-gray-700 items-center ">
-        <NavbarBrand>
+        <NavbarBrand className="hover:cursor-pointer" onClick={goHome}>
           <img
             src="/favicon.svg"
             className="mr-3 h-6 sm:h-9"
             alt="Flowbite React Logo"
           />
-          <Link to="/">
+          <span>
             <div className="self-center flex justify-evenly  text-xl font-semibold dark:text-white">
               <div className="bg-blue-600 rounded-lg px-4 transform -skew-x-12 text-gray-200 dark:text-gray-900">
                 Zyd
               </div>
               <div>Scroller</div>
             </div>
-          </Link>
+          </span>
         </NavbarBrand>
         <div className="flex md:order-2">
           {user && (
