@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const userRouter = require("./routes/UserRoutes");
 const gameSettingsRouter = require("./routes/GameSettingsRoutes");
 const saveStatesRouter = require("./routes/SaveStatesRoutes");
+const backgroundRouter = require("./routes/BackgroundRoutes");
 const SideScrollerWebApp = express();
 
 SideScrollerWebApp.use(express.json());
@@ -17,7 +18,7 @@ SideScrollerWebApp.use((req, res, next) => {
 SideScrollerWebApp.use("/api/users", userRouter);
 SideScrollerWebApp.use("/api/gameSettings", gameSettingsRouter);
 SideScrollerWebApp.use("/api/saveStates", saveStatesRouter);
-
+SideScrollerWebApp.use("/api/background", backgroundRouter);
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {

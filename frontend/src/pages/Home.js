@@ -10,7 +10,29 @@ export const Home = () => {
       await LoadUpGameSettings();
     };
     loadingfunction();
+    // document
+    //   .querySelector("#myFileInput")
+    //   .addEventListener("change", function () {
+    //     const reader = new FileReader();
+    //     reader.addEventListener("load", () => {
+    //       localStorage.setItem("testImage", reader.result);
+    //     });
+    //     reader.readAsDataURL(this.files[0]);
+    //   });
+    // if (localStorage.getItem("testImage")) {
+    //   document
+    //     .querySelector("#imagePlace")
+    //     .setAttribute("src", localStorage.getItem("testImage"));
+    // }
   }, []);
 
-  return <GamePlayer />;
+  return (
+    <>
+      <GamePlayer />
+      {/* <div>
+        <input type="file" id="myFileInput" />
+        <img id="imagePlace" src="" alt="test" />
+      </div> */}
+    </>
+  );
 };
