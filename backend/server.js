@@ -21,8 +21,10 @@ SideScrollerWebApp.use("/api/saveStates", saveStatesRouter);
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    SideScrollerWebApp.listen(4000, () => {
-      console.log("Connected to Database! Listening on port 4000");
+    SideScrollerWebApp.listen(process.env.PORT, () => {
+      console.log(
+        `Connected to Database! Listening on port ${process.env.PORT}`
+      );
     });
   })
   .catch((error) => {
