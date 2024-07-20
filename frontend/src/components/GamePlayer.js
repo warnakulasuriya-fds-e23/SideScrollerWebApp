@@ -67,9 +67,9 @@ export const GamePlayer = () => {
   const loadGame = async (Slot) => {
     const fetchedGameData = await loadGameBackendCommunication(Slot);
     console.log(fetchedGameData);
-    // if (fetchedGameData != null && fetchedGameData != "Clear") {
-    //   gameRef.current.LoadGame(fetchedGameData);
-    // }
+    if (fetchedGameData != null && fetchedGameData != "Clear") {
+      gameRef.current.LoadGame(fetchedGameData);
+    }
   };
   const restartGame = () => {
     gameRef.current.Restart();
