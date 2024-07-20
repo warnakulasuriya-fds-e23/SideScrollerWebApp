@@ -13,20 +13,6 @@ export const useSignup = () => {
     rememberMe
   ) => {
     setError(null);
-    // const response = await axios
-    //   .post(
-    //     "/api/users/signup",
-    //     JSON.stringify({ Email, UserName, Password }),
-    //     {
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //     }
-    //   )
-    //   .catch(function (error) {
-    //     setIsLoading(false);
-    //     setError(error.message);
-    //   });
     const response = await axios
       .post(
         "/api/users/signup",
@@ -42,7 +28,6 @@ export const useSignup = () => {
         setError(error.response.data.error);
         return { data: null };
       });
-    console.log(response);
     if (response.data) {
       if (rememberMe) {
         localStorage.setItem("user", JSON.stringify(response.data));
