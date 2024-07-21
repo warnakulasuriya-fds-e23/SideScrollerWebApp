@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { NavigationBar, PageFooter } from "./components";
 import { Home, Login, Signup, PageNotFound } from "./pages";
+import { BackgroundsEditing } from "./adminPanel";
 import { Flowbite } from "flowbite-react";
 import { useAuthContext } from "./hooks";
 function App() {
@@ -12,7 +13,7 @@ function App() {
           <div className="h-[8vh]">
             <NavigationBar />
           </div>
-          <div className="h-[84vh]">
+          <div className="h-[84vh] overflow-auto">
             <Routes>
               <Route
                 path="/"
@@ -26,6 +27,16 @@ function App() {
                 path="/signup"
                 element={!user ? <Signup /> : <Navigate to="/" />}
               />
+              {/* <Route
+                path="/backgroundsEditing"
+                element={!user ? <BackgroundsEditing /> : <Navigate to="/" />}
+              /> */}
+              {user && (
+                <Route
+                  path="/backgroundsEditing"
+                  element={<BackgroundsEditing />}
+                />
+              )}
               <Route path="*" element={<PageNotFound />} />
             </Routes>
           </div>

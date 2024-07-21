@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useLoadUpGameSettings } from "../hooks";
 import { GamePlayer } from "../components";
+import { Label } from "flowbite-react";
 
 export const Home = () => {
   const { LoadUpGameSettings } = useLoadUpGameSettings();
@@ -29,10 +30,26 @@ export const Home = () => {
   return (
     <>
       <GamePlayer />
-      {/* <div>
-        <input type="file" id="myFileInput" />
-        <img id="imagePlace" src="" alt="test" />
-      </div> */}
+      <div className="flex gap-4">
+        <Label htmlFor="Layer1Input" value="Layer1:" />
+        <input type="file" id="Layer1Input" />
+      </div>
+      <div className="flex gap-4">
+        <Label htmlFor="Layer2Input" value="Layer2:" />
+        <input type="file" id="Layer2Input" />
+      </div>
+      <div className="flex gap-4">
+        <Label htmlFor="Layer2Input" value="Layer2:" />
+        <input type="file" id="Layer2Input" />
+      </div>
+      <div className="flex gap-4">
+        <Label htmlFor="Layer3Input" value="Layer3:" />
+        <input type="file" id="Layer3Input" />
+      </div>
+      <div className="flex gap-4">
+        <Label htmlFor="Layer4Input" value="Layer4:" />
+        <input type="file" id="Layer4Input" />
+      </div>
     </>
   );
 };
