@@ -12,17 +12,20 @@ export const BackgroundsEditing = () => {
   const [Layer3, setLayer3] = useState();
   const [Layer4, setLayer4] = useState();
   const [Layer5, setLayer5] = useState();
+  const [PreviewImage, setPreviewImage] = useState();
   var Layer1Input;
   var Layer2Input;
   var Layer3Input;
   var Layer4Input;
   var Layer5Input;
+  var PreviewImageInput;
   useEffect(() => {
     Layer1Input = document.querySelector("#Layer1Input");
     Layer2Input = document.querySelector("#Layer2Input");
     Layer3Input = document.querySelector("#Layer3Input");
     Layer4Input = document.querySelector("#Layer4Input");
     Layer5Input = document.querySelector("#Layer5Input");
+    PreviewImageInput = document.querySelector("#PreviewImageInput");
     Layer1Input.addEventListener("change", function () {
       const reader = new FileReader();
       reader.addEventListener("load", () => {
@@ -58,6 +61,13 @@ export const BackgroundsEditing = () => {
       });
       reader.readAsDataURL(this.files[0]);
     });
+    PreviewImageInput.addEventListener("change", function () {
+      const reader = new FileReader();
+      reader.addEventListener("load", () => {
+        setPreviewImage(reader.result);
+      });
+      reader.readAsDataURL(this.files[0]);
+    });
   }, []);
 
   const handleSubmit = async (e) => {
@@ -71,6 +81,7 @@ export const BackgroundsEditing = () => {
         Layer3,
         Layer4,
         Layer5,
+        PreviewImage,
       };
       await addBackroundBackendCommunication(backgroundObject);
       console.log("successfully added");
@@ -139,6 +150,17 @@ export const BackgroundsEditing = () => {
       .querySelector("#LayerDisplay")
       .setAttribute("src", LoadedBackgroundObj.Layer5);
   };
+  const DisplayPreviewImage = async () => {
+    if (
+      !LoadedBackgroundObj ||
+      LoadedBackgroundObj.BackgroundName != BackgroundNameToShow
+    ) {
+      await LoadUpImageObject();
+    }
+    document
+      .querySelector("#LayerDisplay")
+      .setAttribute("src", LoadedBackgroundObj.PreviewImage);
+  };
 
   return (
     <>
@@ -188,6 +210,12 @@ export const BackgroundsEditing = () => {
           </span>
           <input required={true} type="file" id="Layer5Input" />
         </div>
+        <div className="flex gap-10">
+          <span className="w-64 text-2xl">
+            <Label htmlFor="PreviewImageInput" value="PreviewImage:" />
+          </span>
+          <input required={true} type="file" id="PreviewImageInput" />
+        </div>
         <Button type="submit" gradientMonochrome="success">
           Add Background Object
         </Button>
@@ -233,6 +261,13 @@ export const BackgroundsEditing = () => {
           onClick={DisplayLayer5}
         >
           Layer5
+        </Button>
+        <Button
+          gradientDuoTone="greenToBlue"
+          disabled={BackgroundNameToShow ? false : true}
+          onClick={DisplayPreviewImage}
+        >
+          PreviewImage
         </Button>
       </div>
     </>

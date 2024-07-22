@@ -1,7 +1,15 @@
 const Background = require("../models/BackgroundModel");
 
 const addBackground = async (req, res) => {
-  const { BackgroundName, Layer1, Layer2, Layer3, Layer4, Layer5 } = req.body;
+  const {
+    BackgroundName,
+    Layer1,
+    Layer2,
+    Layer3,
+    Layer4,
+    Layer5,
+    PreviewImage,
+  } = req.body;
   try {
     if (
       !BackgroundName ||
@@ -9,14 +17,17 @@ const addBackground = async (req, res) => {
       !Layer2 ||
       !Layer3 ||
       !Layer4 ||
-      !Layer5
+      !Layer5 ||
+      !PreviewImage
     ) {
       throw Error(
         `Incomplete Background object was recived, following are missing : ${
           !BackgroundName ? "BackgroundName " : ""
         }${!Layer1 ? "Layer1 " : ""}${!Layer2 ? "Layer2 " : ""}${
           !Layer3 ? "Layer3 " : ""
-        }${!Layer4 ? "Layer4 " : ""}${!Layer5 ? "Layer5 " : ""}`
+        }${!Layer4 ? "Layer4 " : ""}${!Layer5 ? "Layer5 " : ""}${
+          !PreviewImage ? "PreviewImage" : ""
+        }`
       );
     }
     const alreadyexists = await Background.findOne({ BackgroundName });
@@ -29,6 +40,7 @@ const addBackground = async (req, res) => {
       Layer3,
       Layer4,
       Layer5,
+      PreviewImage,
     });
     res.status(200).json(createdBackgroundDoc);
   } catch (err) {

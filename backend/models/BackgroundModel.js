@@ -28,6 +28,10 @@ const BackgroundSchema = new Schema(
       type: Object,
       required: true,
     },
+    PreviewImage: {
+      type: Object,
+      required: true,
+    },
   },
   { timestamps: true }
 );
