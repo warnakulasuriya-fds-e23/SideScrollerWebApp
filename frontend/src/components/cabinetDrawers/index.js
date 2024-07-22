@@ -1,3 +1,4 @@
+export { CustomizeBackgroundDrawer } from "./CustomizeBackgroundDrawer";
 export { GameSettingsDrawer } from "./GameSettingsDrawer";
 export { LoadGameDrawer } from "./LoadGameDrawer";
 export { RestartGameDrawer } from "./RestartGameDrawer";
