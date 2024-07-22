@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useAuthContext } from "../useAuthContext";
+import { useAuthContext } from "../AuthContextHooks/useAuthContext";
 export const useDeleteBackground = () => {
   const { user } = useAuthContext();
   const deleteBackgroundBackendCommunication = async (BackgroundName) => {

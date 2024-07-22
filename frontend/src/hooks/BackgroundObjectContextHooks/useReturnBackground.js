@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useAuthContext } from "../useAuthContext";
+import { useAuthContext } from "../AuthContextHooks/useAuthContext";
 export const useReturnBackground = () => {
   const { user } = useAuthContext();
   const returnBackgroundBackendCommunication = async (BackgroundName) => {

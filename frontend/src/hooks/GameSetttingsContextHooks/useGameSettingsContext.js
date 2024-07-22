@@ -1,4 +1,4 @@
-import { GameSettingsContext } from "../context/GameSettingsContext";
+import { GameSettingsContext } from "../../context/GameSettingsContext";
 import { useContext } from "react";
 
 export const useGameSettingsContext = () => {

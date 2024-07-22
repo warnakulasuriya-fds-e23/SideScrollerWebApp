@@ -1,5 +1,5 @@
 import { useGameSettingsContext } from "./useGameSettingsContext";
-import { useAuthContext } from "./useAuthContext";
+import { useAuthContext } from "../AuthContextHooks/useAuthContext";
 import axios from "axios";
 export const useLoadUpGameSettings = () => {
   const { dispatch } = useGameSettingsContext();

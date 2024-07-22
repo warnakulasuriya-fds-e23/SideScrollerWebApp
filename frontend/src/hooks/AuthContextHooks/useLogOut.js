@@ -1,5 +1,5 @@
 import { useAuthContext } from "./useAuthContext";
-import { useGameSettingsContext } from "./useGameSettingsContext";
+import { useGameSettingsContext } from "../GameSetttingsContextHooks/useGameSettingsContext";
 export const useLogout = () => {
   const { dispatch } = useAuthContext();
   const { dispatch: GameSettingsDispatch } = useGameSettingsContext();
