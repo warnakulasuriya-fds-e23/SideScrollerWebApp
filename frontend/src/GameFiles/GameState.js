@@ -158,4 +158,7 @@ export class GameState {
     this.collisionHandler.PropLoader(GameStateData); // [Completed Prop Loader]
     this.PickUpHandler.PropLoader(GameStateData); // [Completed Prop Loader]
   }
+  BackgroundLoader(backgroundObject) {
+    this.background.BackgroundLoader(backgroundObject);
+  }
 }

@@ -73,6 +73,9 @@ class Layer {
       this.posY = GameStateData.background.layer5.posY;
     }
   }
+  ImageLoader(Image) {
+    this.layerImage = Image;
+  }
 }
 
 export class Background {
@@ -153,5 +156,22 @@ export class Background {
     this.layer3.PropLoader(GameStateData, "layer3"); // [Completed Prop Loader]
     this.layer4.PropLoader(GameStateData, "layer4"); // [Completed Prop Loader]
     this.layer5.PropLoader(GameStateData, "layer5"); // [Completed Prop Loader]
+  }
+  BackgroundLoader(backgroundObject) {
+    const Layer1NewImage = document.createElement("img");
+    const Layer2NewImage = document.createElement("img");
+    const Layer3NewImage = document.createElement("img");
+    const Layer4NewImage = document.createElement("img");
+    // const Layer5NewImage = document.createElement("img");
+    Layer1NewImage.src = backgroundObject.Layer1;
+    Layer2NewImage.src = backgroundObject.Layer2;
+    Layer3NewImage.src = backgroundObject.Layer3;
+    Layer4NewImage.src = backgroundObject.Layer4;
+    // Layer5NewImage.src = backgroundObject.Layer5;
+    this.layer1.ImageLoader(Layer1NewImage);
+    this.layer2.ImageLoader(Layer2NewImage);
+    this.layer3.ImageLoader(Layer3NewImage);
+    this.layer4.ImageLoader(Layer4NewImage);
+    // this.layer5.ImageLoader(Layer5NewImage);
   }
 }
