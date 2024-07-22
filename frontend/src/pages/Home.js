@@ -1,14 +1,16 @@
 import { useEffect } from "react";
-import { useLoadUpGameSettings } from "../hooks";
+import { useLoadUpGameSettings, useLoadUpBackground } from "../hooks";
 import { GamePlayer } from "../components";
 import { Label } from "flowbite-react";
 
 export const Home = () => {
-  const { LoadUpGameSettings } = useLoadUpGameSettings();
+  const { LoadUpGameSettingsFromBackend } = useLoadUpGameSettings();
+  const { LoadUpBackgroundFromBackend } = useLoadUpBackground();
 
   useEffect(() => {
     const loadingfunction = async () => {
-      await LoadUpGameSettings();
+      await LoadUpGameSettingsFromBackend();
+      await LoadUpBackgroundFromBackend("City1");
     };
     loadingfunction();
     // document

@@ -21,6 +21,7 @@ export const BackgroundObjectContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(BackgroundObjectReducer, {
     BackgroundObject: null,
   });
+  console.log("Background Object Context: ", state);
   return (
     <BackgroundObjectContext.Provider value={{ ...state, dispatch }}>
       {children}
