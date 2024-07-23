@@ -48,6 +48,28 @@ const addBackground = async (req, res) => {
   }
 };
 
+const updateBackground = async (req, res) => {
+  const { BackgroundName } = req.body;
+  try {
+    if (!BackgroundName) throw Error("Please Specify the background Name");
+
+    const options = { returnDocument: "after" };
+    const updatedBackground_after = await Background.findOneAndUpdate(
+      { BackgroundName },
+      req.body,
+      options
+    );
+    if (!updatedBackground_after)
+      throw Error(
+        `Background object under the name ${BackgroundName} was not found `
+      );
+
+    res.status(200).json(updatedBackground_after);
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 const deleteBackground = async (req, res) => {
   const { BackgroundName } = req.body;
   try {
@@ -84,6 +106,7 @@ const returnBackground = async (req, res) => {
 
 module.exports = {
   addBackground,
+  updateBackground,
   deleteBackground,
   returnBackground,
 };
