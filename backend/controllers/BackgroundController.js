@@ -104,9 +104,26 @@ const returnBackground = async (req, res) => {
   }
 };
 
+const checkBackgroundAvailability = async (req, res) => {
+  const { BackgroundName } = req.body;
+  try {
+    if (!BackgroundName) throw Error("Please enter a Background Name");
+    const discoveredBackground = await Background.findOne({ BackgroundName });
+
+    if (discoveredBackground) {
+      res.status(200).json({ Availability: true });
+    } else {
+      res.status(200).json({ Availability: false });
+    }
+  } catch (err) {
+    res.status(400).json({ error: err.message });
+  }
+};
+
 module.exports = {
   addBackground,
   updateBackground,
   deleteBackground,
   returnBackground,
+  checkBackgroundAvailability,
 };

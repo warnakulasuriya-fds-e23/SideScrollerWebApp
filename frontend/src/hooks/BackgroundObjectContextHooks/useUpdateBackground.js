@@ -1,4 +1,4 @@
-import React from "react";
+import axios from "axios";
 import { useAuthContext } from "../AuthContextHooks/useAuthContext";
 export const useUpdateBackground = () => {
   const { user } = useAuthContext();

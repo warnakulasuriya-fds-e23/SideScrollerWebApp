@@ -10,9 +10,13 @@ export { useAddBackground } from "./BackgroundObjectContextHooks/useAddBackgroun
 export { useDeleteBackground } from "./BackgroundObjectContextHooks/useDeleteBackground";
 export { useReturnBackground } from "./BackgroundObjectContextHooks/useReturnBackground";
 export { useLoadUpBackground } from "./BackgroundObjectContextHooks/useLoadUpBackground";
+export { useUpdateBackground } from "./BackgroundObjectContextHooks/useUpdateBackground";
+export { useCheckBackgroundAvailability } from "./BackgroundObjectContextHooks/useCheckBackgroundAvailability";
 
+//Game Settings Context related hooks
 export { useGameSettingsContext } from "./GameSetttingsContextHooks/useGameSettingsContext";
-export { useLoadGame } from "./useLoadGame";
 export { useLoadUpGameSettings } from "./GameSetttingsContextHooks/useLoadUpGameSetting";
-export { useSaveGame } from "./useSaveGame";
 export { useUpdateGameSettings } from "./GameSetttingsContextHooks/useUpdateGameSettings";
+
+export { useSaveGame } from "./useSaveGame";
+export { useLoadGame } from "./useLoadGame";
