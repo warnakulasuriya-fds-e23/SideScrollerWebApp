@@ -8,12 +8,16 @@ export const useCheckBackgroundAvailability = () => {
     BackgroundName
   ) => {
     const response = await axios
-      .patch("/api/background/update", JSON.stringify({ BackgroundName }), {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.createdToken}`,
-        },
-      })
+      .post(
+        "/api/background/check-availability",
+        JSON.stringify({ BackgroundName }),
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.createdToken}`,
+          },
+        }
+      )
       .catch((error) => {
         console.log(error);
       });

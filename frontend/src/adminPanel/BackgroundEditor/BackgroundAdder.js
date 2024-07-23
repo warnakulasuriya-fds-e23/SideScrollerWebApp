@@ -1,8 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { Label, Button } from "flowbite-react";
-import { useAddBackground } from "../../hooks";
+import {
+  useCheckBackgroundAvailability,
+  useAddBackground,
+  useUpdateBackground,
+} from "../../hooks";
 export const BackgroundAdder = () => {
+  const { CheckBackgroundAvailabiltyBackendCommunication } =
+    useCheckBackgroundAvailability();
   const { addBackroundBackendCommunication } = useAddBackground();
+  const { updateBackgroundBackendCommunication } = useUpdateBackground();
   const [BackgroundName, setBackgroundName] = useState();
   const [Layer1, setLayer1] = useState();
   const [Layer2, setLayer2] = useState();
@@ -69,7 +76,7 @@ export const BackgroundAdder = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("inside handleSubmit");
+    console.log("processing Image submission...");
     try {
       const backgroundObject = {
         BackgroundName,
@@ -80,8 +87,18 @@ export const BackgroundAdder = () => {
         Layer5,
         PreviewImage,
       };
-      await addBackroundBackendCommunication(backgroundObject);
-      console.log("successfully added");
+      const IsAvailable = await CheckBackgroundAvailabiltyBackendCommunication(
+        BackgroundName
+      );
+      if (IsAvailable) {
+        console.log("Going to update already existing Object ....");
+        await updateBackgroundBackendCommunication(backgroundObject);
+        console.log("successfully updated");
+      } else {
+        console.log("Going to add a new Object ....");
+        await addBackroundBackendCommunication(backgroundObject);
+        console.log("successfully added");
+      }
     } catch (error) {
       console.log(error);
     }
@@ -108,40 +125,40 @@ export const BackgroundAdder = () => {
           <span className="w-64 text-2xl">
             <Label htmlFor="Layer1Input" value="Layer1:" />
           </span>
-          <input required={true} type="file" id="Layer1Input" />
+          <input type="file" id="Layer1Input" />
         </div>
         <div className="flex gap-10">
           <span className="w-64 text-2xl">
             <Label htmlFor="Layer2Input" value="Layer2:" />
           </span>
-          <input required={true} type="file" id="Layer2Input" />
+          <input type="file" id="Layer2Input" />
         </div>
         <div className="flex gap-10">
           <span className="w-64 text-2xl">
             <Label htmlFor="Layer3Input" value="Layer3:" />
           </span>
-          <input required={true} type="file" id="Layer3Input" />
+          <input type="file" id="Layer3Input" />
         </div>
         <div className="flex gap-10">
           <span className="w-64 text-2xl">
             <Label htmlFor="Layer4Input" value="Layer4:" />
           </span>
-          <input required={true} type="file" id="Layer4Input" />
+          <input type="file" id="Layer4Input" />
         </div>
         <div className="flex gap-10">
           <span className="w-64 text-2xl">
             <Label htmlFor="Layer5Input" value="Layer5:" />
           </span>
-          <input required={true} type="file" id="Layer5Input" />
+          <input type="file" id="Layer5Input" />
         </div>
         <div className="flex gap-10">
           <span className="w-64 text-2xl">
             <Label htmlFor="PreviewImageInput" value="PreviewImage:" />
           </span>
-          <input required={true} type="file" id="PreviewImageInput" />
+          <input type="file" id="PreviewImageInput" />
         </div>
         <Button type="submit" gradientMonochrome="success">
-          Add Background Object
+          Add/Upadte Background Object
         </Button>
       </form>
     </>
