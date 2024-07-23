@@ -60,7 +60,7 @@ export const LeftCabinet = (props) => {
         open={CustomizeBackgroundOpen}
         onClose={handleCustomizeBackgroundClose}
         position="left"
-        customizeBackgroundMethod={props.customizeBackground}
+        customizeBackgroundMethod={props.customizeBackgroundMethod}
       />
     </>
   );

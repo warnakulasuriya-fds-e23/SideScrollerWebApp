@@ -4,15 +4,9 @@ import { RightCabinet } from "./RightCabinet";
 import { useNavigate } from "react-router-dom";
 import { Button } from "flowbite-react";
 import { GameState } from "../GameFiles/GameState.js";
-import {
-  useGameSettingsContext,
-  useSaveGame,
-  useLoadGame,
-  useBackgroundObjectContext,
-} from "../hooks";
+import { useGameSettingsContext, useSaveGame, useLoadGame } from "../hooks";
 export const GamePlayer = () => {
   const { gameSettings } = useGameSettingsContext();
-  const { BackgroundObject } = useBackgroundObjectContext();
   const { saveGameBackendCommunication } = useSaveGame();
   const { loadGameBackendCommunication } = useLoadGame();
   const navigate = useNavigate();
@@ -23,7 +17,7 @@ export const GamePlayer = () => {
 
   // Left Cabinet Methods to interact with game state
   const customizeCharacter = () => {};
-  const customizeBackground = () => {
+  const customizeBackground = (BackgroundObject) => {
     gameRef.current.BackgroundLoader(BackgroundObject);
   };
   const runGame = () => {
