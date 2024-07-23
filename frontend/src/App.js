@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { NavigationBar, PageFooter } from "./components";
 import { Home, Login, Signup, PageNotFound } from "./pages";
-import { BackgroundsEditing } from "./adminPanel";
+import { BackgroundsEditor } from "./adminPanel";
 import { Flowbite } from "flowbite-react";
 import { useAuthContext } from "./hooks";
 function App() {
@@ -28,13 +28,13 @@ function App() {
                 element={!user ? <Signup /> : <Navigate to="/" />}
               />
               {/* <Route
-                path="/backgroundsEditing"
-                element={!user ? <BackgroundsEditing /> : <Navigate to="/" />}
+                path="/inging"
+                element={!user ? <BackgroundsEditor /> : <Navigate to="/" />}
               /> */}
               {user && (
                 <Route
-                  path="/backgroundsEditing"
-                  element={<BackgroundsEditing />}
+                  path="/backgrounds-editor"
+                  element={<BackgroundsEditor />}
                 />
               )}
               <Route path="*" element={<PageNotFound />} />

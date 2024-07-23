@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Label, Button } from "flowbite-react";
-import { useAddBackground, useReturnBackground } from "../hooks";
-export const BackgroundsEditing = () => {
+import { useAddBackground } from "../../hooks";
+export const BackgroundAdder = () => {
   const { addBackroundBackendCommunication } = useAddBackground();
-  const { returnBackgroundBackendCommunication } = useReturnBackground();
   const [BackgroundName, setBackgroundName] = useState();
-  const [BackgroundNameToShow, setBackgroundNameToShow] = useState();
-  const [LoadedBackgroundObj, setLoadedBackgroundObj] = useState();
   const [Layer1, setLayer1] = useState();
   const [Layer2, setLayer2] = useState();
   const [Layer3, setLayer3] = useState();
@@ -89,79 +86,6 @@ export const BackgroundsEditing = () => {
       console.log(error);
     }
   };
-  const LoadUpImageObject = async () => {
-    const fetchedBackgroundObj = await returnBackgroundBackendCommunication(
-      BackgroundNameToShow
-    );
-    setLoadedBackgroundObj(fetchedBackgroundObj);
-  };
-  const DisplayLayer1 = async () => {
-    if (
-      !LoadedBackgroundObj ||
-      LoadedBackgroundObj.BackgroundName != BackgroundNameToShow
-    ) {
-      await LoadUpImageObject();
-    }
-    document
-      .querySelector("#LayerDisplay")
-      .setAttribute("src", LoadedBackgroundObj.Layer1);
-  };
-  const DisplayLayer2 = async () => {
-    if (
-      !LoadedBackgroundObj ||
-      LoadedBackgroundObj.BackgroundName != BackgroundNameToShow
-    ) {
-      await LoadUpImageObject();
-    }
-    document
-      .querySelector("#LayerDisplay")
-      .setAttribute("src", LoadedBackgroundObj.Layer2);
-  };
-  const DisplayLayer3 = async () => {
-    if (
-      !LoadedBackgroundObj ||
-      LoadedBackgroundObj.BackgroundName != BackgroundNameToShow
-    ) {
-      await LoadUpImageObject();
-    }
-    document
-      .querySelector("#LayerDisplay")
-      .setAttribute("src", LoadedBackgroundObj.Layer3);
-  };
-  const DisplayLayer4 = async () => {
-    if (
-      !LoadedBackgroundObj ||
-      LoadedBackgroundObj.BackgroundName != BackgroundNameToShow
-    ) {
-      await LoadUpImageObject();
-    }
-    document
-      .querySelector("#LayerDisplay")
-      .setAttribute("src", LoadedBackgroundObj.Layer4);
-  };
-  const DisplayLayer5 = async () => {
-    if (
-      !LoadedBackgroundObj ||
-      LoadedBackgroundObj.BackgroundName != BackgroundNameToShow
-    ) {
-      await LoadUpImageObject();
-    }
-    document
-      .querySelector("#LayerDisplay")
-      .setAttribute("src", LoadedBackgroundObj.Layer5);
-  };
-  const DisplayPreviewImage = async () => {
-    if (
-      !LoadedBackgroundObj ||
-      LoadedBackgroundObj.BackgroundName != BackgroundNameToShow
-    ) {
-      await LoadUpImageObject();
-    }
-    document
-      .querySelector("#LayerDisplay")
-      .setAttribute("src", LoadedBackgroundObj.PreviewImage);
-  };
-
   return (
     <>
       <form className="flex flex-col gap-5 w-2/5" onSubmit={handleSubmit}>
@@ -220,56 +144,6 @@ export const BackgroundsEditing = () => {
           Add Background Object
         </Button>
       </form>
-      <input
-        type="text"
-        value={BackgroundNameToShow}
-        onChange={(e) => setBackgroundNameToShow(e.target.value)}
-      />
-      <img id="LayerDisplay" src="" alt="" />
-      <div className="flex justify-between">
-        <Button
-          gradientDuoTone="greenToBlue"
-          disabled={BackgroundNameToShow ? false : true}
-          onClick={DisplayLayer1}
-        >
-          Layer1
-        </Button>
-        <Button
-          gradientDuoTone="greenToBlue"
-          disabled={BackgroundNameToShow ? false : true}
-          onClick={DisplayLayer2}
-        >
-          Layer2
-        </Button>
-        <Button
-          gradientDuoTone="greenToBlue"
-          disabled={BackgroundNameToShow ? false : true}
-          onClick={DisplayLayer3}
-        >
-          Layer3
-        </Button>
-        <Button
-          gradientDuoTone="greenToBlue"
-          disabled={BackgroundNameToShow ? false : true}
-          onClick={DisplayLayer4}
-        >
-          Layer4
-        </Button>
-        <Button
-          gradientDuoTone="greenToBlue"
-          disabled={BackgroundNameToShow ? false : true}
-          onClick={DisplayLayer5}
-        >
-          Layer5
-        </Button>
-        <Button
-          gradientDuoTone="greenToBlue"
-          disabled={BackgroundNameToShow ? false : true}
-          onClick={DisplayPreviewImage}
-        >
-          PreviewImage
-        </Button>
-      </div>
     </>
   );
 };

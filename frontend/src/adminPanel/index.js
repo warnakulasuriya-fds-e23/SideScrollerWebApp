@@ -1,1 +1,1 @@
-export { BackgroundsEditing } from "./BackgroundsEditing";
+export { BackgroundsEditor } from "./BackgroundEditor/BackgroundsEditor";
