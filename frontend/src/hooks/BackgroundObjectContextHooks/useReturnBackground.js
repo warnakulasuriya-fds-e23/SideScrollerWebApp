@@ -4,7 +4,7 @@ export const useReturnBackground = () => {
   const { user } = useAuthContext();
   const returnBackgroundBackendCommunication = async (BackgroundName) => {
     const response = await axios.post(
-      "/api/background/return",
+      `${process.env.BACKEND_URL}/api/background/return`,
       JSON.stringify({ BackgroundName }),
       {
         headers: {

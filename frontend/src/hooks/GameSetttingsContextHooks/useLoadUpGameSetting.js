@@ -6,11 +6,14 @@ export const useLoadUpGameSettings = () => {
   const { user } = useAuthContext();
 
   const LoadUpGameSettingsFromBackend = async () => {
-    const response = await axios.get("/api/gameSettings", {
-      headers: {
-        Authorization: `Bearer ${user.createdToken}`,
-      },
-    });
+    const response = await axios.get(
+      `${process.env.BACKEND_URL}/api/gameSettings`,
+      {
+        headers: {
+          Authorization: `Bearer ${user.createdToken}`,
+        },
+      }
+    );
     if (response.data) {
       dispatch({ type: "LOAD_UP", payload: response.data });
     }

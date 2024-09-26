@@ -13,12 +13,16 @@ export const useSaveGame = () => {
     } else {
       return null;
     }
-    await axios.patch("/api/saveStates/update", JSON.stringify(ToBeSent), {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${user.createdToken}`,
-      },
-    });
+    await axios.patch(
+      `${process.env.BACKEND_URL}/api/saveStates/update`,
+      JSON.stringify(ToBeSent),
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${user.createdToken}`,
+        },
+      }
+    );
   };
 
   return { saveGameBackendCommunication };

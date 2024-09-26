@@ -4,7 +4,7 @@ export const useAddBackground = () => {
   const { user } = useAuthContext();
   const addBackroundBackendCommunication = async (backgroundObject) => {
     const response = await axios.post(
-      "/api/background/add",
+      `${process.env.BACKEND_URL}/api/background/add`,
       JSON.stringify(backgroundObject),
       {
         headers: {

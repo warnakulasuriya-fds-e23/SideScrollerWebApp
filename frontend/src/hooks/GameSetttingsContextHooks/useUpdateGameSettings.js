@@ -7,7 +7,7 @@ export const useUpdateGameSettings = () => {
 
   const UpdateGameSettings = async (gameSettingsObject) => {
     const response = await axios.patch(
-      "/api/gameSettings",
+      `${process.env.BACKEND_URL}/api/gameSettings`,
       JSON.stringify(gameSettingsObject),
       {
         headers: {
