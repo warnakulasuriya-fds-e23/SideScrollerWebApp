@@ -4,12 +4,15 @@ import "./index.css";
 import App from "./App";
 import { AuthContextProvider } from "./context/AuthContext";
 import { GameSettingsProvider } from "./context/GameSettingsContext";
+import { BackgroundObjectContextProvider } from "./context/BackgroundObjectContext";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
       <GameSettingsProvider>
-        <App />
+        <BackgroundObjectContextProvider>
+          <App />
+        </BackgroundObjectContextProvider>
       </GameSettingsProvider>
     </AuthContextProvider>
   </React.StrictMode>

@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import { Button, Tooltip } from "flowbite-react";
 import { HiStop } from "react-icons/hi";
 import { GiPlayButton, GiCharacter } from "react-icons/gi";
 import { PiCityFill } from "react-icons/pi";
+import { CustomizeBackgroundDrawer } from "./cabinetDrawers";
 export const LeftCabinet = (props) => {
+  const [CustomizeBackgroundOpen, setCustomizeBackgroundOpen] = useState();
+
+  const handleCustomizeBackgroundClose = () => {
+    setCustomizeBackgroundOpen(false);
+    props.togglePauseGameMethod();
+  };
   return (
     <>
       <div className="w-fit h-[84vh] bg-gray-200 border-gray-200 dark:bg-gray-900 dark:border-gray-700">
@@ -21,7 +28,10 @@ export const LeftCabinet = (props) => {
             <Button
               className="transform hover:scale-150 hover:translate-x-5 transition ease-linear duration-300"
               color="blue"
-              onClick={props.customizeBackgroundMethod}
+              onClick={() => {
+                props.togglePauseGameMethod();
+                setCustomizeBackgroundOpen(true);
+              }}
             >
               <PiCityFill className="size-3 sm:size-6 " />
             </Button>
@@ -46,6 +56,12 @@ export const LeftCabinet = (props) => {
           </Tooltip>
         </div>
       </div>
+      <CustomizeBackgroundDrawer
+        open={CustomizeBackgroundOpen}
+        onClose={handleCustomizeBackgroundClose}
+        position="left"
+        customizeBackgroundMethod={props.customizeBackgroundMethod}
+      />
     </>
   );
 };

@@ -1,4 +1,4 @@
-import { useAuthContext } from "./useAuthContext";
+import { useAuthContext } from "./AuthContextHooks/useAuthContext";
 import axios from "axios";
 export const useLoadGame = () => {
   const { user } = useAuthContext();

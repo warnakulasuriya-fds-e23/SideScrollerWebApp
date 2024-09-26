@@ -72,7 +72,7 @@ export class Player {
     this.spriteHeight = GameStateData.player.spriteHeight;
     this.posX = GameStateData.player.posX;
     this.posY = GameStateData.player.posY;
-    this.spriteSheet = GameStateData.player.spriteSheet;
+    // this.spriteSheet = GameStateData.player.spriteSheet;
     this.playerHealth = GameStateData.player.playerHealth;
     this.playerHealthHandler.PropLoader(GameStateData); // [Completed Prop Loader]
     this.playerEnergyHandler.PropLoader(GameStateData); // [Completed Prop Loader]

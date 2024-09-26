@@ -40,38 +40,41 @@ class Layer {
       this.layerWidth = GameStateData.background.layer1.layerWidth;
       this.layerHeight = GameStateData.background.layer1.layerHeight;
       this.speedModifier = GameStateData.background.layer1.speedModifier;
-      this.layerImage = GameStateData.background.layer1.layerImage;
+      // this.layerImage = GameStateData.background.layer1.layerImage;
       this.posX = GameStateData.background.layer1.posX;
       this.posY = GameStateData.background.layer1.posY;
     } else if (layerMarker == "layer2") {
       this.layerWidth = GameStateData.background.layer2.layerWidth;
       this.layerHeight = GameStateData.background.layer2.layerHeight;
       this.speedModifier = GameStateData.background.layer2.speedModifier;
-      this.layerImage = GameStateData.background.layer2.layerImage;
+      // this.layerImage = GameStateData.background.layer2.layerImage;
       this.posX = GameStateData.background.layer2.posX;
       this.posY = GameStateData.background.layer2.posY;
     } else if (layerMarker == "layer3") {
       this.layerWidth = GameStateData.background.layer3.layerWidth;
       this.layerHeight = GameStateData.background.layer3.layerHeight;
       this.speedModifier = GameStateData.background.layer3.speedModifier;
-      this.layerImage = GameStateData.background.layer3.layerImage;
+      // this.layerImage = GameStateData.background.layer3.layerImage;
       this.posX = GameStateData.background.layer3.posX;
       this.posY = GameStateData.background.layer3.posY;
     } else if (layerMarker == "layer4") {
       this.layerWidth = GameStateData.background.layer4.layerWidth;
       this.layerHeight = GameStateData.background.layer4.layerHeight;
       this.speedModifier = GameStateData.background.layer4.speedModifier;
-      this.layerImage = GameStateData.background.layer4.layerImage;
+      // this.layerImage = GameStateData.background.layer4.layerImage;
       this.posX = GameStateData.background.layer4.posX;
       this.posY = GameStateData.background.layer4.posY;
     } else if (layerMarker == "layer5") {
       this.layerWidth = GameStateData.background.layer5.layerWidth;
       this.layerHeight = GameStateData.background.layer5.layerHeight;
       this.speedModifier = GameStateData.background.layer5.speedModifier;
-      this.layerImage = GameStateData.background.layer5.layerImage;
+      // this.layerImage = GameStateData.background.layer5.layerImage;
       this.posX = GameStateData.background.layer5.posX;
       this.posY = GameStateData.background.layer5.posY;
     }
+  }
+  ImageLoader(Image) {
+    this.layerImage = Image;
   }
 }
 
@@ -143,15 +146,32 @@ export class Background {
   PropLoader(GameStateData) {
     this.width = GameStateData.background.width;
     this.height = GameStateData.background.height;
-    this.layer1image = GameStateData.background.layer1image;
-    this.layer2image = GameStateData.background.layer2image;
-    this.layer3image = GameStateData.background.layer3image;
-    this.layer4image = GameStateData.background.layer4image;
-    this.layer5image = GameStateData.background.layer5image;
+    // this.layer1image = GameStateData.background.layer1image;
+    // this.layer2image = GameStateData.background.layer2image;
+    // this.layer3image = GameStateData.background.layer3image;
+    // this.layer4image = GameStateData.background.layer4image;
+    // this.layer5image = GameStateData.background.layer5image;
     this.layer1.PropLoader(GameStateData, "layer1"); // [Completed Prop Loader]
     this.layer2.PropLoader(GameStateData, "layer2"); // [Completed Prop Loader]
     this.layer3.PropLoader(GameStateData, "layer3"); // [Completed Prop Loader]
     this.layer4.PropLoader(GameStateData, "layer4"); // [Completed Prop Loader]
     this.layer5.PropLoader(GameStateData, "layer5"); // [Completed Prop Loader]
+  }
+  BackgroundLoader(backgroundObject) {
+    const Layer1NewImage = document.createElement("img");
+    const Layer2NewImage = document.createElement("img");
+    const Layer3NewImage = document.createElement("img");
+    const Layer4NewImage = document.createElement("img");
+    // const Layer5NewImage = document.createElement("img");
+    Layer1NewImage.src = backgroundObject.Layer1;
+    Layer2NewImage.src = backgroundObject.Layer2;
+    Layer3NewImage.src = backgroundObject.Layer3;
+    Layer4NewImage.src = backgroundObject.Layer4;
+    // Layer5NewImage.src = backgroundObject.Layer5;
+    this.layer1.ImageLoader(Layer1NewImage);
+    this.layer2.ImageLoader(Layer2NewImage);
+    this.layer3.ImageLoader(Layer3NewImage);
+    this.layer4.ImageLoader(Layer4NewImage);
+    // this.layer5.ImageLoader(Layer5NewImage);
   }
 }

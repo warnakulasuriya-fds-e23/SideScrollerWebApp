@@ -17,7 +17,9 @@ export const GamePlayer = () => {
 
   // Left Cabinet Methods to interact with game state
   const customizeCharacter = () => {};
-  const customizeBackground = () => {};
+  const customizeBackground = (BackgroundObject) => {
+    gameRef.current.BackgroundLoader(BackgroundObject);
+  };
   const runGame = () => {
     if (!isGameRunning) {
       const canvas = document.getElementById("gameCanvas");
@@ -67,9 +69,9 @@ export const GamePlayer = () => {
   const loadGame = async (Slot) => {
     const fetchedGameData = await loadGameBackendCommunication(Slot);
     console.log(fetchedGameData);
-    // if (fetchedGameData != null && fetchedGameData != "Clear") {
-    //   gameRef.current.LoadGame(fetchedGameData);
-    // }
+    if (fetchedGameData != null && fetchedGameData != "Clear") {
+      gameRef.current.LoadGame(fetchedGameData);
+    }
   };
   const restartGame = () => {
     gameRef.current.Restart();
