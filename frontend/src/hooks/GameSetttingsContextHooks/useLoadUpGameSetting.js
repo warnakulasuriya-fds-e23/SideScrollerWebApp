@@ -7,7 +7,7 @@ export const useLoadUpGameSettings = () => {
 
   const LoadUpGameSettingsFromBackend = async () => {
     const response = await axios.get(
-      `${process.env.BACKEND_URL}/api/gameSettings`,
+      `${process.env.REACT_APP_BACKEND_URL}/api/gameSettings`,
       {
         headers: {
           Authorization: `Bearer ${user.createdToken}`,

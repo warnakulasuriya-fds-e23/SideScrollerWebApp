@@ -6,7 +6,7 @@ export const useUpdateBackground = () => {
   const updateBackgroundBackendCommunication = async (backgroundObject) => {
     await axios
       .patch(
-        `${process.env.BACKEND_URL}/api/background/update`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/background/update`,
         JSON.stringify(backgroundObject),
         {
           headers: {

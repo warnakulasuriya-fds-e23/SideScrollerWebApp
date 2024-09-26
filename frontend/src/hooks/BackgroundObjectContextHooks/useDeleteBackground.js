@@ -4,7 +4,7 @@ export const useDeleteBackground = () => {
   const { user } = useAuthContext();
   const deleteBackgroundBackendCommunication = async (BackgroundName) => {
     const response = await axios.delete(
-      `${process.env.BACKEND_URL}/api/background/del`,
+      `${process.env.REACT_APP_BACKEND_URL}/api/background/del`,
       JSON.stringify({ BackgroundName }),
       {
         headers: {

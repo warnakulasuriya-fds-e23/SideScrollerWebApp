@@ -9,7 +9,7 @@ export const useCheckBackgroundAvailability = () => {
   ) => {
     const response = await axios
       .post(
-        `${process.env.BACKEND_URL}/api/background/check-availability`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/background/check-availability`,
         JSON.stringify({ BackgroundName }),
         {
           headers: {

@@ -14,7 +14,7 @@ export const useSaveGame = () => {
       return null;
     }
     await axios.patch(
-      `${process.env.BACKEND_URL}/api/saveStates/update`,
+      `${process.env.REACT_APP_BACKEND_URL}/api/saveStates/update`,
       JSON.stringify(ToBeSent),
       {
         headers: {

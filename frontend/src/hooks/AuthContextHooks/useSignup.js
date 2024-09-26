@@ -15,7 +15,7 @@ export const useSignup = () => {
     setError(null);
     const response = await axios
       .post(
-        `${process.env.BACKEND_URL}/api/users/signup`,
+        `${process.env.REACT_APP_BACKEND_URL}/api/users/signup`,
         JSON.stringify({ Email, UserName, Password }),
         {
           headers: {
