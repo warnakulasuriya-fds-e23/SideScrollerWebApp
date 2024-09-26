@@ -10,11 +10,15 @@ export const useLogin = () => {
     setError(null);
     try {
       const response = await axios
-        .post("/api/users/login", JSON.stringify({ Email, Password }), {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
+        .post(
+          `${process.env.REACT_APP_BACKEND_URL}/api/users/login`,
+          JSON.stringify({ Email, Password }),
+          {
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
         .catch(function (error) {
           setIsLoading(false);
           setError(error.response.data.error);

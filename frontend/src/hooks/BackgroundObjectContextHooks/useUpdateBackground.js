@@ -5,12 +5,16 @@ export const useUpdateBackground = () => {
 
   const updateBackgroundBackendCommunication = async (backgroundObject) => {
     await axios
-      .patch("/api/background/update", JSON.stringify(backgroundObject), {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${user.createdToken}`,
-        },
-      })
+      .patch(
+        `${process.env.REACT_APP_BACKEND_URL}/api/background/update`,
+        JSON.stringify(backgroundObject),
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${user.createdToken}`,
+          },
+        }
+      )
       .catch((error) => {
         console.log(error);
       });
