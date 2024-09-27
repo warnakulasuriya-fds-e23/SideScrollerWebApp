@@ -7,6 +7,8 @@ import {
   NavbarToggle,
   DarkThemeToggle,
   Button,
+  Avatar,
+  Dropdown,
 } from "flowbite-react";
 import { Link, useLocation } from "react-router-dom";
 import { HiLogout } from "react-icons/hi";
@@ -39,13 +41,34 @@ export function NavigationBar() {
             </div>
           </span>
         </NavbarBrand>
-        <div className="flex md:order-2">
-          {user && (
-            <Button onClick={Logout}>
-              <HiLogout />
-            </Button>
-          )}
+        <div className="flex md:order-2 space-x-4">
           <DarkThemeToggle />
+          {user && (
+            <Dropdown
+              arrowIcon={false}
+              inline
+              label={
+                <Avatar
+                  alt="User settings"
+                  img="/Assets/Images/UserAvatar/Person.svg"
+                  rounded
+                  bordered
+                />
+              }
+            >
+              <Dropdown.Header>
+                <span className="block text-sm">testUserName</span>
+                <span className="block truncate text-sm font-medium">
+                  testuser@gmail.com
+                </span>
+              </Dropdown.Header>
+              <Dropdown.Item>View Profile</Dropdown.Item>
+              <Dropdown.Item>Settings</Dropdown.Item>
+              <Dropdown.Item>Messages</Dropdown.Item>
+              <Dropdown.Divider />
+              <Dropdown.Item onClick={Logout}>Log out</Dropdown.Item>
+            </Dropdown>
+          )}
         </div>
 
         <NavbarToggle />

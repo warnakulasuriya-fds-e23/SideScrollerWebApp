@@ -43,7 +43,7 @@ export const Signup = () => {
         </div>
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="userName" value="UserName:" />
+            <Label htmlFor="userName" value="User Name:" />
           </div>
           <TextInput
             id="userName"
