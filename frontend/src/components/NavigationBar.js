@@ -57,9 +57,9 @@ export function NavigationBar() {
               }
             >
               <Dropdown.Header>
-                <span className="block text-sm">testUserName</span>
+                <span className="block text-sm">{user.UserName}</span>
                 <span className="block truncate text-sm font-medium">
-                  testuser@gmail.com
+                  {user.Email}
                 </span>
               </Dropdown.Header>
               <Dropdown.Item>View Profile</Dropdown.Item>
