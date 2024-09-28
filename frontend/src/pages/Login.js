@@ -16,6 +16,7 @@ export const Login = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const { loginBackendCommunication, isLoading, error } = useLogin();
   const handleSubmit = async (e) => {
+    setEmail(email.toLowerCase());
     e.preventDefault();
     await loginBackendCommunication(email, password, rememberMe);
   };
