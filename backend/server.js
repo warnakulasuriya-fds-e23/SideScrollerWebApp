@@ -1,4 +1,5 @@
 require("dotenv").config();
+const favicon = require("serve-favicon");
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
@@ -18,7 +19,10 @@ const tusServer = new TusServer({
 });
 
 const SideScrollerWebApp = express();
-
+SideScrollerWebApp.use(favicon(__dirname + "/favicon.ico"));
+SideScrollerWebApp.get("/", (_, res) =>
+  res.sendFile(__dirname + "/index.html")
+);
 SideScrollerWebApp.use(express.json());
 SideScrollerWebApp.use(cors());
 SideScrollerWebApp.use((req, res, next) => {
