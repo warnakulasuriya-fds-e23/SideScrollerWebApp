@@ -17,6 +17,8 @@ export const Signup = () => {
   const [rememberMe, setRememberMe] = useState(false);
   const { signupBackendCommunication, isLoading, error } = useSignup();
   const handleSubmit = async (e) => {
+    setEmail(email.toLowerCase());
+    setUserName(userName.toLowerCase());
     e.preventDefault();
     await signupBackendCommunication(email, userName, password, rememberMe);
   };
@@ -43,7 +45,7 @@ export const Signup = () => {
         </div>
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="userName" value="UserName:" />
+            <Label htmlFor="userName" value="User Name:" />
           </div>
           <TextInput
             id="userName"

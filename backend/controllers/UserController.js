@@ -12,7 +12,8 @@ const login = async (req, res) => {
   try {
     const detectedUser = await User.login(Email, Password);
     const createdToken = CreateWebToken(detectedUser._id);
-    res.status(200).json({ Email, createdToken });
+    const UserName = detectedUser.UserName;
+    res.status(200).json({ Email, UserName, createdToken });
   } catch (err) {
     res.status(400).json({ error: err.message });
   }

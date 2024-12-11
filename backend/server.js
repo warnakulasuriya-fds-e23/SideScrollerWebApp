@@ -6,6 +6,15 @@ const userRouter = require("./routes/UserRoutes");
 const gameSettingsRouter = require("./routes/GameSettingsRoutes");
 const saveStatesRouter = require("./routes/SaveStatesRoutes");
 const backgroundRouter = require("./routes/BackgroundRoutes");
+const { Server: TusServer } = require("@tus/server");
+const { FileStore: TusFileStore } = require("@tus/file-store");
+const tusServer = new TusServer({
+  path: "/tus-upload/files",
+  datastore: new TusFileStore({
+    directory: "./tus-upload/files",
+  }),
+});
+
 const SideScrollerWebApp = express();
 
 SideScrollerWebApp.use(express.json());
@@ -14,6 +23,19 @@ SideScrollerWebApp.use((req, res, next) => {
   console.log(req.path, req.method);
   next();
 });
+SideScrollerWebApp.use((req, res, next) => {
+  const regexpression = /\/tus-upload\/files/;
+  if (regexpression.test(req.path)) {
+    tusServer.handle(req, res);
+    // res.status(200).json("ok");
+  } else {
+    next();
+  }
+});
+
+// SideScrollerWebApp.all("*", (req, res) => {
+//   server.handle(req, res);
+// });
 
 SideScrollerWebApp.use("/api/users", userRouter);
 SideScrollerWebApp.use("/api/gameSettings", gameSettingsRouter);
