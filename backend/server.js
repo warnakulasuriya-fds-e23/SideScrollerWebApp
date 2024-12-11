@@ -12,7 +12,7 @@ const { FileStore: TusFileStore } = require("@tus/file-store");
 const tusServer = new TusServer({
   path: "/tus-upload/files",
   datastore: new TusFileStore({
-    directory: "./tus-upload/files",
+    directory: __dirname + "/tus-upload/files",
   }),
   allowedCredentials: true,
   allowedOrigins: ["*"],
@@ -23,7 +23,7 @@ SideScrollerWebApp.use(favicon(__dirname + "/favicon.ico"));
 SideScrollerWebApp.get("/", (_, res) =>
   res.sendFile(__dirname + "/index.html")
 );
-SideScrollerWebApp.get("/favicon.ico", (_, res) =>
+SideScrollerWebApp.get("/favicon", (_, res) =>
   res.sendFile(__dirname + "/favicon.ico")
 );
 SideScrollerWebApp.use(express.json());
