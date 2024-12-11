@@ -35,29 +35,11 @@ SideScrollerWebApp.use((req, res, next) => {
 SideScrollerWebApp.use((req, res, next) => {
   const regexpression = /\/tus-upload\/files/;
   if (regexpression.test(req.path)) {
-    res.setHeader("Access-Control-Allow-Credentials", true);
-    res.setHeader("Access-Control-Allow-Origin", "*");
-    // another common pattern
-    // res.setHeader('Access-Control-Allow-Origin', req.headers.origin);
-    res.setHeader(
-      "Access-Control-Allow-Methods",
-      "GET,OPTIONS,PATCH,DELETE,POST,PUT"
-    );
-    res.setHeader(
-      "Access-Control-Allow-Headers",
-      "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version"
-    );
-
     tusServer.handle(req, res);
-    // res.status(200).json("ok");
   } else {
     next();
   }
 });
-
-// SideScrollerWebApp.all("*", (req, res) => {
-//   server.handle(req, res);
-// });
 
 SideScrollerWebApp.use("/api/users", userRouter);
 SideScrollerWebApp.use("/api/gameSettings", gameSettingsRouter);
