@@ -4,6 +4,7 @@ import { Home, Login, Signup, PageNotFound, UserSettings } from "./pages";
 import { BackgroundsEditor } from "./adminPanel";
 import { Flowbite } from "flowbite-react";
 import { useAuthContext } from "./hooks";
+import { TusUploadTester } from "./tusUploadTester/TusUploadTester";
 function App() {
   const { user } = useAuthContext();
   return (
@@ -37,6 +38,7 @@ function App() {
                   element={<BackgroundsEditor />}
                 />
               )}
+              <Route path="/tus-uploader" element={<TusUploadTester />}></Route>
               <Route path="/user-settings" element={<UserSettings />}></Route>
               <Route path="*" element={<PageNotFound />} />
             </Routes>
