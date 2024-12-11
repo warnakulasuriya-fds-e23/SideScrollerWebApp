@@ -23,6 +23,9 @@ SideScrollerWebApp.use(favicon(__dirname + "/favicon.ico"));
 SideScrollerWebApp.get("/", (_, res) =>
   res.sendFile(__dirname + "/index.html")
 );
+SideScrollerWebApp.get("/favicon.ico", (_, res) =>
+  res.sendFile(__dirname + "/favicon.ico")
+);
 SideScrollerWebApp.use(express.json());
 SideScrollerWebApp.use(cors());
 SideScrollerWebApp.use((req, res, next) => {
