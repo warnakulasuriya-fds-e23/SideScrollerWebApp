@@ -15,7 +15,7 @@ fnode_modules/
 .env
 
 #file storage for tus protocol
-#tus-upload
+tus-upload
 
 # misc
 .DS_Store
