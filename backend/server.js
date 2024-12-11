@@ -8,9 +8,8 @@ const saveStatesRouter = require("./routes/SaveStatesRoutes");
 const backgroundRouter = require("./routes/BackgroundRoutes");
 const { Server: TusServer } = require("@tus/server");
 const { FileStore: TusFileStore } = require("@tus/file-store");
-
 const tusServer = new TusServer({
-  path: "tus-upload/files",
+  path: "/tus-upload/files",
   datastore: new TusFileStore({
     directory: "./tus-upload/files",
   }),
@@ -25,13 +24,18 @@ SideScrollerWebApp.use((req, res, next) => {
   next();
 });
 SideScrollerWebApp.use((req, res, next) => {
-  if (req.path == "/api/tus-uploads") {
-    req.path = "/tus-upload/files";
+  const regexpression = /\/tus-upload\/files/;
+  if (regexpression.test(req.path)) {
     tusServer.handle(req, res);
+    // res.status(200).json("ok");
   } else {
     next();
   }
 });
+
+// SideScrollerWebApp.all("*", (req, res) => {
+//   server.handle(req, res);
+// });
 
 SideScrollerWebApp.use("/api/users", userRouter);
 SideScrollerWebApp.use("/api/gameSettings", gameSettingsRouter);

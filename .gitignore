@@ -14,6 +14,9 @@ fnode_modules/
 #Secret
 .env
 
+#file storage for tus protocol
+tus-upload
+
 # misc
 .DS_Store
 .env.local
