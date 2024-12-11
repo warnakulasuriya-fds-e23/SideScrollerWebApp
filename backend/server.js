@@ -14,6 +14,10 @@ const tusServer = new TusServer({
     directory: "./tus-upload/files",
   }),
   allowedCredentials: true,
+  allowedOrigins: [
+    "https://zyd-scroller-frontend.vercel.app",
+    "http://localhost:3000",
+  ],
 });
 
 const SideScrollerWebApp = express();
