@@ -13,6 +13,7 @@ const tusServer = new TusServer({
   datastore: new TusFileStore({
     directory: "./tus-upload/files",
   }),
+  allowedCredentials: true,
 });
 
 const SideScrollerWebApp = express();
