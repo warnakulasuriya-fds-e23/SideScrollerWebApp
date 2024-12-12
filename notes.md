@@ -22,7 +22,7 @@
 # [21:30 12/12/2024]
 
 After looking through several code files i understood that creating a custom config store wont solve the problem.
-What i actually need is to code a custom DataStore subclass that is connected to mongoDB. After basically skiming through the index.ts files of the packages @tus/file-store, @tus/s3-store, @tus/gcs-store and also taking a look at the DataStore.ts in the utils and some other stuff, i could identify some major functions that a tus DataStore should contain.(also a common property)
+What i actually need is to code a custom DataStore subclass that is connected to mongoDB.(FileStore will sotre the final file onto the disk and the config store helps with some intermediary steps. But a package like @tus/gcs-store will not do so as far as i understand) After basically skiming through the index.ts files of the packages @tus/file-store, @tus/s3-store, @tus/gcs-store and also taking a look at the DataStore.ts in the utils and some other stuff, i could identify some major functions that a tus DataStore should contain.(also a common property)
 
 ## property
 
