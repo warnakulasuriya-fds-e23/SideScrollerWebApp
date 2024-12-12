@@ -35,6 +35,7 @@ SideScrollerWebApp.use((req, res, next) => {
 SideScrollerWebApp.use((req, res, next) => {
   const regexpression = /\/tus-upload\/files/;
   if (regexpression.test(req.path)) {
+    debugger;
     tusServer.handle(req, res);
   } else {
     next();

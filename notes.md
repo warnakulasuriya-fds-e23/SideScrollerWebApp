@@ -18,3 +18,31 @@
 ---
 
 - link1: https://github.com/tus/tus-node-server/tree/main/packages/file-store#example-creating-your-own-config-store
+
+# [21:30 12/12/2024]
+
+After looking through several code files i understood that creating a custom config store wont solve the problem.
+What i actually need is to code a custom DataStore subclass that is connected to mongoDB. After basically skiming through the index.ts files of the packages @tus/file-store, @tus/s3-store, @tus/gcs-store and also taking a look at the DataStore.ts in the utils and some other stuff, i could identify some major functions that a tus DataStore should contain.(also a common property)
+
+## property
+
+- extensions: string[]
+
+## functions
+
+- hasExtension(extension: string)
+- async create(file: Upload)
+- async remove(id: string)
+- async write(
+  stream: http.IncomingMessage | stream.Readable,
+  id: string,
+  offset: number
+  )
+- async getUpload(id: string): Promise<Upload>
+- async declareUploadLength(id: string, upload_length: number)
+- async deleteExpired(): Promise<number>
+- getExpiration(): number
+
+_I'm thinking that if i override these functions properly in a custom DataStore subclass for the mongoDB data storage, then i might be able to keep the rest of the tus code unchanged and just plug in an object of this new class into the Tus Server Constructor and then things would work._ (not sure)
+
+todays unsuccessful attempt codes will committed into backend/custom-datastores of the repo.
