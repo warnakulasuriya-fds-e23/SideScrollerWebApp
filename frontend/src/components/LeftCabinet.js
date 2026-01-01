@@ -15,7 +15,7 @@ export const LeftCabinet = (props) => {
     <>
       <div className="w-fit h-[84vh] bg-gray-200 border-gray-200 dark:bg-gray-900 dark:border-gray-700">
         <div className="py-10 flex flex-col gap-10 content-around">
-          <Tooltip placement="right" content="Customize Character">
+          {/* <Tooltip placement="right" content="Customize Character">
             <Button
               className="transform hover:scale-150 hover:translate-x-5 transition ease-linear duration-300"
               color="blue"
@@ -23,7 +23,7 @@ export const LeftCabinet = (props) => {
             >
               <GiCharacter className="size-3 sm:size-6 " />
             </Button>
-          </Tooltip>
+          </Tooltip> */}
           <Tooltip placement="right" content="Customize Background">
             <Button
               className="transform hover:scale-150 hover:translate-x-5 transition ease-linear duration-300"
