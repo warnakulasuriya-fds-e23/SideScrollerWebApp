@@ -1,0 +1,847 @@
+openapi: 3.0.0
+info:
+  title: SideScroller Web App API
+  description: API for managing Users, Game Settings, Save States, and Backgrounds for the SideScroller game. Includes TUS upload functionality.
+  version: 1.0.0
+servers:
+  - url: http://localhost:4000
+    description: Local development server
+    variables:
+      port:
+        default: "4000"
+        description: The port the server is running on (defined in environment variables).
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    User:
+      type: object
+      properties:
+        _id:
+          type: string
+        Email:
+          type: string
+          format: email
+        UserName:
+          type: string
+        Password:
+          type: string
+      required:
+        - Email
+        - UserName
+        - Password
+
+    GameSettings:
+      type: object
+      properties:
+        UserId:
+          type: string
+        BackgroundType:
+          type: string
+          default: "Default"
+        CharacterType:
+          type: string
+          default: "Default"
+        MuteBackgroundMusic:
+          type: boolean
+          default: false
+        MuteEffects:
+          type: boolean
+          default: false
+        DebugKey:
+          type: string
+          default: "d"
+        PauseKey:
+          type: string
+          default: "Escape"
+        RollKey:
+          type: string
+          default: "r"
+        CrouchKey:
+          type: string
+          default: "ArrowDown"
+        JumpKey:
+          type: string
+          default: "ArrowUp"
+        BackwardKey:
+          type: string
+          default: "ArrowLeft"
+        ForwardKey:
+          type: string
+          default: "ArrowRight"
+
+    SaveStates:
+      type: object
+      properties:
+        UserId:
+          type: string
+        SaveSlot_A:
+          type: object
+          description: Game state object or "Clear"
+        SaveSlot_B:
+          type: object
+          description: Game state object or "Clear"
+        SaveSlot_C:
+          type: object
+          description: Game state object or "Clear"
+
+    Background:
+      type: object
+      properties:
+        BackgroundName:
+          type: string
+        Layer1:
+          type: object
+        Layer2:
+          type: object
+        Layer3:
+          type: object
+        Layer4:
+          type: object
+        Layer5:
+          type: object
+        PreviewImage:
+          type: object
+      required:
+        - BackgroundName
+        - Layer1
+        - Layer2
+        - Layer3
+        - Layer4
+        - Layer5
+        - PreviewImage
+
+paths:
+  /tus-upload/files:
+    post:
+      summary: Initiate a file upload
+      description: |
+        TUS protocol endpoint for creating a new upload.
+        Requires `Tus-Resumable` header and `Upload-Length` or `Upload-Defer-Length`.
+      tags:
+        - Uploads
+      parameters:
+        - in: header
+          name: Tus-Resumable
+          schema:
+            type: string
+            enum: ["1.0.0"]
+          required: true
+          description: Protocol version
+        - in: header
+          name: Upload-Length
+          schema:
+            type: integer
+          description: Total size of the upload in bytes
+        - in: header
+          name: Upload-Metadata
+          schema:
+            type: string
+          description: Key-value pairs of metadata (e.g. filename, filetype), Base64 encoded.
+      responses:
+        '201':
+          description: Upload created
+          headers:
+            Location:
+              schema:
+                type: string
+              description: URL for the created upload resource
+            Tus-Resumable:
+              schema:
+                type: string
+            Upload-Offset:
+              schema:
+                type: integer
+        '412':
+          description: Precondition Failed (e.g. invalid Tus-Resumable version)
+
+    options:
+      summary: Get TUS server configuration
+      tags:
+        - Uploads
+      responses:
+        '200':
+          description: Success
+          headers:
+            Tus-Resumable:
+              schema:
+                type: string
+            Tus-Version:
+              schema:
+                type: string
+            Tus-Extension:
+              schema:
+                type: string
+            Tus-Max-Size:
+              schema:
+                type: integer
+
+  /tus-upload/files/{fileId}:
+    head:
+      summary: Check upload status (TUS)
+      tags:
+        - Uploads
+      parameters:
+        - in: path
+          name: fileId
+          schema:
+            type: string
+          required: true
+        - in: header
+          name: Tus-Resumable
+          schema:
+            type: string
+            enum: ["1.0.0"]
+          required: true
+      responses:
+        '200':
+          description: Upload status retrieved
+          headers:
+            Upload-Offset:
+              schema:
+                type: integer
+            Upload-Length:
+              schema:
+                type: integer
+
+    patch:
+      summary: Resume/Upload file chunk (TUS)
+      tags:
+        - Uploads
+      parameters:
+        - in: path
+          name: fileId
+          schema:
+            type: string
+          required: true
+        - in: header
+          name: Tus-Resumable
+          schema:
+            type: string
+            enum: ["1.0.0"]
+          required: true
+        - in: header
+          name: Upload-Offset
+          schema:
+            type: integer
+          required: true
+          description: Current offset of the upload
+        - in: header
+          name: Content-Type
+          schema:
+            type: string
+            enum: ["application/offset+octet-stream"]
+          required: true
+      requestBody:
+        content:
+          application/offset+octet-stream:
+            schema:
+              type: string
+              format: binary
+      responses:
+        '204':
+          description: Chunk received
+          headers:
+            Upload-Offset:
+              schema:
+                type: integer
+
+  /api/users/login:
+    post:
+      summary: Login user
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Email:
+                  type: string
+                Password:
+                  type: string
+              required:
+                - Email
+                - Password
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Email:
+                    type: string
+                  UserName:
+                    type: string
+                  createdToken:
+                    type: string
+        '400':
+          description: Login failed
+
+  /api/users/signup:
+    post:
+      summary: Register a new user
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Email:
+                  type: string
+                UserName:
+                  type: string
+                Password:
+                  type: string
+              required:
+                - Email
+                - UserName
+                - Password
+      responses:
+        '200':
+          description: User created successfully. Also creates default GameSettings and SaveStates.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Email:
+                    type: string
+                  createdToken:
+                    type: string
+                  createdGameSetting:
+                    $ref: '#/components/schemas/GameSettings'
+        '400':
+          description: Signup failed (validation or duplicates)
+
+  /api/users/updateEmail:
+    patch:
+      summary: Update user email
+      security:
+        - bearerAuth: []
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Email:
+                  type: string
+              required:
+                - Email
+      responses:
+        '200':
+          description: Email updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Update failed
+
+  /api/users/updateUserName:
+    patch:
+      summary: Update user name
+      security:
+        - bearerAuth: []
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                UserName:
+                  type: string
+              required:
+                - UserName
+      responses:
+        '200':
+          description: UserName updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Update failed
+
+  /api/users/changePassword:
+    patch:
+      summary: Change user password
+      security:
+        - bearerAuth: []
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                OldPassword:
+                  type: string
+                NewPassword:
+                  type: string
+                RepeatedNewPassword:
+                  type: string
+              required:
+                - OldPassword
+                - NewPassword
+                - RepeatedNewPassword
+      responses:
+        '200':
+          description: Password changed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '400':
+          description: Password change failed
+
+  /api/users/removeAccount:
+    delete:
+      summary: Delete user account
+      description: Deletes the user account along with associated GameSettings and SaveStates.
+      security:
+        - bearerAuth: []
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                Password:
+                  type: string
+              required:
+                - Password
+      responses:
+        '200':
+          description: User deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  deletedUser:
+                    $ref: '#/components/schemas/User'
+                  deletedGameSetting:
+                    $ref: '#/components/schemas/GameSettings'
+        '400':
+          description: Deletion failed
+
+  # --------------------
+  # Game Settings Routes
+  # --------------------
+  /api/gameSettings/:
+    get:
+      summary: Get authenticated user's game settings
+      security:
+        - bearerAuth: []
+      tags:
+        - GameSettings
+      responses:
+        '200':
+          description: User's game settings
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameSettings'
+        '400':
+          description: Error retrieving settings
+
+    post:
+      summary: Add new game settings (Manual creation)
+      description: Usually handled automatically on signup, but available if settings don't exist.
+      security:
+        - bearerAuth: []
+      tags:
+        - GameSettings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GameSettings'
+      responses:
+        '200':
+          description: Settings created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameSettings'
+        '400':
+          description: Creation failed
+
+    patch:
+      summary: Update game settings
+      security:
+        - bearerAuth: []
+      tags:
+        - GameSettings
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              # Fields from GameSettings are optional here for partial updates
+              properties:
+                BackgroundType:
+                  type: string
+                CharacterType:
+                  type: string
+                MuteBackgroundMusic:
+                  type: boolean
+                MuteEffects:
+                  type: boolean
+                DebugKey:
+                  type: string
+                PauseKey:
+                  type: string
+                RollKey:
+                  type: string
+                CrouchKey:
+                  type: string
+                JumpKey:
+                  type: string
+                BackwardKey:
+                  type: string
+                ForwardKey:
+                  type: string
+      responses:
+        '200':
+          description: Settings updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameSettings'
+        '400':
+          description: Update failed
+
+    delete:
+      summary: Delete game settings
+      security:
+        - bearerAuth: []
+      tags:
+        - GameSettings
+      responses:
+        '200':
+          description: Settings deleted
+        '400':
+          description: Deletion failed
+
+  /api/gameSettings/allGameSettings:
+    get:
+      summary: Get all game settings (Admin/Debug)
+      security:
+        - bearerAuth: []
+      tags:
+        - GameSettings
+      responses:
+        '200':
+          description: List of all game settings
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GameSettings'
+        '400':
+          description: Error retrieving settings
+
+  /api/gameSettings/restoreDefault:
+    patch:
+      summary: Restore default game settings
+      security:
+        - bearerAuth: []
+      tags:
+        - GameSettings
+      responses:
+        '200':
+          description: Settings restored to defaults
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GameSettings'
+        '400':
+          description: Restore failed
+
+  # --------------------
+  # Save States Routes
+  # --------------------
+  /api/saveStates/create:
+    post:
+      summary: Create save states document
+      security:
+        - bearerAuth: []
+      tags:
+        - SaveStates
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                SaveSlot_A:
+                  type: object
+                SaveSlot_B:
+                  type: object
+                SaveSlot_C:
+                  type: object
+              required:
+                - SaveSlot_A
+                - SaveSlot_B
+                - SaveSlot_C
+      responses:
+        '200':
+          description: Save states created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaveStates'
+        '400':
+          description: Creation failed
+
+  /api/saveStates/update:
+    patch:
+      summary: Update save states
+      security:
+        - bearerAuth: []
+      tags:
+        - SaveStates
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                SaveSlot_A:
+                  type: object
+                SaveSlot_B:
+                  type: object
+                SaveSlot_C:
+                  type: object
+      responses:
+        '200':
+          description: Save states updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SaveStates'
+        '400':
+          description: Update failed
+
+  /api/saveStates/A:
+    get:
+      summary: Get Save Slot A
+      security:
+        - bearerAuth: []
+      tags:
+        - SaveStates
+      responses:
+        '200':
+          description: Content of Save Slot A
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/saveStates/B:
+    get:
+      summary: Get Save Slot B
+      security:
+        - bearerAuth: []
+      tags:
+        - SaveStates
+      responses:
+        '200':
+          description: Content of Save Slot B
+          content:
+            application/json:
+              schema:
+                type: object
+
+  /api/saveStates/C:
+    get:
+      summary: Get Save Slot C
+      security:
+        - bearerAuth: []
+      tags:
+        - SaveStates
+      responses:
+        '200':
+          description: Content of Save Slot C
+          content:
+            application/json:
+              schema:
+                type: object
+
+  # --------------------
+  # Background Routes
+  # --------------------
+  /api/background/add:
+    post:
+      summary: Add a new background
+      security:
+        - bearerAuth: []
+      tags:
+        - Backgrounds
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Background'
+      responses:
+        '200':
+          description: Background added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Background'
+        '400':
+          description: Add failed
+
+  /api/background/update:
+    patch:
+      summary: Update a background
+      security:
+        - bearerAuth: []
+      tags:
+        - Backgrounds
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                BackgroundName:
+                  type: string
+                Layer1:
+                  type: object
+                Layer2:
+                  type: object
+                Layer3:
+                  type: object
+                Layer4:
+                  type: object
+                Layer5:
+                  type: object
+                PreviewImage:
+                  type: object
+              required:
+                - BackgroundName
+      responses:
+        '200':
+          description: Background updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Background'
+        '400':
+          description: Update failed
+
+  /api/background/del:
+    delete:
+      summary: Delete a background
+      security:
+        - bearerAuth: []
+      tags:
+        - Backgrounds
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                BackgroundName:
+                  type: string
+              required:
+                - BackgroundName
+      responses:
+        '200':
+          description: Background deleted
+        '400':
+          description: Deletion failed
+
+  /api/background/return:
+    post:
+      summary: Get a background by name
+      security:
+        - bearerAuth: []
+      tags:
+        - Backgrounds
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                BackgroundName:
+                  type: string
+              required:
+                - BackgroundName
+      responses:
+        '200':
+          description: Background found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Background'
+        '400':
+          description: Not found or error
+
+  /api/background/check-availability:
+    post:
+      summary: Check if a background name exists
+      security:
+        - bearerAuth: []
+      tags:
+        - Backgrounds
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                BackgroundName:
+                  type: string
+              required:
+                - BackgroundName
+      responses:
+        '200':
+          description: Availability check result
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  Availability:
+                    type: boolean
+        '400':
+          description: Error
